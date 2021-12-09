@@ -1,2 +1,2 @@
-# oopCourse
-repo for oop laboratory works
+# **oopCourse** ??
+## *It`s repository for object-oriented programming course*

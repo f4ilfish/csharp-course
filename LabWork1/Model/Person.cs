@@ -56,6 +56,7 @@ namespace Model
             get => _age;
             set
             {
+                //TODO: добавить проверку на верхнюю границу
                 if (value < 0)
                 {
                     throw new ArgumentException("Age value can`t be negative");
@@ -102,7 +103,7 @@ namespace Model
         /// <returns></returns>
         public override string ToString()
         {
-            return ($"{Name} {Surname}; {Age}; {Gender}");
+            return $"{Name} {Surname}; {Age}; {Gender}";
         }
 
         /// <summary>

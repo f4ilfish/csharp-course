@@ -39,6 +39,7 @@ namespace Model
         /// </summary>
         public void DeleteFromEnd()
         {
+            //TODO: bug
             Array.Resize(ref _listOfPersons, _listOfPersons.Length - 1);
         }
 
@@ -49,13 +50,19 @@ namespace Model
         /// <exception cref="IndexOutOfRangeException"></exception>
         public void DeleteByIndex(int index)
         {
-            if (index < 0 || index >= _listOfPersons.Length) throw new IndexOutOfRangeException("Index out of bounds");
+            //TODO: RSDN
+            if (index < 0 || index >= _listOfPersons.Length)
+            {
+                throw new IndexOutOfRangeException("Index out of bounds");
+            }
+            
             var tmpListOfPerson = new Person[_listOfPersons.Length - 1];
             var tmpIndex = 0;
 
             foreach (var person in _listOfPersons)
             {
                 if (person == _listOfPersons[index]) continue;
+
                 tmpListOfPerson[tmpIndex] = person;
                 tmpIndex++;
             }
@@ -72,6 +79,7 @@ namespace Model
         /// <returns></returns>
         public Person GetPersonByIndex(int index)
         {
+            //TODO:
             if (index < 0 || index >= _listOfPersons.Length) throw new IndexOutOfRangeException("Index out of bounds");
             return _listOfPersons[index];
         }
@@ -90,6 +98,7 @@ namespace Model
                     return index;
                 }
             }
+
             throw new Exception("List doesn't contain the element");
         }
 
@@ -101,6 +110,7 @@ namespace Model
             Array.Resize(ref _listOfPersons, 0);
         }
 
+        //TODO:
         /// <summary>
         /// Print list in console
         /// </summary>

@@ -83,12 +83,16 @@ namespace View
         /// <returns></returns>
         private static int CheckAge(string age)
         {
+            //TODO: RSDN
             if (!int.TryParse(age, out var checkedAge)) throw new ArgumentException("Аge must be an integer value");
+            
+            //TODO:
             if (checkedAge is > 0 and < 150)
             {
                 return checkedAge;
             }
 
+            //TODO:
             throw new ArgumentException("Age value must be in a range 0...150");
         }
 
@@ -99,6 +103,7 @@ namespace View
         /// <returns></returns>
         private static string CheckName(string name)
         {
+            //TODO: RSDN
             var namePattern = new Regex(@"([A-Z][a-z]*((-[A-Za-z])*[a-z]*)*)|([А-Я][А-я]*((-[А-Яа-я])*[а-я]*)*)");
             var checkedName = name.Trim(' ');
 
@@ -106,7 +111,7 @@ namespace View
             {
                 return checkedName;
             }
-
+            //TODO: RSDN
             throw new ArgumentException("Name must begin with a capital letter and consist only Cyrillic and Latin characters");
         }
     }

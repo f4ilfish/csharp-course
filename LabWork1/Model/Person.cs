@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace Model
 {
@@ -34,7 +35,7 @@ namespace Model
         public string Name
         {
             get => _name;
-            set => _name = value;
+            set => _name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
         }
 
         /// <summary>
@@ -43,7 +44,24 @@ namespace Model
         public string Surname
         {
             get => _surname;
-            set => _surname = value;
+            set => _surname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
+        }
+
+        ///  <summary>
+        /// Age field's property
+        ///  </summary>
+        ///  <exception cref="ArgumentException"></exception>
+        public int Age
+        {
+            get => _age;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Age value can`t be negative");
+                }
+                _age = value;
+            }
         }
 
         /// <summary>
@@ -53,22 +71,6 @@ namespace Model
         {
             get => _gender;
             set => _gender = value;
-        }
-
-        /// <summary>
-        ///Age field's property
-        /// </summary>
-        public int Age
-        {
-            get => _age;
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException($"Age value can`t be negative");
-                }
-                _age = value;
-            }
         }
 
         /// <summary>
@@ -95,12 +97,55 @@ namespace Model
         }
 
         /// <summary>
-        /// 
+        /// Convert class field value to string format
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
             return ($"{Name} {Surname}; {Age}; {Gender}");
+        }
+
+        /// <summary>
+        /// Get random person with random name, surname
+        /// </summary>
+        /// <param name="gender"></param>
+        public void GetRandomPerson(GenderType gender)
+        {
+            string[] maleNames =
+            {
+                "Naruto", "Kakashi", "Sasuke", "Itachi", "Gaara",
+                "Shikamaru", "Neji", "Kiba", "Orichimaru", "Kisame"
+            };
+
+            string[] femaleNames =
+            {
+                "Hinata", "Tsunage", "Sakura", "Temari", "Anko",
+                "Shizune", "TenTen", "Ino", "Matusri", "Sari"
+            };
+
+            string[] surnames =
+            {
+                "Hyuga", "Uchiha", "Uzumaki", "Haruno",
+                "Namikaze", "Nara", "Inuzuka", "Lee"
+            };
+
+            Random random = new Random();
+            switch (gender)
+            {
+                case GenderType.Male:
+                    Name = maleNames[random.Next(maleNames.Length)];
+                    break;
+                case GenderType.Female:
+                    Name = femaleNames[random.Next(femaleNames.Length)];
+                    break;
+                case GenderType.Other:
+                    var tmpNames = maleNames.Concat(femaleNames).ToArray();
+                    Name = tmpNames[random.Next(tmpNames.Length)];
+                    break;
+
+            }
+            Surname = surnames[random.Next(surnames.Length)];
+            Gender = gender;
         }
     }
 }

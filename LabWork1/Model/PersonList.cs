@@ -16,7 +16,7 @@ namespace Model
         /// <summary>
         /// List of persons
         /// </summary>
-        private Person[] _listOfPersons = Array.Empty<Person>();
+        private Person[] _listOfPersons = new Person[0];
 
         /// <summary>
         /// Number of persons in the list property
@@ -46,6 +46,7 @@ namespace Model
         /// Delete person from list by index
         /// </summary>
         /// <param name="index">Index value of person in the list</param>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public void DeleteByIndex(int index)
         {
             if (index < 0 || index >= _listOfPersons.Length) throw new IndexOutOfRangeException("Index out of bounds");
@@ -67,6 +68,7 @@ namespace Model
         /// Get person by index from the list
         /// </summary>
         /// <param name="index">Index value of person in the list</param>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         /// <returns></returns>
         public Person GetPersonByIndex(int index)
         {
@@ -97,6 +99,17 @@ namespace Model
         public void ClearList()
         {
             Array.Resize(ref _listOfPersons, 0);
+        }
+
+        /// <summary>
+        /// Print list in console
+        /// </summary>
+        public void PrintList()
+        {
+            foreach (var person in _listOfPersons)
+            {
+                Console.WriteLine(person.ToString());
+            }
         }
     }
 }

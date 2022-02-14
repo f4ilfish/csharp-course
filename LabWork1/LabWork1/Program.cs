@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using Model;
 
 namespace View
 {
-    
-
     class Program
     {
         static void Main(string[] args)
         {
-            // Создали 2 списка
+            /* Создали 2 списка
             var uchihaList = new PersonList();
             var evilList = new PersonList();
 
@@ -22,7 +23,7 @@ namespace View
             var sasori = new Person("Sasori", "Akasuna", 15, GenderType.Male);
             var deidara = new Person("Deidara", "Oonoki", 20, GenderType.Male);
 
-            // Добавили персон в списки
+            // Добавили персоны в списки
             uchihaList.AddToEnd(saske);
             uchihaList.AddToEnd(itachi);
             uchihaList.AddToEnd(izumi);
@@ -33,19 +34,13 @@ namespace View
 
             // Вывели списки
             Console.WriteLine("---Uchiha list---");
-            for (var i = 0; i < uchihaList.NumberOfPersons; i++)
-            {
-                Console.WriteLine(uchihaList.GetPersonByIndex(i).ToString());
-            }
+            uchihaList.PrintList();
 
             Console.WriteLine("---Evil list---");
-            for (var i = 0; i < evilList.NumberOfPersons; i++)
-            {
-                Console.WriteLine(evilList.GetPersonByIndex(i).ToString());
-            }
+            evilList.PrintList();
 
             // Добавили новую персону в первый список
-            var madara = new Person("Madara", "Uchiha", 300, GenderType.Male);
+            var madara = new Person("Madara", "Uchiha", 149, GenderType.Male);
             uchihaList.AddToEnd(madara);
 
             // Копируем вторую персону во второй список
@@ -56,32 +51,63 @@ namespace View
 
             // Проверяем состав списков
             Console.WriteLine("---Uchiha list---");
-            for (var i = 0; i < uchihaList.NumberOfPersons; i++)
-            {
-                Console.WriteLine(uchihaList.GetPersonByIndex(i).ToString());
-            }
+            uchihaList.PrintList();
 
             Console.WriteLine("---Evil list---");
-            for (var i = 0; i < evilList.NumberOfPersons; i++)
-            {
-                Console.WriteLine(evilList.GetPersonByIndex(i).ToString());
-            }
+            evilList.PrintList();
 
             // Очищаем 2й список
             evilList.ClearList();
 
             // Проверяем состав списков
             Console.WriteLine("---Uchiha list---");
-            for (var i = 0; i < uchihaList.NumberOfPersons; i++)
-            {
-                Console.WriteLine(uchihaList.GetPersonByIndex(i).ToString());
-            }
+            uchihaList.PrintList();
 
             Console.WriteLine("---Evil list---");
-            for (var i = 0; i < evilList.NumberOfPersons; i++)
+            evilList.PrintList();
+            */
+
+            
+            var tmpPerson = new Person
             {
-                Console.WriteLine(evilList.GetPersonByIndex(i).ToString());
+                Name = CheckName(Console.ReadLine())
+            };
+            
+            Console.WriteLine(tmpPerson.ToString());
+        }
+
+        /// <summary>
+        /// Method to validate input age
+        /// </summary>
+        /// <param name="age">Input age</param>
+        /// <returns></returns>
+        private static int CheckAge(string age)
+        {
+            if (!int.TryParse(age, out var checkedAge)) throw new ArgumentException("Аge must be an integer value");
+            if (checkedAge is > 0 and < 150)
+            {
+                return checkedAge;
             }
+
+            throw new ArgumentException("Age value must be in a range 0...150");
+        }
+
+        /// <summary>
+        /// Method to validate input name
+        /// </summary>
+        /// <param name="name">Input name</param>
+        /// <returns></returns>
+        private static string CheckName(string name)
+        {
+            var namePattern = new Regex(@"([A-Z][a-z]*((-[A-Za-z])*[a-z]*)*)|([А-Я][А-я]*((-[А-Яа-я])*[а-я]*)*)");
+            var checkedName = name.Trim(' ');
+
+            if (namePattern.IsMatch(checkedName))
+            {
+                return checkedName;
+            }
+
+            throw new ArgumentException("Name must begin with a capital letter and consist only Cyrillic and Latin characters");
         }
     }
 }

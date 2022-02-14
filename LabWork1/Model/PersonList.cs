@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
 {
@@ -39,7 +33,12 @@ namespace Model
         /// </summary>
         public void DeleteFromEnd()
         {
-            Array.Resize(ref _listOfPersons, _listOfPersons.Length - 1);
+            if (_listOfPersons.Length != 0)
+            {
+                Array.Resize(ref _listOfPersons, _listOfPersons.Length - 1);
+            }
+
+            throw new Exception("Array is empty");
         }
 
         /// <summary>
@@ -49,19 +48,25 @@ namespace Model
         /// <exception cref="IndexOutOfRangeException"></exception>
         public void DeleteByIndex(int index)
         {
-            if (index < 0 || index >= _listOfPersons.Length) throw new IndexOutOfRangeException("Index out of bounds");
-            var tmpListOfPerson = new Person[_listOfPersons.Length - 1];
-            var tmpIndex = 0;
-
-            foreach (var person in _listOfPersons)
+            if (index >= 0 && index < _listOfPersons.Length)
             {
-                if (person == _listOfPersons[index]) continue;
-                tmpListOfPerson[tmpIndex] = person;
-                tmpIndex++;
-            }
+                var tmpListOfPerson = new Person[_listOfPersons.Length - 1];
+                var tmpIndex = 0;
 
-            Array.Resize(ref _listOfPersons, _listOfPersons.Length - 1);
-            _listOfPersons = tmpListOfPerson;
+                foreach (var person in _listOfPersons)
+                {
+                    if (person == _listOfPersons[index]) continue;
+                    tmpListOfPerson[tmpIndex] = person;
+                    tmpIndex++;
+                }
+
+                Array.Resize(ref _listOfPersons, _listOfPersons.Length - 1);
+                _listOfPersons = tmpListOfPerson;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException("Index out of bounds");
+            }
         }
 
         /// <summary>
@@ -72,8 +77,9 @@ namespace Model
         /// <returns></returns>
         public Person GetPersonByIndex(int index)
         {
-            if (index < 0 || index >= _listOfPersons.Length) throw new IndexOutOfRangeException("Index out of bounds");
-            return _listOfPersons[index];
+            if (index >= 0 && index < _listOfPersons.Length) return _listOfPersons[index];
+            
+            throw new IndexOutOfRangeException("Index out of bounds");
         }
 
         /// <summary>
@@ -90,6 +96,7 @@ namespace Model
                     return index;
                 }
             }
+            
             throw new Exception("List doesn't contain the element");
         }
 
@@ -99,17 +106,6 @@ namespace Model
         public void ClearList()
         {
             Array.Resize(ref _listOfPersons, 0);
-        }
-
-        /// <summary>
-        /// Print list in console
-        /// </summary>
-        public void PrintList()
-        {
-            foreach (var person in _listOfPersons)
-            {
-                Console.WriteLine(person.ToString());
-            }
         }
     }
 }

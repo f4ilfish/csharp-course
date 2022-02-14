@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using Model;
 
 namespace View
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             /* Создали 2 списка
             var uchihaList = new PersonList();

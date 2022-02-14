@@ -28,7 +28,7 @@ namespace Model
         /// Gender
         /// </summary>
         private GenderType _gender;
-        
+
         /// <summary>
         /// Name field's property
         /// </summary>
@@ -56,9 +56,9 @@ namespace Model
             get => _age;
             set
             {
-                if (value < 0)
+                if (value < MinAge || value > MaxAge)
                 {
-                    throw new ArgumentException("Age value can`t be negative");
+                    throw new ArgumentException($"Age value must be in a range [{MinAge}:{MaxAge}]");
                 }
                 _age = value;
             }
@@ -72,6 +72,16 @@ namespace Model
             get => _gender;
             set => _gender = value;
         }
+
+        /// <summary>
+        /// Max Age field's property
+        /// </summary>
+        public int MaxAge { get; } = 150;
+
+        /// <summary>
+        /// Min Age field's property
+        /// </summary>
+        public int MinAge { get; } = 0;
 
         /// <summary>
         /// Create an instance of the class Person
@@ -109,7 +119,7 @@ namespace Model
         /// Get random person with random name, surname
         /// </summary>
         /// <param name="gender"></param>
-        public void GetRandomPerson(GenderType gender)
+        public void SetRandomPerson(GenderType gender)
         {
             string[] maleNames =
             {

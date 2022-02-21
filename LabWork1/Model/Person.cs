@@ -112,14 +112,14 @@ namespace Model
         /// <returns></returns>
         public override string ToString()
         {
-            return ($"{Name} {Surname}; {Age}; {Gender}");
+            return $"{Name} {Surname}; {Age}; {Gender}";
         }
 
         /// <summary>
         /// Get random person with random name, surname
         /// </summary>
         /// <param name="gender"></param>
-        public void SetRandomPerson(GenderType gender)
+        public void GetRandomPerson(GenderType gender)
         {
             string[] maleNames =
             {

@@ -31,7 +31,7 @@ namespace Model
         /// <summary>
         /// Delete person from the end of list 
         /// </summary>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public void DeleteFromEnd()
         {
             if (_listOfPersons.Length != 0)
@@ -39,7 +39,7 @@ namespace Model
                 Array.Resize(ref _listOfPersons, _listOfPersons.Length - 1);
             }
 
-            throw new Exception("Array is empty.");
+            throw new InvalidOperationException("Array is empty.");
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Model
                 }
             }
             
-            throw new Exception("List doesn't contain the element");
+            throw new ObjectNotFoundException("List doesn't contain the elements.");
         }
 
         /// <summary>
@@ -110,8 +110,16 @@ namespace Model
         {
             if (index < 0 || index >= _listOfPersons.Length)
             {
-                throw new IndexOutOfRangeException("Index out of bounds");
+                throw new IndexOutOfRangeException("Index out of bounds.");
             }
         }
+    }
+
+    /// <summary>
+    /// Object not found in person list exception
+    /// </summary>
+    public class ObjectNotFoundException : Exception
+    {
+        public ObjectNotFoundException(string message) : base(message) {}
     }
 }

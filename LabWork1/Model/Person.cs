@@ -167,12 +167,12 @@ namespace Model
         /// Check age value's range
         /// </summary>
         /// <param name="age"></param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         private static void CheckAge(int age)
         {
             if (age is < MinAge or > MaxAge)
             {
-                throw new ArgumentException(
+                throw new IndexOutOfRangeException(
                     $"Age value must be in range [{MinAge}:{MaxAge}].");
             }
         }

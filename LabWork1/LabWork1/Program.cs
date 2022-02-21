@@ -1,27 +1,48 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
 using Model;
 
 namespace View
 {
-    static class Program
+    /// <summary>
+    /// Class program
+    /// </summary>
+    public static class Program
     {
-        static void Main()
+        /// <summary>
+        /// Entry point
+        /// </summary>
+        private static void Main()
         {
-            /* Создали 2 списка
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.InputEncoding = System.Text.Encoding.Unicode;
+
+            // Create two lists
             var uchihaList = new PersonList();
             var evilList = new PersonList();
 
-            // Создали 3*2 = 6 персон
-            var saske = new Person("Saske", "Uchiha", 18, GenderType.Male);
-            var itachi = new Person("Itachi", "Uchiha", 24, GenderType.Male);
-            var izumi = new Person("Izumi", "Uchiha", 14, GenderType.Female);
+            // Create persons
+            var saske = new Person("Saske", 
+                                   "Uchiha", 
+                                   18, GenderType.Male);
+            var itachi = new Person("Itachi", 
+                                    "Uchiha", 
+                                    24, GenderType.Male);
+            var izumi = new Person("Izumi", 
+                                   "Uchiha", 
+                                   14, GenderType.Female);
 
-            var kisame = new Person("Kisame", "Hoshikage", 30, GenderType.Male);
-            var sasori = new Person("Sasori", "Akasuna", 15, GenderType.Male);
-            var deidara = new Person("Deidara", "Oonoki", 20, GenderType.Male);
+            var kisame = new Person("Kisame", 
+                                    "Hoshikage", 
+                                    30, GenderType.Male);
+            var sasori = new Person("Sasori",
+                                    "Akasuna", 
+                                    15, GenderType.Male);
+            var deidara = new Person("Deidara", 
+                                     "Oonoki", 
+                                     20, GenderType.Male);
 
-            // Добавили персоны в списки
+            // Add persons to a lists
             uchihaList.AddToEnd(saske);
             uchihaList.AddToEnd(itachi);
             uchihaList.AddToEnd(izumi);
@@ -30,87 +51,213 @@ namespace View
             evilList.AddToEnd(sasori);
             evilList.AddToEnd(deidara);
 
-            // Вывели списки
-            Console.WriteLine("---Uchiha list---");
-            uchihaList.PrintList();
+            // Print lists
+            PrintTaskDescription("Create two lists:");
+            
+            Console.WriteLine("  Uchiha list");
+            PrintList(uchihaList);
 
-            Console.WriteLine("---Evil list---");
-            evilList.PrintList();
+            Console.WriteLine("  Evil list");
+            PrintList(evilList);
 
-            // Добавили новую персону в первый список
-            var madara = new Person("Madara", "Uchiha", 149, GenderType.Male);
+            // Add new person to the first list
+            var madara = new Person("Madara", 
+                                    "Uchiha", 
+                                    149, GenderType.Male);
             uchihaList.AddToEnd(madara);
 
-            // Копируем вторую персону во второй список
+            // Copy second person to the second list
             evilList.AddToEnd(uchihaList.GetPersonByIndex(1));
 
-            // Удаляем человека из списка
+            // Print lists
+            PrintTaskDescription("Add new person to the first list " +
+                       "and copy second person to the second list:");
+            
+            Console.WriteLine("  Uchiha list");
+            PrintList(uchihaList);
+
+            Console.WriteLine("  Evil list");
+            PrintList(evilList);
+
+            // Delete second person from the first list
             uchihaList.DeleteByIndex(1);
 
-            // Проверяем состав списков
-            Console.WriteLine("---Uchiha list---");
-            uchihaList.PrintList();
+            // Print lists
+            PrintTaskDescription("Delete second person from the first list:");
 
-            Console.WriteLine("---Evil list---");
-            evilList.PrintList();
+            Console.WriteLine(" Uchiha list");
+            PrintList(uchihaList);
 
-            // Очищаем 2й список
+            Console.WriteLine(" Evil list");
+            PrintList(evilList);
+
+            // Clear second list
             evilList.ClearList();
 
-            // Проверяем состав списков
-            Console.WriteLine("---Uchiha list---");
-            uchihaList.PrintList();
+            // Print lists
+            PrintTaskDescription("Clear second list:");
 
-            Console.WriteLine("---Evil list---");
-            evilList.PrintList();
-            */
+            Console.WriteLine(" Uchiha list");
+            PrintList(uchihaList);
 
-            
-            var tmpPerson = new Person
+            Console.WriteLine(" Evil list");
+            PrintList(evilList);
+
+            // Input own person
+            PrintTaskDescription("Let's input own person:");
+            var ownPerson = ReadPerson();
+            PrintTaskDescription("Input person:");
+            Console.WriteLine(ownPerson.ToString());
+
+        }
+
+        /// <summary>
+        /// Method to persons input
+        /// </summary>
+        /// <returns>Configure person</returns>
+        private static Person ReadPerson()
+        {
+            var inputPerson = new Person();
+            var actionsTupleList = new List<(Action Action, string Message)>
             {
-                Name = CheckName(Console.ReadLine())
+                (
+                    () =>
+                    {
+                        inputPerson.Name = Console.ReadLine();
+                    },
+                    "Input name of person:"),
+                (
+                    () =>
+                    {
+                        inputPerson.Surname = Console.ReadLine();
+                    },
+                    "Input surname of person:"),
+                (
+                    () =>
+                    {
+                        inputPerson.Age =
+                            Convert.ToInt32(Console.ReadLine());
+                    },
+                    "Input age of person:"),
+                (
+                    () =>
+                    {
+                        var gender = Convert.ToInt32(Console.ReadLine());
+                        switch (gender)
+                        {
+                            case 1:
+                            {
+                                inputPerson.Gender = GenderType.Male;
+                                return;
+                            }
+                            case 2:
+                            {
+                                inputPerson.Gender = GenderType.Female;
+                                return;
+                            }
+                            case 3:
+                                inputPerson.Gender = GenderType.Other;
+                                return;
+                            default:
+                            {
+                                throw new ArgumentException
+                                    ("Please input 1, 2 or 3");
+                            }
+                        }
+                    },
+                    "Choose gender of person. " +
+                    "Input 1 - Male, 2 - Female, 3 - Other.")
             };
-            
-            Console.WriteLine(tmpPerson.ToString());
+
+            foreach(var actionTuple in actionsTupleList)
+            {
+                ActionHandler(actionTuple.Action, actionTuple.Message);
+            }
+
+            return inputPerson;
         }
 
         /// <summary>
-        /// Method to validate input age
+        /// Handler of enter person from console
         /// </summary>
-        /// <param name="age">Input age</param>
-        /// <returns></returns>
-        private static int CheckAge(string age)
+        /// <param name="action">Executable action</param>
+        /// <param name="inputMessage">Message to action</param>
+        private static void ActionHandler(Action action, string inputMessage)
         {
-            //TODO: RSDN
-            if (!int.TryParse(age, out var checkedAge)) throw new ArgumentException("Аge must be an integer value");
-            
-            //TODO:
-            if (checkedAge is > 0 and < 150)
+            while (true)
             {
-                return checkedAge;
+                Console.WriteLine(inputMessage);
+                try
+                {
+                    action.Invoke();
+                    return;
+                }
+                catch (Exception e)
+                {
+                    if (e is ArgumentException or FormatException)
+                    {
+                        PrintAlerts(e.Message);
+                        PrintInstructions("Please try again.\n");
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
-
-            //TODO:
-            throw new ArgumentException("Age value must be in a range 0...150");
         }
 
         /// <summary>
-        /// Method to validate input name
+        /// Method to print list to console
         /// </summary>
-        /// <param name="name">Input name</param>
-        /// <returns></returns>
-        private static string CheckName(string name)
+        /// <param name="listOfPersons">Input list of persons</param>
+        private static void PrintList(PersonList listOfPersons)
         {
-            //TODO: RSDN
-            var namePattern = new Regex(@"([A-Z][a-z]*((-[A-Za-z])*[a-z]*)*)|([А-Я][А-я]*((-[А-Яа-я])*[а-я]*)*)");
-            var checkedName = name.Trim(' ');
-
-            if (namePattern.IsMatch(checkedName))
+            if (listOfPersons.NumberOfPersons != 0)
             {
-                return checkedName;
+                for (var i = 0; i < listOfPersons.NumberOfPersons; i++)
+                {
+                    var tmpPerson = listOfPersons.GetPersonByIndex(i);
+                    Console.WriteLine(tmpPerson.ToString());
+                }
             }
-            //TODO: RSDN
-            throw new ArgumentException("Name must begin with a capital letter and consist only Cyrillic and Latin characters");
+            else
+            {
+                PrintAlerts("List is empty.");
+            }
+        }
+
+        /// <summary>
+        /// Method to print description of complete task
+        /// </summary>
+        /// <param name="text">Input text</param>
+        private static void PrintTaskDescription(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(text);
+            Console.ResetColor();
+        }
+
+        /// <summary>
+        /// Method to print alerts
+        /// </summary>
+        /// <param name="text">Input text</param>
+        private static void PrintAlerts(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(text);
+            Console.ResetColor();
+        }
+
+        /// <summary>
+        /// Method to print user instructions
+        /// </summary>
+        /// <param name="text">Input text</param>
+        private static void PrintInstructions(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(text);
+            Console.ResetColor();
         }
     }
 }

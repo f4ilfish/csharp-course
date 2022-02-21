@@ -31,6 +31,7 @@ namespace Model
         /// <summary>
         /// Delete person from the end of list 
         /// </summary>
+        /// <exception cref="Exception"></exception>
         public void DeleteFromEnd()
         {
             if (_listOfPersons.Length != 0)
@@ -38,55 +39,47 @@ namespace Model
                 Array.Resize(ref _listOfPersons, _listOfPersons.Length - 1);
             }
 
-            throw new Exception("Array is empty");
+            throw new Exception("Array is empty.");
         }
 
         /// <summary>
         /// Delete person from list by index
         /// </summary>
         /// <param name="index">Index value of person in the list</param>
-        /// <exception cref="IndexOutOfRangeException"></exception>
         public void DeleteByIndex(int index)
         {
-            if (index >= 0 && index < _listOfPersons.Length)
-            {
-                var tmpListOfPerson = new Person[_listOfPersons.Length - 1];
-                var tmpIndex = 0;
+            IsIndexInRange(index);
 
-                foreach (var person in _listOfPersons)
-                {
-                    if (person == _listOfPersons[index]) continue;
-                    tmpListOfPerson[tmpIndex] = person;
-                    tmpIndex++;
-                }
+            var tmpListOfPerson = new Person[_listOfPersons.Length - 1];
+            var tmpIndex = 0;
 
-                Array.Resize(ref _listOfPersons, _listOfPersons.Length - 1);
-                _listOfPersons = tmpListOfPerson;
-            }
-            else
+            foreach (var person in _listOfPersons)
             {
-                throw new IndexOutOfRangeException("Index out of bounds");
+                if (person == _listOfPersons[index]) continue;
+                tmpListOfPerson[tmpIndex] = person;
+                tmpIndex++;
             }
+
+            Array.Resize(ref _listOfPersons, _listOfPersons.Length - 1);
+            _listOfPersons = tmpListOfPerson;
         }
 
         /// <summary>
         /// Get person by index from the list
         /// </summary>
         /// <param name="index">Index value of person in the list</param>
-        /// <exception cref="IndexOutOfRangeException"></exception>
-        /// <returns></returns>
+        /// <returns>Person from the list</returns>
         public Person GetPersonByIndex(int index)
         {
-            if (index >= 0 && index < _listOfPersons.Length) return _listOfPersons[index];
-            
-            throw new IndexOutOfRangeException("Index out of bounds");
+            IsIndexInRange(index);
+            return _listOfPersons[index];
         }
 
         /// <summary>
         /// Get index of person in the list
         /// </summary>
         /// <param name="person">Person`s instance</param>
-        /// <returns></returns>
+        /// <returns>Int32 index of person in the list</returns>
         public int GetIndexByPerson(Person person)
         {
             for (var index = 0; index < _listOfPersons.Length; index++)
@@ -106,6 +99,19 @@ namespace Model
         public void ClearList()
         {
             Array.Resize(ref _listOfPersons, 0);
+        }
+
+        /// <summary>
+        /// Checking the occurrence of the index in the list range 
+        /// </summary>
+        /// <param name="index">Index of element in the list</param>
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        private void IsIndexInRange(int index)
+        {
+            if (index < 0 || index >= _listOfPersons.Length)
+            {
+                throw new IndexOutOfRangeException("Index out of bounds");
+            }
         }
     }
 }

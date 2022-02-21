@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Model
 {
@@ -30,12 +31,26 @@ namespace Model
         private GenderType _gender;
 
         /// <summary>
+        /// Maximum age value
+        /// </summary>
+        private const int MaxAge = 150;
+
+        /// <summary>
+        /// Minimum age value
+        /// </summary>
+        private const int MinAge = 0;
+
+        /// <summary>
         /// Name field's property
         /// </summary>
         public string Name
         {
             get => _name;
-            set => _name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
+            set
+            {
+                CheckName(value);
+                _name = FormatName(value);
+            }
         }
 
         /// <summary>
@@ -44,22 +59,22 @@ namespace Model
         public string Surname
         {
             get => _surname;
-            set => _surname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value);
+            set
+            {
+                CheckName(value);
+                _surname = FormatName(value);
+            }
         }
 
         ///  <summary>
         /// Age field's property
         ///  </summary>
-        ///  <exception cref="ArgumentException"></exception>
         public int Age
         {
             get => _age;
             set
             {
-                if (value < MinAge || value > MaxAge)
-                {
-                    throw new ArgumentException($"Age value must be in a range [{MinAge}:{MaxAge}]");
-                }
+                CheckAge(value);
                 _age = value;
             }
         }
@@ -72,16 +87,6 @@ namespace Model
             get => _gender;
             set => _gender = value;
         }
-
-        /// <summary>
-        /// Max Age field's property
-        /// </summary>
-        public int MaxAge { get; } = 150;
-
-        /// <summary>
-        /// Min Age field's property
-        /// </summary>
-        public int MinAge { get; } = 0;
 
         /// <summary>
         /// Create an instance of the class Person
@@ -101,10 +106,10 @@ namespace Model
         /// <summary>
         /// Create a default instance of the class Person
         /// </summary>
-        public Person() : this("Unknown", "Unknown", 99, GenderType.Other)
-        {
-
-        }
+        public Person() : this("Unknown", 
+                               "Unknown", 
+                               99, GenderType.Other)
+        { }
 
         /// <summary>
         /// Convert class field value to string format
@@ -116,10 +121,10 @@ namespace Model
         }
 
         /// <summary>
-        /// Get random person with random name, surname
+        /// Set random name, surname person's parameters
         /// </summary>
-        /// <param name="gender"></param>
-        public void GetRandomPerson(GenderType gender)
+        /// <param name="gender">Person gender</param>
+        public void SetRandomPerson(GenderType gender)
         {
             string[] maleNames =
             {
@@ -139,7 +144,7 @@ namespace Model
                 "Namikaze", "Nara", "Inuzuka", "Lee"
             };
 
-            Random random = new Random();
+            var random = new Random();
             switch (gender)
             {
                 case GenderType.Male:
@@ -149,13 +154,61 @@ namespace Model
                     Name = femaleNames[random.Next(femaleNames.Length)];
                     break;
                 case GenderType.Other:
-                    var tmpNames = maleNames.Concat(femaleNames).ToArray();
+                    var tmpNames = 
+                        maleNames.Concat(femaleNames).ToArray();
                     Name = tmpNames[random.Next(tmpNames.Length)];
                     break;
-
             }
             Surname = surnames[random.Next(surnames.Length)];
             Gender = gender;
+        }
+
+        /// <summary>
+        /// Check age value's range
+        /// </summary>
+        /// <param name="age"></param>
+        /// <exception cref="ArgumentException"></exception>
+        private static void CheckAge(int age)
+        {
+            if (age is < MinAge or > MaxAge)
+            {
+                throw new ArgumentException(
+                    $"Age value must be in range [{MinAge}:{MaxAge}].");
+            }
+        }
+
+        /// <summary>
+        /// Check name / surname string format
+        /// </summary>
+        /// <param name="name">Input name string</param>
+        /// <exception cref="NullReferenceException"></exception>
+        /// <exception cref="FormatException"></exception>
+        private static void CheckName(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new NullReferenceException(
+                    "Name can't be null or empty.");
+            }
+
+            var namePattern = new Regex(
+                @"(^[A-z]+(-[A-z])?[A-z]*$)|(^[А-я]+(-[А-я])?[А-я]*$)");
+
+            if (namePattern.IsMatch(name) == false)
+            {
+                throw new FormatException(
+                    "Name must consist only Cyrillic or Latin characters.");
+            }
+        }
+
+        /// <summary>
+        /// Capitalize first char in name / surname
+        /// </summary>
+        /// <param name="name">Input name</param>
+        /// <returns>Capitalize name / surname string</returns>
+        private static string FormatName(string name)
+        {
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
         }
     }
 }

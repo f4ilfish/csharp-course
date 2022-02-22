@@ -227,6 +227,7 @@ namespace View
             }
         }
 
+        //TODO: duplication
         /// <summary>
         /// Method to print description of complete task
         /// </summary>
@@ -238,6 +239,7 @@ namespace View
             Console.ResetColor();
         }
 
+        //TODO: duplication
         /// <summary>
         /// Method to print alerts
         /// </summary>
@@ -249,6 +251,7 @@ namespace View
             Console.ResetColor();
         }
 
+        //TODO: duplication
         /// <summary>
         /// Method to print user instructions
         /// </summary>

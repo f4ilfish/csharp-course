@@ -115,6 +115,7 @@ namespace Model
         }
     }
 
+    //TODO: в отдельный cs-файл
     /// <summary>
     /// Object not found in person list exception
     /// </summary>

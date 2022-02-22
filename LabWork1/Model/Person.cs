@@ -120,6 +120,7 @@ namespace Model
             return $"{Name} {Surname}; {Age}; {Gender}";
         }
 
+        //TODO: static
         /// <summary>
         /// Set random name, surname person's parameters
         /// </summary>
@@ -172,6 +173,7 @@ namespace Model
         {
             if (age is < MinAge or > MaxAge)
             {
+                //TODO: bug
                 throw new IndexOutOfRangeException(
                     $"Age value must be in range [{MinAge}:{MaxAge}].");
             }
@@ -187,6 +189,7 @@ namespace Model
         {
             if (string.IsNullOrEmpty(name))
             {
+                //TODO: bug
                 throw new NullReferenceException(
                     "Name can't be null or empty.");
             }

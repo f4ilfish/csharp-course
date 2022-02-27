@@ -61,7 +61,7 @@ namespace Model
             get => _surname;
             set
             {
-                CheckName(value);
+                CheckAccordanceSurnameToName(value);
                 _surname = FormatName(value);
             }
         }
@@ -124,8 +124,7 @@ namespace Model
         /// <summary>
         /// Set random name, surname person's parameters
         /// </summary>
-        /// <param name="gender">Person gender</param>
-        public void SetRandomPerson(GenderType gender)
+        public static Person GetRandomPerson()
         {
             string[] maleNames =
             {
@@ -146,22 +145,34 @@ namespace Model
             };
 
             var random = new Random();
-            switch (gender)
+
+            var numberOfGenders = Enum.GetNames(typeof(GenderType)).Length;
+            var chosenGender = random.Next(numberOfGenders - 1);
+
+            var tmpGender = GenderType.Other;
+            var tmpName = "Unknown";
+            
+            switch (chosenGender)
             {
-                case GenderType.Male:
-                    Name = maleNames[random.Next(maleNames.Length)];
+                case 0:
+                    tmpGender = GenderType.Male;
+                    tmpName = maleNames[random.Next(maleNames.Length)];
                     break;
-                case GenderType.Female:
-                    Name = femaleNames[random.Next(femaleNames.Length)];
+                case 1:
+                    tmpGender = GenderType.Female;
+                    tmpName = femaleNames[random.Next(femaleNames.Length)];
                     break;
-                case GenderType.Other:
-                    var tmpNames = 
-                        maleNames.Concat(femaleNames).ToArray();
-                    Name = tmpNames[random.Next(tmpNames.Length)];
+                case 2:
+                    tmpGender = GenderType.Other;
+                    var tmpNames = maleNames.Concat(femaleNames).ToArray();
+                    tmpName = tmpNames[random.Next(tmpNames.Length)];
                     break;
             }
-            Surname = surnames[random.Next(surnames.Length)];
-            Gender = gender;
+
+           var tmpSurname = surnames[random.Next(surnames.Length)];
+           var tmpAge = random.Next(MaxAge);
+
+           return new Person(tmpName, tmpSurname, tmpAge, tmpGender);
         }
 
         /// <summary>
@@ -190,7 +201,7 @@ namespace Model
             if (string.IsNullOrEmpty(name))
             {
                 //TODO: bug
-                throw new NullReferenceException(
+                throw new FormatException(
                     "Name can't be null or empty.");
             }
 
@@ -201,6 +212,36 @@ namespace Model
             {
                 throw new FormatException(
                     "Name must consist only Cyrillic or Latin characters.");
+            }
+        }
+
+        /// <summary>
+        /// Check surname's language accordance to the name's language
+        /// </summary>
+        /// <param name="surname"></param>
+        private void CheckAccordanceSurnameToName(string surname)
+        {
+            var latinPattern = new Regex(@"^[A-z]+(-[A-z])?[A-z]*$");
+            var cyrillicPattern = new Regex(@"^[А-я]+(-[А-я])?[А-я]*$");
+
+            CheckName(surname);
+
+            if (latinPattern.IsMatch(Name))
+            {
+                if (latinPattern.IsMatch(surname) == false)
+                {
+                    throw new FormatException(
+                        "Name and Surname must consist only Latin characters.");
+                }
+            }
+
+            if (cyrillicPattern.IsMatch(Name))
+            {
+                if (cyrillicPattern.IsMatch(surname) == false)
+                {
+                    throw new FormatException(
+                        "Name and Surname must consist only Cyrillic characters.");
+                }
             }
         }
 

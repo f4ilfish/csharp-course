@@ -80,6 +80,7 @@ namespace Model
         /// </summary>
         /// <param name="person">Person`s instance</param>
         /// <returns>Int32 index of person in the list</returns>
+        /// <exception cref="ObjectNotFoundException"></exception>
         public int GetIndexByPerson(Person person)
         {
             for (var index = 0; index < _listOfPersons.Length; index++)
@@ -113,14 +114,5 @@ namespace Model
                 throw new IndexOutOfRangeException("Index out of bounds.");
             }
         }
-    }
-
-    //TODO: в отдельный cs-файл
-    /// <summary>
-    /// Object not found in person list exception
-    /// </summary>
-    public class ObjectNotFoundException : Exception
-    {
-        public ObjectNotFoundException(string message) : base(message) {}
     }
 }

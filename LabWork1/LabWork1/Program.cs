@@ -52,7 +52,7 @@ namespace View
             evilList.AddToEnd(deidara);
 
             // Print lists
-            PrintTaskDescription("Create two lists:");
+            ColorfulPrint("Create two lists:", ConsoleColor.Yellow);
             
             Console.WriteLine("  Uchiha list");
             PrintList(uchihaList);
@@ -70,8 +70,8 @@ namespace View
             evilList.AddToEnd(uchihaList.GetPersonByIndex(1));
 
             // Print lists
-            PrintTaskDescription("Add new person to the first list " +
-                       "and copy second person to the second list:");
+            ColorfulPrint("Add new person to the first list " +
+                          "and copy second person to the second list:", ConsoleColor.Yellow);
             
             Console.WriteLine("  Uchiha list");
             PrintList(uchihaList);
@@ -83,7 +83,7 @@ namespace View
             uchihaList.DeleteByIndex(1);
 
             // Print lists
-            PrintTaskDescription("Delete second person from the first list:");
+            ColorfulPrint("Delete second person from the first list:", ConsoleColor.Yellow);
 
             Console.WriteLine(" Uchiha list");
             PrintList(uchihaList);
@@ -95,7 +95,7 @@ namespace View
             evilList.ClearList();
 
             // Print lists
-            PrintTaskDescription("Clear second list:");
+            ColorfulPrint("Clear second list:", ConsoleColor.Yellow);
 
             Console.WriteLine(" Uchiha list");
             PrintList(uchihaList);
@@ -104,9 +104,9 @@ namespace View
             PrintList(evilList);
 
             // Input own person
-            PrintTaskDescription("Let's input own person:");
+            ColorfulPrint("Let's input own person:", ConsoleColor.Yellow);
             var ownPerson = ReadPerson();
-            PrintTaskDescription("Input person:");
+            ColorfulPrint("Input person:", ConsoleColor.Yellow);
             Console.WriteLine(ownPerson.ToString());
 
         }
@@ -194,15 +194,8 @@ namespace View
                 }
                 catch (Exception e)
                 {
-                    if (e is ArgumentException or FormatException)
-                    {
-                        PrintAlerts(e.Message);
-                        PrintInstructions("Please try again.\n");
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ColorfulPrint(e.Message, ConsoleColor.Red);
+                    ColorfulPrint("Please try again.", ConsoleColor.Green);
                 }
             }
         }
@@ -223,43 +216,20 @@ namespace View
             }
             else
             {
-                PrintAlerts("List is empty.");
+                ColorfulPrint("List is empty.", ConsoleColor.Red);
             }
         }
 
         //TODO: duplication
         /// <summary>
-        /// Method to print description of complete task
+        /// Method to print colorful text
         /// </summary>
         /// <param name="text">Input text</param>
-        private static void PrintTaskDescription(string text)
+        /// <param name="color">Color</param>
+        private static void ColorfulPrint(string text, ConsoleColor color)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(text);
-            Console.ResetColor();
-        }
-
-        //TODO: duplication
-        /// <summary>
-        /// Method to print alerts
-        /// </summary>
-        /// <param name="text">Input text</param>
-        private static void PrintAlerts(string text)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(text);
-            Console.ResetColor();
-        }
-
-        //TODO: duplication
-        /// <summary>
-        /// Method to print user instructions
-        /// </summary>
-        /// <param name="text">Input text</param>
-        private static void PrintInstructions(string text)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(text);
+            Console.ForegroundColor = color;
+            Console.WriteLine($">>> {text}");
             Console.ResetColor();
         }
     }

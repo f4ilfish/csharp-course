@@ -219,8 +219,7 @@ namespace View
                 ColorfulPrint("List is empty.", ConsoleColor.Red);
             }
         }
-
-        //TODO: duplication
+        
         /// <summary>
         /// Method to print colorful text
         /// </summary>

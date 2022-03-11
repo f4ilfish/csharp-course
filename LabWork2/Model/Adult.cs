@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Model
 {
@@ -28,6 +29,16 @@ namespace Model
         private const int AdultMinAge = 18;
 
         /// <summary>
+        /// Low passport id bound
+        /// </summary>
+        private const int LowPassportIdBound = 10000000;
+
+        /// <summary>
+        /// High passport id bound
+        /// </summary>
+        private const int HighPassportIdBound = 99999999;
+
+        /// <summary>
         /// Passport ID field's property
         /// </summary>
         private int PassportId
@@ -48,7 +59,7 @@ namespace Model
             get => _spouse;
             set
             {
-                CheckSpouse(value);
+                CheckSpouseGender(value);
                 _spouse = value;
             }
         }
@@ -59,7 +70,11 @@ namespace Model
         private string Employer
         {
             get => _employer;
-            set => _employer = value;
+            set
+            {
+                CheckEmployer(value);
+                _employer = value;
+            }
         }
 
         /// <summary>
@@ -79,6 +94,12 @@ namespace Model
             Spouse = spouse;
             Employer = employer;
         }
+
+        /// <summary>
+        /// Default adult's instance constructor
+        /// </summary>
+        public Adult() : this("Unknown", "Unknown", 99, GenderType.Other, 999999999, null, null)
+        { }
 
         /// <summary>
         /// <inheritdoc/>
@@ -113,30 +134,99 @@ namespace Model
                     $"Adult age value must be in range [{AdultMinAge}...{MaxAge}].");
             }
         }
-        
+
+        public static Adult GetRandomPerson()
+        {
+            string[] maleNames =
+            {
+                "Naruto", "Kakashi", "Sasuke", "Itachi", "Gaara",
+                "Shikamaru", "Neji", "Kiba", "Orichimaru", "Kisame"
+            };
+
+            string[] femaleNames =
+            {
+                "Hinata", "Tsunage", "Sakura", "Temari", "Anko",
+                "Shizune", "TenTen", "Ino", "Matusri", "Sari"
+            };
+
+            string[] surnames =
+            {
+                "Hyuga", "Uchiha", "Uzumaki", "Haruno",
+                "Namikaze", "Nara", "Inuzuka", "Lee"
+            };
+
+            var random = new Random();
+
+            var numberOfGenders = Enum.GetNames(typeof(GenderType)).Length;
+            var chosenGender = random.Next(numberOfGenders - 1);
+
+            var tmpGender = GenderType.Other;
+            var tmpName = "Unknown";
+
+            switch (chosenGender)
+            {
+                case 0:
+                    tmpGender = GenderType.Male;
+                    tmpName = maleNames[random.Next(maleNames.Length)];
+                    break;
+                case 1:
+                    tmpGender = GenderType.Female;
+                    tmpName = femaleNames[random.Next(femaleNames.Length)];
+                    break;
+                case 2:
+                    tmpGender = GenderType.Other;
+                    var tmpNames = maleNames.Concat(femaleNames).ToArray();
+                    tmpName = tmpNames[random.Next(tmpNames.Length)];
+                    break;
+            }
+
+            var tmpSurname = surnames[random.Next(surnames.Length)];
+            var tmpAge = random.Next((MaxAge - AdultMinAge)) + AdultMinAge;
+            var tmpPassportId = random.Next((HighPassportIdBound - LowPassportIdBound)) + LowPassportIdBound;
+
+            return new Adult(tmpName, tmpSurname, tmpAge, tmpGender, tmpPassportId, null, null);
+        }
+
+
         /// <summary>
         /// Method to check passport id values
         /// </summary>
         /// <param name="passportId">Passport ID</param>
         private static void CheckPassportId(int passportId)
         {
-            if (passportId is < 10000000 or > 99999999)
+            var maxDigits = Math.Floor((double)HighPassportIdBound / LowPassportIdBound) - 1;
+
+            if (passportId is < LowPassportIdBound or > HighPassportIdBound)
             {
                 throw new IndexOutOfRangeException(
-                    $"Passport ID must contain 8 digits.");
+                    $"Passport ID must contain {maxDigits} digits.");
             }
         }
 
         /// <summary>
-        /// Method to check spouse gender
+        /// Method to check spouse's gender
         /// </summary>
         /// <param name="spouse"></param>
-        private void CheckSpouse(Adult spouse)
+        private void CheckSpouseGender(Adult spouse)
         {
-            if(spouse != null && spouse.Gender == Gender)
+            if (spouse != null && spouse.Gender == Gender)
             {
                 throw new ArgumentException
                     ("Gender of spouse must be other");
+            }
+        }
+
+        /// <summary>
+        /// Check employer institute naming
+        /// </summary>
+        /// <param name="employer"></param>
+        private static void CheckEmployer(string employer)
+        {
+            const int maxLength = 30;
+            if (employer.Length > maxLength)
+            {
+                throw new FormatException(
+                    $"Employer name must be short then {maxLength} chars");
             }
         }
     }

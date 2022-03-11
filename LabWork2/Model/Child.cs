@@ -33,7 +33,11 @@ namespace Model
         private Adult Father
         {
             get => _father;
-            set => _father = value;
+            set
+            {
+                CheckFatherGender(value);
+                _father = value;
+            }
         }
 
         /// <summary>
@@ -42,7 +46,11 @@ namespace Model
         private Adult Mother
         {
             get => _mother;
-            set => _mother = value;
+            set
+            {
+                CheckMotherGender(value);
+                _mother = value;
+            }
         }
 
         /// <summary>
@@ -51,7 +59,11 @@ namespace Model
         private string EducationalInstituteName
         {
             get => _educationalInstituteName;
-            set => _educationalInstituteName = value;
+            set
+            {
+                CheckEducationalInstitute(value);
+                _educationalInstituteName = value;
+            }
         }
 
         /// <summary>
@@ -71,6 +83,12 @@ namespace Model
             Mother = mother;
             EducationalInstituteName = educationalInstituteName;
         }
+
+        /// <summary>
+        /// Default child's constructor
+        /// </summary>
+        public Child() : this("Unknown", "Unknown", 0, GenderType.Other, null, null, null)
+        {}
 
         /// <summary>
         /// <inheritdoc/>
@@ -113,5 +131,47 @@ namespace Model
                     $"Child age value must be in range [{MinAge}...{ChildMaxAge}].");
             }
         }
+
+        /// <summary>
+        /// Method to check father's gender
+        /// </summary>
+        /// <param name="father"></param>
+        private static void CheckFatherGender(Adult father)
+        {
+            if (father != null && father.Gender == GenderType.Female)
+            {
+                throw new ArgumentException
+                    ("Father's gender must be other");
+            }
+        }
+
+        /// <summary>
+        /// Method to check mother's gender
+        /// </summary>
+        /// <param name="mother"></param>
+        private static void CheckMotherGender(Adult mother)
+        {
+            if (mother != null && mother.Gender == GenderType.Male)
+            {
+                throw new ArgumentException
+                    ("Mother's gender must be other");
+            }
+        }
+
+        /// <summary>
+        /// Check educational institute naming
+        /// </summary>
+        /// <param name="educationalInstitute"></param>
+        private static void CheckEducationalInstitute(string educationalInstitute)
+        {
+            const int maxLength = 30;
+            if (educationalInstitute.Length > maxLength)
+            {
+                throw new FormatException(
+                    $"Educational institute name must be short then {maxLength} chars");
+            }
+        }
+
+
     }
 }

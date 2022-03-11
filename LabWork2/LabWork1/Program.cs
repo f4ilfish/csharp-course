@@ -13,11 +13,8 @@ namespace View
         /// </summary>
         private static void Main()
         {
-            var tmpAdult = new Adult("Mikhail", "Chernobrov", 23, GenderType.Male, 12345678, null, null);
-            var tmpChild = new Child("Misha", "Chernobrov", 1, GenderType.Male, null, null, null);
-
-            Console.WriteLine(tmpAdult.ToString());
-            Console.WriteLine(tmpChild.ToString());
+            var tmpPerson = new Adult("Mikhail", "Chernobrov", 23, GenderType.Male, 12345678, null, null);
+            Console.WriteLine(tmpPerson.ToString());
 
             /*
             Console.OutputEncoding = System.Text.Encoding.Unicode;

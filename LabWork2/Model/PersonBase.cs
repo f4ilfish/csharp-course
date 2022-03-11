@@ -82,7 +82,7 @@ namespace Model
         /// <summary>
         /// Gender field's property
         /// </summary>
-        protected GenderType Gender
+        protected internal GenderType Gender
         {
             get => _gender;
             set => _gender = value;

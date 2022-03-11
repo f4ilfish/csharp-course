@@ -80,6 +80,7 @@ namespace Model
         /// <summary>
         /// Adult's instance constructor
         /// </summary>
+        /// //TODO: XML
         /// <param name="name"></param>
         /// <param name="surname"></param>
         /// <param name="age"></param>
@@ -95,6 +96,7 @@ namespace Model
             Employer = employer;
         }
 
+        //TODO: RSDN
         /// <summary>
         /// Default adult's instance constructor
         /// </summary>
@@ -182,6 +184,7 @@ namespace Model
 
             var tmpSurname = surnames[random.Next(surnames.Length)];
             var tmpAge = random.Next((MaxAge - AdultMinAge)) + AdultMinAge;
+
             var tmpPassportId = random.Next((HighPassportIdBound - LowPassportIdBound)) + LowPassportIdBound;
 
             return new Adult(tmpName, tmpSurname, tmpAge, tmpGender, tmpPassportId, null, null);

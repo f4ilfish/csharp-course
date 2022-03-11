@@ -110,12 +110,6 @@ namespace Model
         { }
 
         /// <summary>
-        /// Abstract method to get info about person
-        /// </summary>
-        /// <returns></returns>
-        public new abstract string ToString();
-
-        /// <summary>
         /// Method to get base info about person
         /// </summary>
         /// <returns></returns>
@@ -165,6 +159,7 @@ namespace Model
 
             if (latinPattern.IsMatch(Name))
             {
+                //TODO: duplication
                 if (latinPattern.IsMatch(surname) == false)
                 {
                     throw new FormatException(
@@ -174,6 +169,7 @@ namespace Model
 
             if (cyrillicPattern.IsMatch(Name))
             {
+                //TODO: duplication
                 if (cyrillicPattern.IsMatch(surname) == false)
                 {
                     throw new FormatException(

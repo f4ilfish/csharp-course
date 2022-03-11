@@ -69,6 +69,7 @@ namespace Model
         /// <summary>
         /// Child's instance constructor
         /// </summary>
+        /// //TODO: XML
         /// <param name="name">Name</param>
         /// <param name="surname">Surname</param>
         /// <param name="age">Age</param>
@@ -87,6 +88,7 @@ namespace Model
         /// <summary>
         /// Default child's constructor
         /// </summary>
+        /// //TODO: RSDN
         public Child() : this("Unknown", "Unknown", 0, GenderType.Other, null, null, null)
         {}
 
@@ -132,6 +134,7 @@ namespace Model
             }
         }
 
+        //TODO: duplication
         /// <summary>
         /// Method to check father's gender
         /// </summary>
@@ -145,6 +148,7 @@ namespace Model
             }
         }
 
+        //TODO: duplication
         /// <summary>
         /// Method to check mother's gender
         /// </summary>
@@ -171,7 +175,5 @@ namespace Model
                     $"Educational institute name must be short then {maxLength} chars");
             }
         }
-
-
     }
 }

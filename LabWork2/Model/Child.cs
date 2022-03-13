@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Model
 {
@@ -20,7 +21,7 @@ namespace Model
         /// <summary>
         /// Educational institute
         /// </summary>
-        private string _educationalInstituteName;
+        private string _educationalInstitute;
 
         /// <summary>
         /// Maximum child age value
@@ -35,7 +36,7 @@ namespace Model
             get => _father;
             set
             {
-                CheckFatherGender(value);
+                CheckParentGender(value, GenderType.Female);
                 _father = value;
             }
         }
@@ -48,7 +49,7 @@ namespace Model
             get => _mother;
             set
             {
-                CheckMotherGender(value);
+                CheckParentGender(value, GenderType.Male);
                 _mother = value;
             }
         }
@@ -56,13 +57,13 @@ namespace Model
         /// <summary>
         /// Educational institute field's property
         /// </summary>
-        private string EducationalInstituteName
+        private string EducationalInstitute
         {
-            get => _educationalInstituteName;
+            get => _educationalInstitute;
             set
             {
-                CheckEducationalInstitute(value);
-                _educationalInstituteName = value;
+                FieldStringLengthCheck(value, "Educational institute");
+                _educationalInstitute = value;
             }
         }
 
@@ -76,49 +77,51 @@ namespace Model
         /// <param name="gender">Gender</param>
         /// <param name="father">Father</param>
         /// <param name="mother">Mother</param>
-        /// <param name="educationalInstituteName">Educational institute</param>
+        /// <param name="educationalInstitute">Educational institute</param>
         public Child(string name, string surname, int age, GenderType gender, Adult father, Adult mother,
-            string educationalInstituteName) : base(name, surname, age, gender)
+            string educationalInstitute) : base(name, surname, age, gender)
         {
             Father = father;
             Mother = mother;
-            EducationalInstituteName = educationalInstituteName;
+            EducationalInstitute = educationalInstitute;
         }
 
         /// <summary>
         /// Default child's constructor
         /// </summary>
         /// //TODO: RSDN
-        public Child() : this("Unknown", "Unknown", 0, GenderType.Other, null, null, null)
+        public Child() : this("Unknown", "Unknown", 
+                              0, GenderType.Other, null, 
+                              null, null)
         {}
 
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
+        public override string GetInfo()
         {
             var parentsStatus = "Orphan";
             if (Father != null || Mother != null)
             {
                 if (Father != null)
                 {
-                    parentsStatus = $"Father: {Father.ToString()}";
+                    parentsStatus = $"Father: {Father.ToStringNameSurname()}";
                 }
 
                 if (Mother != null)
                 {
-                    parentsStatus = $"{parentsStatus}; Mother: {Mother.ToString()}";
+                    parentsStatus = $"{parentsStatus}; Mother: {Mother.ToStringNameSurname()}";
                 }
             }
 
             var educationStatus = "Not studying";
-            if (!string.IsNullOrEmpty(EducationalInstituteName))
+            if (!string.IsNullOrEmpty(EducationalInstitute))
             {
-                educationStatus = $"Studying in: {EducationalInstituteName}";
+                educationStatus = $"Studying in: {EducationalInstitute}";
             }
 
-            return $"{ToStringBase()}; {parentsStatus}; {educationStatus}";
+            return $"{GetBaseInfo()}; {parentsStatus}; {educationStatus}";
         }
 
         /// <summary>
@@ -134,46 +137,98 @@ namespace Model
             }
         }
 
-        //TODO: duplication
         /// <summary>
-        /// Method to check father's gender
+        /// <inheritdoc/>
         /// </summary>
-        /// <param name="father"></param>
-        private static void CheckFatherGender(Adult father)
+        /// <returns></returns>
+        public override string GetMissionLevel()
         {
-            if (father != null && father.Gender == GenderType.Female)
+            var rnd = new Random();
+
+            string[] availableMissionLevel =
             {
-                throw new ArgumentException
-                    ("Father's gender must be other");
-            }
+                "C", "D", "E"
+            };
+
+            var chosenLevel = availableMissionLevel[rnd.Next(availableMissionLevel.Length)];
+            
+            return $"Level {chosenLevel} mission received";
         }
 
         //TODO: duplication
         /// <summary>
-        /// Method to check mother's gender
+        /// Check parent gender
         /// </summary>
-        /// <param name="mother"></param>
-        private static void CheckMotherGender(Adult mother)
+        /// <param name="parent">Parent</param>
+        /// <param name="gender">Gender</param>
+        private static void CheckParentGender(Adult parent, GenderType gender)
         {
-            if (mother != null && mother.Gender == GenderType.Male)
+            if (parent != null && parent.Gender == gender)
             {
                 throw new ArgumentException
-                    ("Mother's gender must be other");
+                    ("Parent gender must be other");
             }
         }
 
-        /// <summary>
-        /// Check educational institute naming
-        /// </summary>
-        /// <param name="educationalInstitute"></param>
-        private static void CheckEducationalInstitute(string educationalInstitute)
+        public static Child GetRandomPerson()
         {
-            const int maxLength = 30;
-            if (educationalInstitute.Length > maxLength)
+            string[] maleNames =
             {
-                throw new FormatException(
-                    $"Educational institute name must be short then {maxLength} chars");
+                "Naruto", "Kakashi", "Sasuke", "Itachi", "Gaara",
+                "Shikamaru", "Neji", "Kiba", "Orichimaru", "Kisame"
+            };
+
+            string[] femaleNames =
+            {
+                "Hinata", "Tsunade", "Sakura", "Temari", "Anko",
+                "Shizune", "TenTen", "Ino", "Mitsuri", "Sari"
+            };
+
+            string[] surnames =
+            {
+                "Hyuga", "Uchiha", "Uzumaki", "Haruno",
+                "Namikaze", "Nara", "Inuzuka", "Lee"
+            };
+
+            string[] educationalInstitute =
+            {
+                "Hidden Rain Village", "Hidden Waterfall Village", "Hidden Sound Village",
+                "Hidden Stone Village", "Hidden Leaf Village", "Hidden Cloud Village",
+                "Hidden Sand Village", "Hidden Grass Village", "Hidden Fog Village"
+            };
+
+            var random = new Random();
+
+            var numberOfGenders = Enum.GetNames(typeof(GenderType)).Length;
+            var chosenGender = random.Next(numberOfGenders - 1);
+
+            var tmpGender = GenderType.Other;
+            var tmpName = "Unknown";
+
+            switch (chosenGender)
+            {
+                case 0:
+                    tmpGender = GenderType.Male;
+                    tmpName = maleNames[random.Next(maleNames.Length)];
+                    break;
+                case 1:
+                    tmpGender = GenderType.Female;
+                    tmpName = femaleNames[random.Next(femaleNames.Length)];
+                    break;
+                case 2:
+                    tmpGender = GenderType.Other;
+                    var tmpNames = maleNames.Concat(femaleNames).ToArray();
+                    tmpName = tmpNames[random.Next(tmpNames.Length)];
+                    break;
             }
+
+            var tmpSurname = surnames[random.Next(surnames.Length)];
+
+            var tmpAge = random.Next(MinAge, ChildMaxAge);
+
+            var tmpEducationalInstitute = educationalInstitute[random.Next(educationalInstitute.Length)];
+
+            return new Child(tmpName, tmpSurname, tmpAge, tmpGender, null, null, tmpEducationalInstitute);
         }
     }
 }

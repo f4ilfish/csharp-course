@@ -40,6 +40,21 @@ namespace Model
         protected const int MinAge = 0;
 
         /// <summary>
+        /// Maximum field's string length
+        /// </summary>
+        private const int MaxFieldStringLength = 30;
+
+        /// <summary>
+        /// Latin naming pattern
+        /// </summary>
+        private static readonly Regex LatinPattern = new(@"^[A-z]+(-[A-z])?[A-z]*$");
+
+        /// <summary>
+        /// Char naming pattern
+        /// </summary>
+        private static readonly Regex CyrillicPattern = new(@"^[А-я]+(-[А-я])?[А-я]*$");
+
+        /// <summary>
         /// Name field's property
         /// </summary>
         private string Name
@@ -47,8 +62,8 @@ namespace Model
             get => _name;
             set
             {
-                CheckName(value);
-                _name = FormatName(value);
+                NameValidation(value, "Name");
+                _name = FormatNaming(value);
             }
         }
 
@@ -60,9 +75,10 @@ namespace Model
             get => _surname;
             set
             {
-                CheckName(value);
-                CheckAccordanceSurnameToName(value);
-                _surname = FormatName(value);
+                NameValidation(value, "Surname");
+                SurnameValidation(Name, value, LatinPattern);
+                SurnameValidation(Name, value, CyrillicPattern);
+                _surname = FormatNaming(value);
             }
         }
 
@@ -110,82 +126,102 @@ namespace Model
         { }
 
         /// <summary>
-        /// Method to get base info about person
+        /// Get person's info
         /// </summary>
         /// <returns></returns>
-        protected string ToStringBase()
+        public abstract string GetInfo();
+
+        /// <summary>
+        /// Get base person's info
+        /// </summary>
+        /// <returns></returns>
+        public string GetBaseInfo()
         {
             return $"Name: {Name} {Surname}; Age: {Age}; Gender: {Gender}";
         }
 
         /// <summary>
-        /// Abstract method to check age boundaries
+        /// Convert person's name and surname to single string 
         /// </summary>
-        /// <param name="age"></param>
-        protected abstract void CheckAge(int age);
+        /// <returns></returns>
+        public string ToStringNameSurname()
+        {
+            return $"{Name} {Surname}";
+        }
 
         /// <summary>
-        /// Check name / surname string format
+        /// Check age boundaries
         /// </summary>
-        /// <param name="name">Input name string</param>
+        /// <param name="age">Age</param>
+        protected abstract void CheckAge(int age);
+
+        protected static void FieldStringLengthCheck(string name, string fieldName)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                if (name.Length > MaxFieldStringLength)
+                {
+                    throw new FormatException(
+                        $"{fieldName} name must be short then {MaxFieldStringLength} chars");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Name validation
+        /// </summary>
+        /// <param name="name">Name</param>
+        /// <param name="fieldName">Field's name</param>
         /// <exception cref="NullReferenceException"></exception>
         /// <exception cref="FormatException"></exception>
-        private static void CheckName(string name)
+        private static void NameValidation(string name, string fieldName)
         {
             if (string.IsNullOrEmpty(name))
             {
                 throw new FormatException(
-                    "Name can't be null or empty.");
+                    $"{fieldName} can't be null or empty.");
             }
 
-            var namePattern = new Regex(
-                @"(^[A-z]+(-[A-z])?[A-z]*$)|(^[А-я]+(-[А-я])?[А-я]*$)");
-
-            if (namePattern.IsMatch(name) == false)
+            if (LatinPattern.IsMatch(name) == false && CyrillicPattern.IsMatch(name) == false)
             {
                 throw new FormatException(
-                    "Name must consist only Cyrillic or Latin characters.");
+                    $"{fieldName} should be in Latin or Cyrillic.");
             }
         }
 
         /// <summary>
-        /// Check surname's language accordance to the name's language
+        /// Surname validation
         /// </summary>
-        /// <param name="surname"></param>
-        private void CheckAccordanceSurnameToName(string surname)
+        /// <param name="name">Name</param>
+        /// <param name="surname">Surname</param>
+        /// <param name="namingPattern">Naming pattern</param>
+        private static void SurnameValidation(string name, string surname, Regex namingPattern)
         {
-            var latinPattern = new Regex(@"^[A-z]+(-[A-z])?[A-z]*$");
-            var cyrillicPattern = new Regex(@"^[А-я]+(-[А-я])?[А-я]*$");
-
-            if (latinPattern.IsMatch(Name))
+            if (namingPattern.IsMatch(name))
             {
                 //TODO: duplication
-                if (latinPattern.IsMatch(surname) == false)
+                if (namingPattern.IsMatch(surname) == false)
                 {
                     throw new FormatException(
-                        "Name and Surname must consist only Latin characters.");
-                }
-            }
-
-            if (cyrillicPattern.IsMatch(Name))
-            {
-                //TODO: duplication
-                if (cyrillicPattern.IsMatch(surname) == false)
-                {
-                    throw new FormatException(
-                        "Name and Surname must consist only Cyrillic characters.");
+                        "Name and Surname should have similar char languages. Only Cyrillic or Latin.");
                 }
             }
         }
 
         /// <summary>
-        /// Capitalize first char in name / surname
+        /// Capitalize first char in name
         /// </summary>
         /// <param name="name">Input name</param>
         /// <returns>Capitalize name / surname string</returns>
-        private static string FormatName(string name)
+        private static string FormatNaming(string name)
         {
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
         }
+
+        /// <summary>
+        /// Get mission level
+        /// </summary>
+        /// <returns></returns>
+        public abstract string GetMissionLevel();
     }
 }

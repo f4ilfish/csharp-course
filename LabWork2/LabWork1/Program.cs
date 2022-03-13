@@ -13,8 +13,26 @@ namespace View
         /// </summary>
         private static void Main()
         {
-            var tmpPerson = new Adult("Mikhail", "Chernobrov", 23, GenderType.Male, 12345678, null, null);
-            Console.WriteLine(tmpPerson.ToString());
+            var tmpPersonList = new PersonList();
+            var rnd = new Random();
+
+            for (var i = 0; i < 8; i++)
+            {
+               if (rnd.Next(2) == 0)
+               {
+                   tmpPersonList.AddToEnd(Adult.GetRandomPerson());
+               }
+               else
+               {
+                   tmpPersonList.AddToEnd(Child.GetRandomPerson());
+               }
+            }
+
+            ColorfulPrint("Created list:", ConsoleColor.Yellow);
+            PrintList(tmpPersonList);
+
+            ColorfulPrint("What the fourth person's mission:", ConsoleColor.Yellow);
+            Console.WriteLine(tmpPersonList.GetPersonByIndex(3).GetMissionLevel());
 
             /*
             Console.OutputEncoding = System.Text.Encoding.Unicode;
@@ -26,7 +44,7 @@ namespace View
             
             // Print person
             ColorfulPrint("Input person:", ConsoleColor.Yellow);
-            Console.WriteLine(ownPerson.ToString());
+            Console.WriteLine(ownPerson.GetBaseInfo());
             */
         }
 
@@ -119,6 +137,7 @@ namespace View
                 }
             }
         }
+        */
 
         /// <summary>
         /// Method to print list to console
@@ -131,7 +150,7 @@ namespace View
                 for (var i = 0; i < listOfPersons.NumberOfPersons; i++)
                 {
                     var tmpPerson = listOfPersons.GetPersonByIndex(i);
-                    Console.WriteLine(tmpPerson.ToString());
+                    Console.WriteLine(tmpPerson.GetInfo());
                 }
             }
             else
@@ -139,7 +158,7 @@ namespace View
                 ColorfulPrint("List is empty.", ConsoleColor.Red);
             }
         }
-        
+
         /// <summary>
         /// Method to print colorful text
         /// </summary>
@@ -151,6 +170,5 @@ namespace View
             Console.WriteLine($">>> {text}");
             Console.ResetColor();
         }
-        */
     }
 }

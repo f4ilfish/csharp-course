@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Model
@@ -29,12 +30,12 @@ namespace Model
         private const int AdultMinAge = 18;
 
         /// <summary>
-        /// Low passport id bound
+        /// Low passport ID bound
         /// </summary>
         private const int LowPassportIdBound = 10000000;
 
         /// <summary>
-        /// High passport id bound
+        /// High passport ID bound
         /// </summary>
         private const int HighPassportIdBound = 99999999;
 
@@ -72,7 +73,7 @@ namespace Model
             get => _employer;
             set
             {
-                CheckEmployer(value);
+                FieldStringLengthCheck(value, "Employer");
                 _employer = value;
             }
         }
@@ -81,13 +82,13 @@ namespace Model
         /// Adult's instance constructor
         /// </summary>
         /// //TODO: XML
-        /// <param name="name"></param>
-        /// <param name="surname"></param>
-        /// <param name="age"></param>
-        /// <param name="gender"></param>
-        /// <param name="passportId"></param>
-        /// <param name="spouse"></param>
-        /// <param name="employer"></param>
+        /// <param name="name">Name</param>
+        /// <param name="surname">Surname</param>
+        /// <param name="age">Age</param>
+        /// <param name="gender">Gender</param>
+        /// <param name="passportId">Passport ID</param>
+        /// <param name="spouse">Spouse</param>
+        /// <param name="employer">Employer</param>
         public Adult(string name, string surname, int age, GenderType gender, 
             int passportId, Adult spouse, string employer) : base(name, surname, age, gender)
         {
@@ -100,19 +101,21 @@ namespace Model
         /// <summary>
         /// Default adult's instance constructor
         /// </summary>
-        public Adult() : this("Unknown", "Unknown", 99, GenderType.Other, 999999999, null, null)
+        public Adult() : this("Unknown", "Unknown", 
+                              99, GenderType.Other, 999999999,
+                              null, null)
         { }
 
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
+        public override string GetInfo()
         {
             var marriageStatus = "Not married";
             if (Spouse != null)
             {
-                marriageStatus = $"Married to: {Spouse.ToString()}";
+                marriageStatus = $"Married to: {Spouse.ToStringNameSurname()}";
             }
 
             var employeeStatus = "Unemployed";
@@ -121,7 +124,7 @@ namespace Model
                 employeeStatus = $"Works at: {Employer}";
             }
 
-            return $"{ToStringBase()}; {PassportId}; {marriageStatus}; {employeeStatus}"; 
+            return $"{GetBaseInfo()}; {PassportId}; {marriageStatus}; {employeeStatus}"; 
         }
 
         /// <summary>
@@ -137,6 +140,52 @@ namespace Model
             }
         }
 
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns></returns>
+        public override string GetMissionLevel()
+        {
+            var rnd = new Random();
+
+            string[] availableMissionLevel =
+            {
+                "S", "A", "B"
+            };
+
+            var chosenLevel = availableMissionLevel[rnd.Next(availableMissionLevel.Length)];
+            
+            return $"Level {chosenLevel} mission received";
+        }
+
+        /// <summary>
+        /// Method to check passport ID values
+        /// </summary>
+        /// <param name="passportId">Passport ID</param>
+        private static void CheckPassportId(int passportId)
+        {
+            var requiredDigits = Math.Floor((double)HighPassportIdBound / LowPassportIdBound) - 1;
+
+            if (passportId is < LowPassportIdBound or > HighPassportIdBound)
+            {
+                throw new IndexOutOfRangeException(
+                    $"Passport ID must contain {requiredDigits} digits.");
+            }
+        }
+
+        /// <summary>
+        /// Check spouse gender
+        /// </summary>
+        /// <param name="spouse"></param>
+        private void CheckSpouseGender(Adult spouse)
+        {
+            if (spouse != null && spouse.Gender == Gender)
+            {
+                throw new ArgumentException
+                    ($"Spouse gender must be other");
+            }
+        }
+
         public static Adult GetRandomPerson()
         {
             string[] maleNames =
@@ -147,14 +196,21 @@ namespace Model
 
             string[] femaleNames =
             {
-                "Hinata", "Tsunage", "Sakura", "Temari", "Anko",
-                "Shizune", "TenTen", "Ino", "Matusri", "Sari"
+                "Hinata", "Tsunade", "Sakura", "Temari", "Anko",
+                "Shizune", "TenTen", "Ino", "Mitsuri", "Sari"
             };
 
             string[] surnames =
             {
                 "Hyuga", "Uchiha", "Uzumaki", "Haruno",
                 "Namikaze", "Nara", "Inuzuka", "Lee"
+            };
+
+            string[] employers =
+            {
+                "Wind Country", "Water Country", " Iron Country",
+                "Country of Sound", "Country of the Earth", " Lightning Country",
+                "Sky Country", "Country of Fire", "Snow Country"
             };
 
             var random = new Random();
@@ -183,54 +239,16 @@ namespace Model
             }
 
             var tmpSurname = surnames[random.Next(surnames.Length)];
-            var tmpAge = random.Next((MaxAge - AdultMinAge)) + AdultMinAge;
+            
+            var tmpAge = random.Next(AdultMinAge, MaxAge);
+            
+            var tmpPassportId = random.Next(LowPassportIdBound, HighPassportIdBound);
 
-            var tmpPassportId = random.Next((HighPassportIdBound - LowPassportIdBound)) + LowPassportIdBound;
+            var tmpEmployer = employers[random.Next(employers.Length)];
 
-            return new Adult(tmpName, tmpSurname, tmpAge, tmpGender, tmpPassportId, null, null);
+            return new Adult(tmpName, tmpSurname, tmpAge, tmpGender, tmpPassportId, null, tmpEmployer);
         }
 
 
-        /// <summary>
-        /// Method to check passport id values
-        /// </summary>
-        /// <param name="passportId">Passport ID</param>
-        private static void CheckPassportId(int passportId)
-        {
-            var maxDigits = Math.Floor((double)HighPassportIdBound / LowPassportIdBound) - 1;
-
-            if (passportId is < LowPassportIdBound or > HighPassportIdBound)
-            {
-                throw new IndexOutOfRangeException(
-                    $"Passport ID must contain {maxDigits} digits.");
-            }
-        }
-
-        /// <summary>
-        /// Method to check spouse's gender
-        /// </summary>
-        /// <param name="spouse"></param>
-        private void CheckSpouseGender(Adult spouse)
-        {
-            if (spouse != null && spouse.Gender == Gender)
-            {
-                throw new ArgumentException
-                    ("Gender of spouse must be other");
-            }
-        }
-
-        /// <summary>
-        /// Check employer institute naming
-        /// </summary>
-        /// <param name="employer"></param>
-        private static void CheckEmployer(string employer)
-        {
-            const int maxLength = 30;
-            if (employer.Length > maxLength)
-            {
-                throw new FormatException(
-                    $"Employer name must be short then {maxLength} chars");
-            }
-        }
     }
 }

@@ -88,8 +88,9 @@ namespace Model
         /// <param name="passportId">Passport ID</param>
         /// <param name="spouse">Spouse</param>
         /// <param name="employer">Employer</param>
-        public Adult(string name, string surname, int age, GenderType gender, 
-            int passportId, Adult spouse, string employer) : base(name, surname, age, gender)
+        public Adult(string name, string surname, int age, 
+                     GenderType gender, int passportId, Adult spouse, 
+                     string employer) : base(name, surname, age, gender)
         {
             PassportId = passportId;
             Spouse = spouse;
@@ -100,8 +101,8 @@ namespace Model
         /// <summary>
         /// Default adult's instance constructor
         /// </summary>
-        public Adult() : this("Unknown", "Unknown", 
-                              99, GenderType.Other, 999999999,
+        public Adult() : this("Unknown", "Unknown", 99, 
+                              GenderType.Other, 999999999,
                               null, null)
         { }
 
@@ -123,7 +124,8 @@ namespace Model
                 employeeStatus = $"Works at: {Employer}";
             }
 
-            return $"{GetBaseInfo()}; {PassportId}; {marriageStatus}; {employeeStatus}"; 
+            return $"{GetBaseInfo()}; {PassportId}; " +
+                   $"{marriageStatus}; {employeeStatus}"; 
         }
 
         /// <summary>
@@ -135,7 +137,8 @@ namespace Model
             if (age is < AdultMinAge or > MaxAge)
             {
                 throw new IndexOutOfRangeException(
-                    $"Adult age value must be in range [{AdultMinAge}...{MaxAge}].");
+                    $"Adult age value must be in range " +
+                    $"[{AdultMinAge}...{MaxAge}].");
             }
         }
 
@@ -147,12 +150,12 @@ namespace Model
         {
             var rnd = new Random();
 
-            string[] availableMissionLevel =
+            string[] missionLevel =
             {
                 "S", "A", "B"
             };
 
-            var chosenLevel = availableMissionLevel[rnd.Next(availableMissionLevel.Length)];
+            var chosenLevel = missionLevel[rnd.Next(missionLevel.Length)];
             
             return $"Level {chosenLevel} mission received";
         }
@@ -163,7 +166,8 @@ namespace Model
         /// <param name="passportId">Passport ID</param>
         private static void CheckPassportId(int passportId)
         {
-            var requiredDigits = Math.Floor((double)HighPassportIdBound / LowPassportIdBound) - 1;
+            var requiredDigits = Math.Floor(
+                (double)HighPassportIdBound / LowPassportIdBound) - 1;
 
             if (passportId is < LowPassportIdBound or > HighPassportIdBound)
             {

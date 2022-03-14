@@ -47,12 +47,14 @@ namespace Model
         /// <summary>
         /// Latin naming pattern
         /// </summary>
-        private static readonly Regex LatinPattern = new(@"^[A-z]+(-[A-z])?[A-z]*$");
+        private static readonly Regex LatinPattern = 
+            new(@"^[A-z]+(-[A-z])?[A-z]*$");
 
         /// <summary>
         /// Char naming pattern
         /// </summary>
-        private static readonly Regex CyrillicPattern = new(@"^[А-я]+(-[А-я])?[А-я]*$");
+        private static readonly Regex CyrillicPattern = 
+            new(@"^[А-я]+(-[А-я])?[А-я]*$");
 
         /// <summary>
         /// Name field's property
@@ -111,7 +113,8 @@ namespace Model
         /// <param name="surname">Surname</param>
         /// <param name="age">Age</param>
         /// <param name="gender">Gender</param>
-        protected PersonBase(string name, string surname, int age, GenderType gender)
+        protected PersonBase(string name, string surname, 
+                             int age, GenderType gender)
         {
             Name = name;
             Surname = surname;
@@ -122,7 +125,8 @@ namespace Model
         /// <summary>
         /// Default base person's instance constructor
         /// </summary>
-        protected PersonBase() : this("Unknown", "Unknown", 99, GenderType.Other)
+        protected PersonBase() : this("Unknown", "Unknown", 
+                                      99, GenderType.Other)
         { }
 
         /// <summary>
@@ -167,7 +171,8 @@ namespace Model
                 if (inputString.Length > MaxFieldStringLength)
                 {
                     throw new FormatException(
-                        $"{fieldName} string must be short then {MaxFieldStringLength} chars");
+                        $"{fieldName} string must be short then " +
+                        $"{MaxFieldStringLength} chars");
                 }
             }
         }
@@ -187,7 +192,8 @@ namespace Model
                     $"{fieldName} can't be null or empty.");
             }
 
-            if (LatinPattern.IsMatch(name) == false && CyrillicPattern.IsMatch(name) == false)
+            if (LatinPattern.IsMatch(name) == false && 
+                CyrillicPattern.IsMatch(name) == false)
             {
                 throw new FormatException(
                     $"{fieldName} should be in Latin or Cyrillic.");
@@ -200,7 +206,9 @@ namespace Model
         /// <param name="name">Name</param>
         /// <param name="surname">Surname</param>
         /// <param name="namingPattern">Naming pattern</param>
-        private static void SurnameValidation(string name, string surname, Regex namingPattern)
+        private static void SurnameValidation(string name, 
+                                              string surname, 
+                                              Regex namingPattern)
         {
             if (namingPattern.IsMatch(name))
             {
@@ -208,7 +216,8 @@ namespace Model
                 if (namingPattern.IsMatch(surname) == false)
                 {
                     throw new FormatException(
-                        "Name and Surname should have similar char languages. Only Cyrillic or Latin.");
+                        "Name and Surname should have similar languages." +
+                        " Only Cyrillic or Latin.");
                 }
             }
         }

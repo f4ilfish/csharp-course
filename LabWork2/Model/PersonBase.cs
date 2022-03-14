@@ -107,10 +107,10 @@ namespace Model
         /// <summary>
         /// Base person's instance constructor
         /// </summary>
-        /// <param name="name">PersonBase name</param>
-        /// <param name="surname">PersonBase surname</param>
-        /// <param name="age">Peron age</param>
-        /// <param name="gender">PersonBase gender</param>
+        /// <param name="name">Name</param>
+        /// <param name="surname">Surname</param>
+        /// <param name="age">Age</param>
+        /// <param name="gender">Gender</param>
         protected PersonBase(string name, string surname, int age, GenderType gender)
         {
             Name = name;
@@ -155,14 +155,19 @@ namespace Model
         /// <param name="age">Age</param>
         protected abstract void CheckAge(int age);
 
-        protected static void FieldStringLengthCheck(string name, string fieldName)
+        /// <summary>
+        /// Check string length
+        /// </summary>
+        /// <param name="inputString">Input string</param>
+        /// <param name="fieldName">Field name</param>
+        protected static void CheckLength(string inputString, string fieldName)
         {
-            if (!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(inputString))
             {
-                if (name.Length > MaxFieldStringLength)
+                if (inputString.Length > MaxFieldStringLength)
                 {
                     throw new FormatException(
-                        $"{fieldName} name must be short then {MaxFieldStringLength} chars");
+                        $"{fieldName} string must be short then {MaxFieldStringLength} chars");
                 }
             }
         }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Model
@@ -73,7 +72,7 @@ namespace Model
             get => _employer;
             set
             {
-                FieldStringLengthCheck(value, "Employer");
+                CheckLength(value, "Employer");
                 _employer = value;
             }
         }
@@ -186,6 +185,10 @@ namespace Model
             }
         }
 
+        /// <summary>
+        /// Get random adult
+        /// </summary>
+        /// <returns></returns>
         public static Adult GetRandomPerson()
         {
             string[] maleNames =
@@ -246,9 +249,8 @@ namespace Model
 
             var tmpEmployer = employers[random.Next(employers.Length)];
 
-            return new Adult(tmpName, tmpSurname, tmpAge, tmpGender, tmpPassportId, null, tmpEmployer);
+            return new Adult(tmpName, tmpSurname, tmpAge, tmpGender, 
+                             tmpPassportId, null, tmpEmployer);
         }
-
-
     }
 }

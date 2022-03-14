@@ -62,7 +62,7 @@ namespace Model
             get => _educationalInstitute;
             set
             {
-                FieldStringLengthCheck(value, "Educational institute");
+                CheckLength(value, "Educational institute");
                 _educationalInstitute = value;
             }
         }
@@ -78,8 +78,9 @@ namespace Model
         /// <param name="father">Father</param>
         /// <param name="mother">Mother</param>
         /// <param name="educationalInstitute">Educational institute</param>
-        public Child(string name, string surname, int age, GenderType gender, Adult father, Adult mother,
-            string educationalInstitute) : base(name, surname, age, gender)
+        public Child(string name, string surname, int age, 
+                     GenderType gender, Adult father, Adult mother, 
+                     string educationalInstitute) : base(name, surname, age, gender)
         {
             Father = father;
             Mother = mother;
@@ -111,7 +112,8 @@ namespace Model
 
                 if (Mother != null)
                 {
-                    parentsStatus = $"{parentsStatus}; Mother: {Mother.ToStringNameSurname()}";
+                    parentsStatus = $"{parentsStatus}; Mother: " +
+                                    $"{Mother.ToStringNameSurname()}";
                 }
             }
 
@@ -133,7 +135,8 @@ namespace Model
             if (age is < MinAge or > ChildMaxAge)
             {
                 throw new IndexOutOfRangeException(
-                    $"Child age value must be in range [{MinAge}...{ChildMaxAge}].");
+                    $"Child age value must be in range " +
+                    $"[{MinAge}...{ChildMaxAge}].");
             }
         }
 
@@ -145,12 +148,12 @@ namespace Model
         {
             var rnd = new Random();
 
-            string[] availableMissionLevel =
+            string[] missionLevel =
             {
                 "C", "D", "E"
             };
 
-            var chosenLevel = availableMissionLevel[rnd.Next(availableMissionLevel.Length)];
+            var chosenLevel = missionLevel[rnd.Next(missionLevel.Length)];
             
             return $"Level {chosenLevel} mission received";
         }
@@ -170,6 +173,10 @@ namespace Model
             }
         }
 
+        /// <summary>
+        /// Get random child
+        /// </summary>
+        /// <returns></returns>
         public static Child GetRandomPerson()
         {
             string[] maleNames =
@@ -190,7 +197,7 @@ namespace Model
                 "Namikaze", "Nara", "Inuzuka", "Lee"
             };
 
-            string[] educationalInstitute =
+            string[] educateInst =
             {
                 "Hidden Rain Village", "Hidden Waterfall Village", "Hidden Sound Village",
                 "Hidden Stone Village", "Hidden Leaf Village", "Hidden Cloud Village",
@@ -226,9 +233,10 @@ namespace Model
 
             var tmpAge = random.Next(MinAge, ChildMaxAge);
 
-            var tmpEducationalInstitute = educationalInstitute[random.Next(educationalInstitute.Length)];
+            var tmpEducateInst = educateInst[random.Next(educateInst.Length)];
 
-            return new Child(tmpName, tmpSurname, tmpAge, tmpGender, null, null, tmpEducationalInstitute);
+            return new Child(tmpName, tmpSurname, tmpAge, tmpGender, 
+                             null, null, tmpEducateInst);
         }
     }
 }

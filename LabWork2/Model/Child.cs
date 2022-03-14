@@ -70,7 +70,6 @@ namespace Model
         /// <summary>
         /// Child's instance constructor
         /// </summary>
-        /// //TODO: XML
         /// <param name="name">Name</param>
         /// <param name="surname">Surname</param>
         /// <param name="age">Age</param>
@@ -90,7 +89,6 @@ namespace Model
         /// <summary>
         /// Default child's constructor
         /// </summary>
-        /// //TODO: RSDN
         public Child() : this("Unknown", "Unknown", 
                               0, GenderType.Other, null, 
                               null, null)
@@ -157,8 +155,7 @@ namespace Model
             
             return $"Level {chosenLevel} mission received";
         }
-
-        //TODO: duplication
+        
         /// <summary>
         /// Check parent gender
         /// </summary>

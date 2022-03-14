@@ -18,126 +18,21 @@ namespace View
 
             for (var i = 0; i < 8; i++)
             {
-               if (rnd.Next(2) == 0)
-               {
-                   tmpPersonList.AddToEnd(Adult.GetRandomPerson());
-               }
-               else
-               {
-                   tmpPersonList.AddToEnd(Child.GetRandomPerson());
-               }
+                PersonBase randomPerson = 
+                    rnd.Next(2) == 0
+                    ? Adult.GetRandomPerson()
+                    : Child.GetRandomPerson();
+                tmpPersonList.AddToEnd(randomPerson);
             }
 
             ColorfulPrint("Created list:", ConsoleColor.Yellow);
             PrintList(tmpPersonList);
 
             ColorfulPrint("What the fourth person's mission:", ConsoleColor.Yellow);
-            Console.WriteLine(tmpPersonList.GetPersonByIndex(3).GetMissionLevel());
-
-            /*
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
-            Console.InputEncoding = System.Text.Encoding.Unicode;
-
-            // Input person
-            ColorfulPrint("Let's input own person:", ConsoleColor.Yellow);
-            var ownPerson = ReadPerson();
             
-            // Print person
-            ColorfulPrint("Input person:", ConsoleColor.Yellow);
-            Console.WriteLine(ownPerson.GetBaseInfo());
-            */
+            //TODO: 
+            Console.WriteLine(tmpPersonList.GetPersonByIndex(3).GetMissionLevel());
         }
-
-        /*
-        /// <summary>
-        /// Method to persons input
-        /// </summary>
-        /// <returns>Configure person</returns>
-        private static PersonBase ReadPerson()
-        {
-            var inputPerson = new PersonBase();
-            var actionsTupleList = new List<(Action Action, string Message)>
-            {
-                (
-                    () =>
-                    {
-                        inputPerson.Name = Console.ReadLine();
-                    },
-                    "Input name of person:"),
-                (
-                    () =>
-                    {
-                        inputPerson.Surname = Console.ReadLine();
-                    },
-                    "Input surname of person:"),
-                (
-                    () =>
-                    {
-                        inputPerson.Age =
-                            Convert.ToInt32(Console.ReadLine());
-                    },
-                    "Input age of person:"),
-                (
-                    () =>
-                    {
-                        var gender = Convert.ToInt32(Console.ReadLine());
-                        switch (gender)
-                        {
-                            case 1:
-                            {
-                                inputPerson.Gender = GenderType.Male;
-                                return;
-                            }
-                            case 2:
-                            {
-                                inputPerson.Gender = GenderType.Female;
-                                return;
-                            }
-                            case 3:
-                                inputPerson.Gender = GenderType.Other;
-                                return;
-                            default:
-                            {
-                                throw new ArgumentException
-                                    ("Please input 1, 2 or 3");
-                            }
-                        }
-                    },
-                    "Choose gender of person. " +
-                    "Input 1 - Male, 2 - Female, 3 - Other.")
-            };
-
-            foreach(var actionTuple in actionsTupleList)
-            {
-                ActionHandler(actionTuple.Action, actionTuple.Message);
-            }
-
-            return inputPerson;
-        }
-
-        /// <summary>
-        /// Handler of enter person from console
-        /// </summary>
-        /// <param name="action">Executable action</param>
-        /// <param name="inputMessage">Message to action</param>
-        private static void ActionHandler(Action action, string inputMessage)
-        {
-            while (true)
-            {
-                Console.WriteLine(inputMessage);
-                try
-                {
-                    action.Invoke();
-                    return;
-                }
-                catch (Exception e)
-                {
-                    ColorfulPrint(e.Message, ConsoleColor.Red);
-                    ColorfulPrint("Please try again.", ConsoleColor.Green);
-                }
-            }
-        }
-        */
 
         /// <summary>
         /// Method to print list to console

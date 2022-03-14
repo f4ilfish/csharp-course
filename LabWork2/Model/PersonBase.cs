@@ -210,15 +210,13 @@ namespace Model
                                               string surname, 
                                               Regex namingPattern)
         {
-            if (namingPattern.IsMatch(name))
+            if (!namingPattern.IsMatch(name)) return;
+
+            if (!namingPattern.IsMatch(surname))
             {
-                //TODO: duplication
-                if (namingPattern.IsMatch(surname) == false)
-                {
-                    throw new FormatException(
-                        "Name and Surname should have similar languages." +
-                        " Only Cyrillic or Latin.");
-                }
+                throw new FormatException(
+                    "Name and Surname should have similar languages." +
+                    " Only Cyrillic or Latin.");
             }
         }
 

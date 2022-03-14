@@ -80,7 +80,6 @@ namespace Model
         /// <summary>
         /// Adult's instance constructor
         /// </summary>
-        /// //TODO: XML
         /// <param name="name">Name</param>
         /// <param name="surname">Surname</param>
         /// <param name="age">Age</param>
@@ -96,8 +95,7 @@ namespace Model
             Spouse = spouse;
             Employer = employer;
         }
-
-        //TODO: RSDN
+        
         /// <summary>
         /// Default adult's instance constructor
         /// </summary>

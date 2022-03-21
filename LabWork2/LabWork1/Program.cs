@@ -30,12 +30,12 @@ namespace View
 
             ColorfulPrint("What the fourth person's mission:", ConsoleColor.Yellow);
             
-            //TODO:
             var person = tmpPersonList.GetPersonByIndex(3);
 
             switch (person)
             {
-                case Adult:
+                case Adult adult:
+                    //TODO: static
                     Adult.GetHardMission();
                     break;
                 case Child:

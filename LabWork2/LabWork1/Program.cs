@@ -30,16 +30,15 @@ namespace View
 
             ColorfulPrint("What the fourth person's mission:", ConsoleColor.Yellow);
             
-            //TODO:
             var person = tmpPersonList.GetPersonByIndex(3);
 
             switch (person)
             {
                 case Adult personAdult:
-                    personAdult.GetHardMission();
+                    Console.WriteLine(personAdult.GetHardMission());
                     break;
                 case Child personChild:
-                    personChild.GetEasyMission();
+                    Console.WriteLine(personChild.GetEasyMission());
                     break;
                 default:
                     ColorfulPrint("Unknown person type", ConsoleColor.DarkRed);

@@ -142,7 +142,7 @@ namespace Model
         /// To-do method to get mission
         /// </summary>
         /// <returns></returns>
-        public static string GetEasyMission()
+        public string GetEasyMission()
         {
             var rnd = new Random();
 

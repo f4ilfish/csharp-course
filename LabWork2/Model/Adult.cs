@@ -144,7 +144,7 @@ namespace Model
         /// To-do method to get mission
         /// </summary>
         /// <returns></returns>
-        public static string GetHardMission()
+        public string GetHardMission()
         {
             var rnd = new Random();
 

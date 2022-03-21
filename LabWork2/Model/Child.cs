@@ -139,10 +139,10 @@ namespace Model
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// To-do method to get mission
         /// </summary>
         /// <returns></returns>
-        public override string GetMissionLevel()
+        public static string GetEasyMission()
         {
             var rnd = new Random();
 
@@ -152,7 +152,7 @@ namespace Model
             };
 
             var chosenLevel = missionLevel[rnd.Next(missionLevel.Length)];
-            
+
             return $"Level {chosenLevel} mission received";
         }
         

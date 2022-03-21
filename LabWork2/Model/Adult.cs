@@ -141,10 +141,10 @@ namespace Model
         }
 
         /// <summary>
-        /// <inheritdoc/>
+        /// To-do method to get mission
         /// </summary>
         /// <returns></returns>
-        public override string GetMissionLevel()
+        public static string GetHardMission()
         {
             var rnd = new Random();
 

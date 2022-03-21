@@ -229,11 +229,5 @@ namespace Model
         {
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
         }
-
-        /// <summary>
-        /// Get mission level
-        /// </summary>
-        /// <returns></returns>
-        public abstract string GetMissionLevel();
     }
 }

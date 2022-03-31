@@ -30,7 +30,7 @@ namespace Model
         /// <summary>
         /// Height field's property
         /// </summary>
-        private double Height
+        public double Height
         {
             get => _height;
             set
@@ -44,7 +44,7 @@ namespace Model
         /// NumberOfCorners field's property
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        private int NumberOfCorners
+        public int NumberOfCorners
         {
             get => _numberOfCorners;
             set
@@ -59,7 +59,7 @@ namespace Model
         /// <summary>
         /// LengthOfSide field's property
         /// </summary>
-        private double LengthOfSide
+        public double LengthOfSide
         {
             get => _lengthOfSide;
             set
@@ -68,6 +68,11 @@ namespace Model
                 _lengthOfSide = value;
             }
         }
+
+        /// <summary>
+        /// Pyramid's default instance constructor
+        /// </summary>
+        public Pyramid(){}
 
         /// <summary>
         /// Pyramid's instance constructor

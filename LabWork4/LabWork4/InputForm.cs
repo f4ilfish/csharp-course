@@ -1,64 +1,143 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Model;
 
 namespace View
 {
+    /// <summary>
+    /// Class input form
+    /// </summary>
     public partial class InputForm : Form
     {
+        ///// <summary>
+        ///// Main form reference
+        ///// </summary>
+        //private MainForm MainForm { get; set; }
+
+        /// <summary>
+        /// Figure
+        /// </summary>
+        private FigureBase FigureBase { get; set; }
+
+        /// <summary>
+        /// Dictionary of matching RadioButton to it's list of MaskedTextBoxes
+        /// </summary>
+        private Dictionary<RadioButton, List<MaskedTextBox>> RadioButtonToTextBoxes { get; set; }
+
+        /// <summary>
+        /// Dictionary of matching MaskedTextBox to it's ErrorProvider
+        /// </summary>
+        private Dictionary<MaskedTextBox, ErrorProvider> TextBoxToErrProvider { get; set; }
+        
+        /// <summary>
+        /// Current checked RadioButton
+        /// </summary>
+        private RadioButton CheckedRadioButton { get; set; }
+
+        /// <summary>
+        /// Input form instance creator
+        /// </summary>
         public InputForm()
         {
             InitializeComponent();
-        }
 
-        private void SphereRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            RadiusHeightLabel.Text = "Radius:";
-            BaseGroupBox.Enabled = false;
-        }
+            SphereRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            PyramidRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            ParallelepipedRadioButton.CheckedChanged += RadioButton_CheckedChanged;
 
-        private void PyramidRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            RadiusHeightLabel.Text = "Height:";
-            SideFirstSideLabel.Text = "Side:";
-
-            BaseGroupBox.Enabled = true;
-            NumberOfSidesNumericUpDown.Enabled = true;
-            SidesAngleMaskedTextBox.Enabled = false;
-            SecondSideMaskedTextBox.Enabled = false;
-        }
-
-        private void ParallelepipedRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            RadiusHeightLabel.Text = "Height:";
-            SideFirstSideLabel.Text = "First side:";
-
-            BaseGroupBox.Enabled = true;
-            NumberOfSidesNumericUpDown.Enabled = false;
-
-            foreach (var control in BaseGroupBox.Controls)
+            RadioButtonToTextBoxes = new Dictionary<RadioButton, List<MaskedTextBox>>()
             {
-                if (control.GetType() == typeof(MaskedTextBox))
                 {
-                    ((MaskedTextBox) control).Enabled = true;
+                    SphereRadioButton, new List<MaskedTextBox>(){RadiusHeightMaskedTextBox}
+                },
+
+                {
+                    PyramidRadioButton, new List<MaskedTextBox>(){RadiusHeightMaskedTextBox, 
+                                                                  SideFirstSideMaskedTextBox}
+                },
+
+                {
+                    ParallelepipedRadioButton, new List<MaskedTextBox>(){RadiusHeightMaskedTextBox, 
+                                                                         SidesAngleMaskedTextBox, 
+                                                                         SideFirstSideMaskedTextBox, 
+                                                                         SecondSideMaskedTextBox}
                 }
+            };
+
+            TextBoxToErrProvider = new Dictionary<MaskedTextBox, ErrorProvider>()
+            {
+                {RadiusHeightMaskedTextBox, RadiusHeightErrorProvider},
+                {SidesAngleMaskedTextBox, SidesAngleErrorProvider},
+                {SideFirstSideMaskedTextBox, SideFirstSideErrorProvider},
+                {SecondSideMaskedTextBox, SecondSideErrorProvider}
+            };
+
+            RadiusHeightMaskedTextBox.TextChanged += MaskedTextBox_TextChanged;
+            SidesAngleMaskedTextBox.TextChanged += MaskedTextBox_TextChanged;
+            SideFirstSideMaskedTextBox.TextChanged += MaskedTextBox_TextChanged;
+            SecondSideMaskedTextBox.TextChanged += MaskedTextBox_TextChanged;
+        }
+
+        /// <summary>
+        /// Event RadioButton checked change
+        /// </summary>
+        /// <param name="sender">RadioButton</param>
+        /// <param name="e">Event argument</param>
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+
+            string radioButtonName = radioButton.Name;
+
+            switch (radioButtonName)
+            {
+                case "SphereRadioButton":
+                    CheckedRadioButton = SphereRadioButton;
+
+                    RadiusHeightLabel.Text = "Radius:";
+                    BaseGroupBox.Enabled = false;
+                    break;
+                
+                case "PyramidRadioButton":
+                    CheckedRadioButton = PyramidRadioButton;
+
+                    RadiusHeightLabel.Text = "Height:";
+                    SideFirstSideLabel.Text = "Side:";
+
+                    BaseGroupBox.Enabled = true;
+                    NumberOfCornersNumericUpDown.Enabled = true;
+                    SidesAngleMaskedTextBox.Enabled = false;
+                    SecondSideMaskedTextBox.Enabled = false;
+                    break;
+                
+                case "ParallelepipedRadioButton":
+                    CheckedRadioButton = ParallelepipedRadioButton;
+
+                    RadiusHeightLabel.Text = "Height:";
+                    SideFirstSideLabel.Text = "First side:";
+
+                    BaseGroupBox.Enabled = true;
+                    NumberOfCornersNumericUpDown.Enabled = false;
+
+                    foreach (var control in BaseGroupBox.Controls)
+                    {
+                        if (control.GetType() == typeof(MaskedTextBox))
+                        {
+                            ((MaskedTextBox)control).Enabled = true;
+                        }
+                    }
+                    break;
             }
         }
 
         /// <summary>
-        /// Is input value is correct
+        /// Value validating
         /// </summary>
         /// <param name="value">Input value</param>
         /// <param name="errorMessage">Error message</param>
         /// <returns></returns>
-        private bool IsValueCorrect(string value, out string errorMessage)
+        private bool IsValidValue(string value, out string errorMessage)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -88,98 +167,196 @@ namespace View
             return false;
         }
 
-        ///// <summary>
-        ///// Check wrong key press
-        ///// </summary>
-        ///// <param name="e"></param>
-        ///// <param name="control"></param>
-        //private void CheckKeyPress(KeyPressEventArgs e, Control control)
-        //{
-        //    if (char.IsNumber(e.KeyChar) ||
-        //        (!string.IsNullOrEmpty(control.Text) && e.KeyChar == ',') ||
-        //        char.IsControl(e.KeyChar))
-        //    {
-        //        return;
-        //    }
-
-        //    e.Handled = true;
-        //}
-
-        private void RadiusMaskedTextBox_Validating(object sender, CancelEventArgs e)
+        /// <summary>
+        /// Event MaskedTextBox text changed
+        /// </summary>
+        /// <param name="sender">MaskedTextBox</param>
+        /// <param name="e">Event argument</param>
+        private void MaskedTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (IsValueCorrect(RadiusHeightMaskedTextBox.Text, out var errorMsg)) return;
+            MaskedTextBox maskedTextBox = (MaskedTextBox) sender;
 
-            e.Cancel = true;
-            RadiusHeightMaskedTextBox.Select(0, RadiusHeightMaskedTextBox.Text.Length);
-
-            RadiusHeightErrorProvider.SetError(RadiusHeightMaskedTextBox, errorMsg);
+            if (!IsValidValue(maskedTextBox.Text, out var errorMsg))
+            {
+                TextBoxToErrProvider[maskedTextBox].SetError(maskedTextBox, errorMsg);
+            }
+            else
+            {
+                TextBoxToErrProvider[maskedTextBox].SetError(maskedTextBox, "");
+            }
         }
 
-        private void RadiusHeightMaskedTextBox_Validated(object sender, EventArgs e)
+        /// <summary>
+        /// Validating of corresponding RadioButton MaskedTextBoxes
+        /// </summary>
+        /// <param name="radioButton">RadioButton</param>
+        /// <returns></returns>
+        private bool IsValidTextBoxes(RadioButton radioButton)
         {
-            RadiusHeightErrorProvider.SetError(RadiusHeightMaskedTextBox, "");
+            foreach (var textBox in RadioButtonToTextBoxes[radioButton])
+            {
+                if (TextBoxToErrProvider[textBox].GetError(textBox) != "" || textBox.Text.Length == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
-        private void SidesAngleMaskedTextBox_Validating(object sender, CancelEventArgs e)
+        /// <summary>
+        /// Set figure field's value
+        /// </summary>
+        /// <param name="action"></param>
+        private void SetValue(Action action)
         {
-            if (IsValueCorrect(SidesAngleMaskedTextBox.Text, out var errorMsg)) return;
-
-            e.Cancel = true;
-            SidesAngleMaskedTextBox.Select(0, SidesAngleMaskedTextBox.Text.Length);
-
-            SidesAngleErrorProvider.SetError(SidesAngleMaskedTextBox, errorMsg);
+            action.Invoke();
         }
 
-        private void SidesAngleMaskedTextBox_Validated(object sender, EventArgs e)
+        /// <summary>
+        /// Get sphere
+        /// </summary>
+        /// <returns></returns>
+        private Sphere GetSphere()
         {
-            SidesAngleErrorProvider.SetError(SidesAngleMaskedTextBox, "");
+            var newSphere = new Sphere();
+
+            var actions = new List<Action>()
+            {
+                () =>
+                {
+                    newSphere.Radius = Convert.ToDouble(RadiusHeightMaskedTextBox.Text);
+                }
+            };
+            actions.ForEach(SetValue);
+            return newSphere;
         }
 
-        private void FirstSideMaskedTextBox_Validating(object sender, CancelEventArgs e)
+        /// <summary>
+        /// Get Pyramid
+        /// </summary>
+        /// <returns></returns>
+        private Pyramid GetPyramid()
         {
-            if (IsValueCorrect(FirstSideMaskedTextBox.Text, out var errorMsg)) return;
+            var newPyramid = new Pyramid();
 
-            e.Cancel = true;
-            FirstSideMaskedTextBox.Select(0, FirstSideMaskedTextBox.Text.Length);
+            var actions = new List<Action>()
+            {
+                () =>
+                {
+                    newPyramid.Height = Convert.ToDouble(RadiusHeightMaskedTextBox.Text);
+                },
 
-            FirstSideErrorProvider.SetError(FirstSideMaskedTextBox, errorMsg);
+                () =>
+                {
+                    newPyramid.NumberOfCorners = Convert.ToInt32(NumberOfCornersNumericUpDown.Text);
+                },
+
+                () =>
+                {
+                    newPyramid.LengthOfSide = Convert.ToDouble(SideFirstSideMaskedTextBox.Text);
+                },
+            };
+            actions.ForEach(SetValue);
+            return newPyramid;
         }
 
-        private void FirstSideMaskedTextBox_Validated(object sender, EventArgs e)
+        /// <summary>
+        /// Get Parallelepiped
+        /// </summary>
+        /// <returns></returns>
+        private Parallelepiped GetParallelepiped()
         {
-            FirstSideErrorProvider.SetError(FirstSideMaskedTextBox, "");
+            var newParallelepiped = new Parallelepiped();
+
+            var actions = new List<Action>()
+            {
+                () =>
+                {
+                    newParallelepiped.Height = Convert.ToDouble(RadiusHeightMaskedTextBox.Text);
+                },
+
+                () =>
+                {
+                    newParallelepiped.LengthFirstSide = Convert.ToDouble(SideFirstSideMaskedTextBox.Text);
+                },
+
+                () =>
+                {
+                    newParallelepiped.LengthSecondSide = Convert.ToDouble(SecondSideMaskedTextBox.Text);
+                },
+
+                () =>
+                {
+                    newParallelepiped.AngleOfSides = Convert.ToDouble(SidesAngleMaskedTextBox.Text);
+                },
+            };
+
+            actions.ForEach(SetValue);
+            return newParallelepiped;
         }
 
-        private void SecondSideMaskedTextBox_Validating(object sender, CancelEventArgs e)
+        /// <summary>
+        /// Event OkInputButton click
+        /// </summary>
+        /// <param name="sender">OkInputButton</param>
+        /// <param name="e">Event argument</param>
+        private void OkInputButton_Click(object sender, EventArgs e)
         {
-            if (IsValueCorrect(SecondSideMaskedTextBox.Text, out var errorMsg)) return;
+            switch (CheckedRadioButton.Name)
+            {
+                case "SphereRadioButton":
 
-            e.Cancel = true;
-            SecondSideMaskedTextBox.Select(0, SecondSideMaskedTextBox.Text.Length);
+                    if (IsValidTextBoxes(CheckedRadioButton))
+                    {
+                        FigureBase = GetSphere();
+                        MessageBox.Show("Sphere added");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Some of the parameters are missing");
+                    }
 
-            SecondSideErrorProvider.SetError(SecondSideMaskedTextBox, errorMsg);
+                    break;
+                
+                case "PyramidRadioButton":
+
+                    if (IsValidTextBoxes(CheckedRadioButton))
+                    {
+                        FigureBase = GetPyramid();
+                        MessageBox.Show("Pyramid added");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Some of the parameters are missing");
+                    }
+
+                    break;
+                
+                case "ParallelepipedRadioButton":
+
+                    if (IsValidTextBoxes(CheckedRadioButton))
+                    {
+                        FigureBase = GetParallelepiped();
+                        MessageBox.Show("Parallelepiped added");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Some of the parameters are missing");
+                    }
+
+                    break;
+            }
         }
 
-        private void SecondSideMaskedTextBox_Validated(object sender, EventArgs e)
+        /// <summary>
+        /// Event CancelInputButton click
+        /// </summary>
+        /// <param name="sender">CancelInputButton</param>
+        /// <param name="e">Event argument</param>
+        private void CancelInputButton_Click(object sender, EventArgs e)
         {
-            SecondSideErrorProvider.SetError(SecondSideMaskedTextBox, "");
+            Close();
         }
-
-        //private void RadiusHeightMaskedTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        //{
-        //    CheckKeyPress(e, RadiusHeightMaskedTextBox);
-        //}
-
-        //private void RadiusHeightMaskedTextBox_TextChanged(object sender, EventArgs e)
-        //{
-        //    if (IsValueCorrect(RadiusHeightMaskedTextBox.Text, out var errorMsg))
-        //    {
-        //        RadiusHeightErrorProvider.SetError(RadiusHeightMaskedTextBox, "");
-        //    }
-        //    else
-        //    {
-        //        RadiusHeightErrorProvider.SetError(RadiusHeightMaskedTextBox, errorMsg);
-        //    }
-        //}
     }
 }

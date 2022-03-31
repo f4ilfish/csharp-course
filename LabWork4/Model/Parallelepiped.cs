@@ -40,7 +40,7 @@ namespace Model
         /// <summary>
         /// Height field's property
         /// </summary>
-        private double Height
+        public double Height
         {
             get => _height;
             set
@@ -53,7 +53,7 @@ namespace Model
         /// <summary>
         /// First side field's property
         /// </summary>
-        private double LengthFirstSide
+        public double LengthFirstSide
         {
             get => _lengthOfFirstSide;
             set
@@ -66,7 +66,7 @@ namespace Model
         /// <summary>
         /// Second side field's property
         /// </summary>
-        private double LengthSecondSide
+        public double LengthSecondSide
         {
             get => _lengthOfSecondSide;
             set
@@ -79,7 +79,7 @@ namespace Model
         /// <summary>
         /// Angle of sides field's property
         /// </summary>
-        private double AngleOfSides
+        public double AngleOfSides
         {
             get => _angleOfSides;
             set
@@ -93,6 +93,11 @@ namespace Model
             }
         }
 
+        /// <summary>
+        /// Parallelepiped's default instance constructor
+        /// </summary>
+
+        public Parallelepiped(){}
 
         /// <summary>
         /// Parallelepiped's instance constructor

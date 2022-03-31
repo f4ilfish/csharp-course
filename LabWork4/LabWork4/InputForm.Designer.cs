@@ -39,26 +39,26 @@ namespace View
             this.RadiusHeightMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.SecondSideMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.SecondSideLabel = new System.Windows.Forms.Label();
-            this.FirstSideMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.SideFirstSideMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.SideFirstSideLabel = new System.Windows.Forms.Label();
             this.SidesAngleMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
             this.SidesAngleLabel = new System.Windows.Forms.Label();
-            this.NumberOfSidesLabel = new System.Windows.Forms.Label();
+            this.NumberOfCornersLabel = new System.Windows.Forms.Label();
             this.BaseGroupBox = new System.Windows.Forms.GroupBox();
-            this.NumberOfSidesNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.NumberOfCornersNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.OkInputButton = new System.Windows.Forms.Button();
             this.CancelInputButton = new System.Windows.Forms.Button();
             this.RadiusHeightErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.SidesAngleErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.FirstSideErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.SideFirstSideErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.SecondSideErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.SelectFigureGroupBox.SuspendLayout();
             this.RadiusHeightGroupBox.SuspendLayout();
             this.BaseGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumberOfSidesNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumberOfCornersNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RadiusHeightErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SidesAngleErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FirstSideErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SideFirstSideErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SecondSideErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +84,6 @@ namespace View
             this.PyramidRadioButton.TabStop = true;
             this.PyramidRadioButton.Text = "Pyramid";
             this.PyramidRadioButton.UseVisualStyleBackColor = true;
-            this.PyramidRadioButton.CheckedChanged += new System.EventHandler(this.PyramidRadioButton_CheckedChanged);
             // 
             // ParallelepipedRadioButton
             // 
@@ -96,7 +95,6 @@ namespace View
             this.ParallelepipedRadioButton.TabStop = true;
             this.ParallelepipedRadioButton.Text = "Parallelepiped";
             this.ParallelepipedRadioButton.UseVisualStyleBackColor = true;
-            this.ParallelepipedRadioButton.CheckedChanged += new System.EventHandler(this.ParallelepipedRadioButton_CheckedChanged);
             // 
             // SphereRadioButton
             // 
@@ -108,7 +106,6 @@ namespace View
             this.SphereRadioButton.TabStop = true;
             this.SphereRadioButton.Text = "Sphere";
             this.SphereRadioButton.UseVisualStyleBackColor = true;
-            this.SphereRadioButton.CheckedChanged += new System.EventHandler(this.SphereRadioButton_CheckedChanged);
             // 
             // RadiusHeightGroupBox
             // 
@@ -136,8 +133,6 @@ namespace View
             this.RadiusHeightMaskedTextBox.Name = "RadiusHeightMaskedTextBox";
             this.RadiusHeightMaskedTextBox.Size = new System.Drawing.Size(56, 25);
             this.RadiusHeightMaskedTextBox.TabIndex = 0;
-            this.RadiusHeightMaskedTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.RadiusMaskedTextBox_Validating);
-            this.RadiusHeightMaskedTextBox.Validated += new System.EventHandler(this.RadiusHeightMaskedTextBox_Validated);
             // 
             // SecondSideMaskedTextBox
             // 
@@ -145,8 +140,6 @@ namespace View
             this.SecondSideMaskedTextBox.Name = "SecondSideMaskedTextBox";
             this.SecondSideMaskedTextBox.Size = new System.Drawing.Size(56, 25);
             this.SecondSideMaskedTextBox.TabIndex = 7;
-            this.SecondSideMaskedTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.SecondSideMaskedTextBox_Validating);
-            this.SecondSideMaskedTextBox.Validated += new System.EventHandler(this.SecondSideMaskedTextBox_Validated);
             // 
             // SecondSideLabel
             // 
@@ -157,14 +150,12 @@ namespace View
             this.SecondSideLabel.TabIndex = 6;
             this.SecondSideLabel.Text = "Second side:";
             // 
-            // FirstSideMaskedTextBox
+            // SideFirstSideMaskedTextBox
             // 
-            this.FirstSideMaskedTextBox.Location = new System.Drawing.Point(121, 80);
-            this.FirstSideMaskedTextBox.Name = "FirstSideMaskedTextBox";
-            this.FirstSideMaskedTextBox.Size = new System.Drawing.Size(56, 25);
-            this.FirstSideMaskedTextBox.TabIndex = 5;
-            this.FirstSideMaskedTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.FirstSideMaskedTextBox_Validating);
-            this.FirstSideMaskedTextBox.Validated += new System.EventHandler(this.FirstSideMaskedTextBox_Validated);
+            this.SideFirstSideMaskedTextBox.Location = new System.Drawing.Point(121, 80);
+            this.SideFirstSideMaskedTextBox.Name = "SideFirstSideMaskedTextBox";
+            this.SideFirstSideMaskedTextBox.Size = new System.Drawing.Size(56, 25);
+            this.SideFirstSideMaskedTextBox.TabIndex = 5;
             // 
             // SideFirstSideLabel
             // 
@@ -181,8 +172,6 @@ namespace View
             this.SidesAngleMaskedTextBox.Name = "SidesAngleMaskedTextBox";
             this.SidesAngleMaskedTextBox.Size = new System.Drawing.Size(56, 25);
             this.SidesAngleMaskedTextBox.TabIndex = 3;
-            this.SidesAngleMaskedTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.SidesAngleMaskedTextBox_Validating);
-            this.SidesAngleMaskedTextBox.Validated += new System.EventHandler(this.SidesAngleMaskedTextBox_Validated);
             // 
             // SidesAngleLabel
             // 
@@ -193,24 +182,24 @@ namespace View
             this.SidesAngleLabel.TabIndex = 2;
             this.SidesAngleLabel.Text = "Sides angle:";
             // 
-            // NumberOfSidesLabel
+            // NumberOfCornersLabel
             // 
-            this.NumberOfSidesLabel.AutoSize = true;
-            this.NumberOfSidesLabel.Location = new System.Drawing.Point(6, 21);
-            this.NumberOfSidesLabel.Name = "NumberOfSidesLabel";
-            this.NumberOfSidesLabel.Size = new System.Drawing.Size(109, 17);
-            this.NumberOfSidesLabel.TabIndex = 0;
-            this.NumberOfSidesLabel.Text = "Number of sides:";
+            this.NumberOfCornersLabel.AutoSize = true;
+            this.NumberOfCornersLabel.Location = new System.Drawing.Point(6, 21);
+            this.NumberOfCornersLabel.Name = "NumberOfCornersLabel";
+            this.NumberOfCornersLabel.Size = new System.Drawing.Size(123, 17);
+            this.NumberOfCornersLabel.TabIndex = 0;
+            this.NumberOfCornersLabel.Text = "Number of corners:";
             // 
             // BaseGroupBox
             // 
-            this.BaseGroupBox.Controls.Add(this.NumberOfSidesNumericUpDown);
-            this.BaseGroupBox.Controls.Add(this.NumberOfSidesLabel);
+            this.BaseGroupBox.Controls.Add(this.NumberOfCornersNumericUpDown);
+            this.BaseGroupBox.Controls.Add(this.NumberOfCornersLabel);
             this.BaseGroupBox.Controls.Add(this.SidesAngleMaskedTextBox);
             this.BaseGroupBox.Controls.Add(this.SideFirstSideLabel);
             this.BaseGroupBox.Controls.Add(this.SecondSideMaskedTextBox);
             this.BaseGroupBox.Controls.Add(this.SidesAngleLabel);
-            this.BaseGroupBox.Controls.Add(this.FirstSideMaskedTextBox);
+            this.BaseGroupBox.Controls.Add(this.SideFirstSideMaskedTextBox);
             this.BaseGroupBox.Controls.Add(this.SecondSideLabel);
             this.BaseGroupBox.Location = new System.Drawing.Point(212, 71);
             this.BaseGroupBox.Name = "BaseGroupBox";
@@ -219,23 +208,23 @@ namespace View
             this.BaseGroupBox.TabStop = false;
             this.BaseGroupBox.Text = "Base:";
             // 
-            // NumberOfSidesNumericUpDown
+            // NumberOfCornersNumericUpDown
             // 
-            this.NumberOfSidesNumericUpDown.Location = new System.Drawing.Point(121, 15);
-            this.NumberOfSidesNumericUpDown.Maximum = new decimal(new int[] {
+            this.NumberOfCornersNumericUpDown.Location = new System.Drawing.Point(121, 15);
+            this.NumberOfCornersNumericUpDown.Maximum = new decimal(new int[] {
             99,
             0,
             0,
             0});
-            this.NumberOfSidesNumericUpDown.Minimum = new decimal(new int[] {
+            this.NumberOfCornersNumericUpDown.Minimum = new decimal(new int[] {
             3,
             0,
             0,
             0});
-            this.NumberOfSidesNumericUpDown.Name = "NumberOfSidesNumericUpDown";
-            this.NumberOfSidesNumericUpDown.Size = new System.Drawing.Size(56, 25);
-            this.NumberOfSidesNumericUpDown.TabIndex = 11;
-            this.NumberOfSidesNumericUpDown.Value = new decimal(new int[] {
+            this.NumberOfCornersNumericUpDown.Name = "NumberOfCornersNumericUpDown";
+            this.NumberOfCornersNumericUpDown.Size = new System.Drawing.Size(56, 25);
+            this.NumberOfCornersNumericUpDown.TabIndex = 11;
+            this.NumberOfCornersNumericUpDown.Value = new decimal(new int[] {
             3,
             0,
             0,
@@ -249,6 +238,7 @@ namespace View
             this.OkInputButton.TabIndex = 9;
             this.OkInputButton.Text = "OK";
             this.OkInputButton.UseVisualStyleBackColor = true;
+            this.OkInputButton.Click += new System.EventHandler(this.OkInputButton_Click);
             // 
             // CancelInputButton
             // 
@@ -258,6 +248,7 @@ namespace View
             this.CancelInputButton.TabIndex = 10;
             this.CancelInputButton.Text = "Cancel";
             this.CancelInputButton.UseVisualStyleBackColor = true;
+            this.CancelInputButton.Click += new System.EventHandler(this.CancelInputButton_Click);
             // 
             // RadiusHeightErrorProvider
             // 
@@ -267,9 +258,9 @@ namespace View
             // 
             this.SidesAngleErrorProvider.ContainerControl = this;
             // 
-            // FirstSideErrorProvider
+            // SideFirstSideErrorProvider
             // 
-            this.FirstSideErrorProvider.ContainerControl = this;
+            this.SideFirstSideErrorProvider.ContainerControl = this;
             // 
             // SecondSideErrorProvider
             // 
@@ -293,10 +284,10 @@ namespace View
             this.RadiusHeightGroupBox.PerformLayout();
             this.BaseGroupBox.ResumeLayout(false);
             this.BaseGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumberOfSidesNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumberOfCornersNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RadiusHeightErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SidesAngleErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FirstSideErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SideFirstSideErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SecondSideErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
@@ -312,19 +303,19 @@ namespace View
         private System.Windows.Forms.MaskedTextBox RadiusHeightMaskedTextBox;
         private System.Windows.Forms.MaskedTextBox SidesAngleMaskedTextBox;
         private System.Windows.Forms.Label SidesAngleLabel;
-        private System.Windows.Forms.Label NumberOfSidesLabel;
+        private System.Windows.Forms.Label NumberOfCornersLabel;
         private System.Windows.Forms.MaskedTextBox SecondSideMaskedTextBox;
         private System.Windows.Forms.Label SecondSideLabel;
-        private System.Windows.Forms.MaskedTextBox FirstSideMaskedTextBox;
+        private System.Windows.Forms.MaskedTextBox SideFirstSideMaskedTextBox;
         private System.Windows.Forms.Label SideFirstSideLabel;
         private System.Windows.Forms.Label RadiusHeightLabel;
         private System.Windows.Forms.GroupBox BaseGroupBox;
         private System.Windows.Forms.Button OkInputButton;
         private System.Windows.Forms.Button CancelInputButton;
         private System.Windows.Forms.ErrorProvider RadiusHeightErrorProvider;
-        private System.Windows.Forms.NumericUpDown NumberOfSidesNumericUpDown;
+        private System.Windows.Forms.NumericUpDown NumberOfCornersNumericUpDown;
         private System.Windows.Forms.ErrorProvider SidesAngleErrorProvider;
-        private System.Windows.Forms.ErrorProvider FirstSideErrorProvider;
+        private System.Windows.Forms.ErrorProvider SideFirstSideErrorProvider;
         private System.Windows.Forms.ErrorProvider SecondSideErrorProvider;
     }
 }

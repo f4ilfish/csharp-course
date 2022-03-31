@@ -15,7 +15,7 @@ namespace Model
         /// <summary>
         /// Sphere radius's property
         /// </summary>
-        private double Radius
+        public double Radius
         {
             get => _radius;
             set
@@ -24,6 +24,11 @@ namespace Model
                 _radius = value;
             }
         }
+
+        /// <summary>
+        /// Sphere's default instance constructor
+        /// </summary>
+        public Sphere(){}
 
         /// <summary>
         /// Sphere's instance constructor

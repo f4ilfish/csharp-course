@@ -85,6 +85,7 @@ namespace Model
             set
             {
                 if (value is <= MinAngle or >= MaxAngle) 
+                    //TODO:{}
                     throw new ArgumentOutOfRangeException(
                     $"{value} must be greater than {MinAngle} " +
                     $"or less than {MaxAngle}");

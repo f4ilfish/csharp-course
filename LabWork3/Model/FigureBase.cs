@@ -12,6 +12,7 @@ namespace Model
         /// </summary>
         protected const double MinFigureParamValue = 0;
 
+        //TODO: почему не свойства на get
         /// <summary>
         /// Abstract method to get figure volume
         /// </summary>

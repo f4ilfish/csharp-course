@@ -49,6 +49,7 @@ namespace Model
             get => _numberOfCorners;
             set
             {
+                //TODO:{}
                 if (value < MinCornersNumber) throw new ArgumentOutOfRangeException(
                     $"{value} must be greater than {MinCornersNumber}");
                 

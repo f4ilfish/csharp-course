@@ -90,6 +90,7 @@ namespace View
 
             string radioButtonName = radioButton.Name;
 
+            //TODO: строковые ключи
             switch (radioButtonName)
             {
                 case "SphereRadioButton":
@@ -175,15 +176,10 @@ namespace View
         private void MaskedTextBox_TextChanged(object sender, EventArgs e)
         {
             MaskedTextBox maskedTextBox = (MaskedTextBox) sender;
-
-            if (!IsValidValue(maskedTextBox.Text, out var errorMsg))
-            {
-                TextBoxToErrProvider[maskedTextBox].SetError(maskedTextBox, errorMsg);
-            }
-            else
-            {
-                TextBoxToErrProvider[maskedTextBox].SetError(maskedTextBox, "");
-            }
+            var errorMessage = !IsValidValue(maskedTextBox.Text, out var errorMsg)
+                ? errorMsg
+                : "";
+            TextBoxToErrProvider[maskedTextBox].SetError(maskedTextBox, errorMessage);
         }
 
         /// <summary>
@@ -303,49 +299,28 @@ namespace View
         /// <param name="e">Event argument</param>
         private void OkInputButton_Click(object sender, EventArgs e)
         {
-            switch (CheckedRadioButton.Name)
+            var dictionary = new Dictionary<RadioButton, (String, Func<FigureBase>)>()
             {
-                case "SphereRadioButton":
-
-                    if (IsValidTextBoxes(CheckedRadioButton))
+                { SphereRadioButton, ("Sphere", GetSphere) },
+                { PyramidRadioButton, ("Pyramid", GetPyramid) },
+                { ParallelepipedRadioButton, ("Parallelepiped", GetParallelepiped) },
+            };
+            if (IsValidTextBoxes(CheckedRadioButton))
+            {
+                var figureString = String.Empty;
+                foreach (var valueTuple in dictionary)
+                {
+                    if (CheckedRadioButton.Equals(valueTuple.Key))
                     {
-                        FigureBase = GetSphere();
-                        MessageBox.Show("Sphere added");
+                        FigureBase = valueTuple.Value.Item2.Invoke();
+                        figureString = valueTuple.Value.Item1;
                     }
-                    else
-                    {
-                        MessageBox.Show("Some of the parameters are missing");
-                    }
-
-                    break;
-                
-                case "PyramidRadioButton":
-
-                    if (IsValidTextBoxes(CheckedRadioButton))
-                    {
-                        FigureBase = GetPyramid();
-                        MessageBox.Show("Pyramid added");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Some of the parameters are missing");
-                    }
-
-                    break;
-                
-                case "ParallelepipedRadioButton":
-
-                    if (IsValidTextBoxes(CheckedRadioButton))
-                    {
-                        FigureBase = GetParallelepiped();
-                        MessageBox.Show("Parallelepiped added");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Some of the parameters are missing");
-                    }
-
-                    break;
+                }
+                MessageBox.Show($"{figureString} added");
+            }
+            else
+            {
+                MessageBox.Show("Some of the parameters are missing");
             }
         }
 

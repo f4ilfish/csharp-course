@@ -34,7 +34,7 @@ namespace View
             ColorfulPrint(">>> Created figures:", ConsoleColor.Yellow);
             foreach (var tmpFigure in figureList)
             {
-                Console.WriteLine(tmpFigure.GetFigureInfo());
+                Console.WriteLine(tmpFigure.Info);
             }
 
             ColorfulPrint(">>> Volumes of figures:", ConsoleColor.Yellow);

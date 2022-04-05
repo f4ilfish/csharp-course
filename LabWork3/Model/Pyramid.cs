@@ -73,19 +73,22 @@ namespace Model
         }
 
         /// <summary>
+        /// Base area field's property
+        /// </summary>
+        public double BaseArea => NumberOfCorners * Math.Pow(LengthOfSide, 2) / 
+                                  (4 * Math.Tan(Math.PI / NumberOfCorners));
+
+        /// <summary>
         /// <inheritdoc />
         /// </summary>
-        public override double Volume
-        {
-            get
-            {
-                var baseArea = GetBaseArea();
-                var volume = baseArea * Height / 3;
+        public override double Volume => BaseArea * Height / 3;
 
-                //TODO:
-                return Math.Round(volume, 2);
-            }
-        }
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override string Info => $"Pyramid H: {Height}; " +
+                                       $"N: {NumberOfCorners}; " +
+                                       $"L: {LengthOfSide}";
 
         /// <summary>
         /// Pyramid's instance constructor
@@ -108,15 +111,6 @@ namespace Model
         {
             return NumberOfCorners * Math.Pow(LengthOfSide, 2) /
                    (4 * Math.Tan(Math.PI / NumberOfCorners));
-        }
-
-        /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
-        public override string GetFigureInfo()
-        {
-            return $"Pyramid H: {Height}; N: {NumberOfCorners}; L: {LengthOfSide}";
         }
 
         /// <summary>

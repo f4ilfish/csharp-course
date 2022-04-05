@@ -18,10 +18,9 @@ namespace Model
         public abstract double Volume { get; }
 
         /// <summary>
-        /// Abstract method to get figure info
+        /// Info field's property
         /// </summary>
-        /// <returns></returns>
-        public abstract string GetFigureInfo();
+        public abstract string Info { get; }
 
         /// <summary>
         /// Check positive value

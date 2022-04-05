@@ -28,16 +28,12 @@ namespace Model
         /// <summary>
         /// <inheritdoc />
         /// </summary>
-        public override double Volume
-        {
-            get
-            {
-                var volume = 4 * Math.PI * Math.Pow(Radius, 3) / 3;
+        public override double Volume => 4 * Math.PI * Math.Pow(Radius, 3) / 3;
 
-                //TODO:
-                return Math.Round(volume, 2);
-            }
-        }
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override string Info => $"Sphere R: {Radius}";
 
         /// <summary>
         /// Sphere's instance constructor
@@ -46,15 +42,6 @@ namespace Model
         public Sphere(double radius)
         {
             Radius = radius;
-        }
-
-        /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
-        public override string GetFigureInfo()
-        {
-            return $"Sphere R: {Radius}";
         }
 
         /// <summary>

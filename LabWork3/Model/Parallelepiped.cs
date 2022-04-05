@@ -84,17 +84,31 @@ namespace Model
             get => _angleOfSides;
             set
             {
-                if (value is <= MinAngle or >= MaxAngle) 
-                    //TODO:{}
+                if (value is <= MinAngle or >= MaxAngle)
+                {
                     throw new ArgumentOutOfRangeException(
-                    $"{value} must be greater than {MinAngle} " +
-                    $"or less than {MaxAngle}");
-                
+                        $"{value} must be greater than {MinAngle} " +
+                                $"or less than {MaxAngle}");
+                }
+
                 _angleOfSides = value;
             }
         }
 
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override double Volume
+        {
+            get
+            {
+                var volume = LengthFirstSide * LengthSecondSide *
+                             Math.Sin(AngleOfSides * Math.PI / 180) * Height;
 
+                return Math.Round(volume, 2);
+            }
+        }
+        
         /// <summary>
         /// Parallelepiped's instance constructor
         /// </summary>
@@ -111,18 +125,6 @@ namespace Model
             LengthFirstSide = lengthOfFirstSide;
             LengthSecondSide = lengthOfSecondSide;
             AngleOfSides = angleOfSides;
-        }
-
-        /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
-        public override double GetVolume()
-        {
-            var volume = LengthFirstSide * LengthSecondSide *
-                         Math.Sin(AngleOfSides * Math.PI / 180) * Height;
-            
-            return Math.Round(volume, 2);
         }
 
         /// <summary>

@@ -40,7 +40,7 @@ namespace View
             ColorfulPrint(">>> Volumes of figures:", ConsoleColor.Yellow);
             foreach (var tmpFigure in figureList)
             {
-                Console.WriteLine($"{tmpFigure.GetType()} have {tmpFigure.GetVolume()} volume");
+                Console.WriteLine($"{tmpFigure.GetType()} have {tmpFigure.Volume} volume");
             }
         }
 

@@ -26,6 +26,19 @@ namespace Model
         }
 
         /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override double Volume
+        {
+            get
+            {
+                var volume = 4 * Math.PI * Math.Pow(Radius, 3) / 3;
+
+                return Math.Round(volume, 2);
+            }
+        }
+
+        /// <summary>
         /// Sphere's instance constructor
         /// </summary>
         /// <param name="radius"></param>
@@ -34,17 +47,6 @@ namespace Model
             Radius = radius;
         }
 
-        /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
-        public override double GetVolume()
-        {
-            var volume = 4 * Math.PI * Math.Pow(Radius, 3) / 3;
-            
-            return Math.Round(volume, 2);
-        }
-        
         /// <summary>
         /// <inheritdoc />
         /// </summary>
@@ -64,7 +66,7 @@ namespace Model
             const int maxRadius = 100;
 
             var tmpRadius = rnd.Next((int)MinFigureParamValue, maxRadius)
-                            + Math.Round(rnd.NextDouble(), 2);
+                                + Math.Round(rnd.NextDouble(), 2);
 
             return new Sphere(tmpRadius);
         }

@@ -49,9 +49,11 @@ namespace Model
             get => _numberOfCorners;
             set
             {
-                //TODO:{}
-                if (value < MinCornersNumber) throw new ArgumentOutOfRangeException(
-                    $"{value} must be greater than {MinCornersNumber}");
+                if (value < MinCornersNumber)
+                {
+                    throw new ArgumentOutOfRangeException(
+                        $"{value} must be greater than {MinCornersNumber}");
+                }
                 
                 _numberOfCorners = value;
             }
@@ -67,6 +69,20 @@ namespace Model
             {
                 CheckValue(value, MinFigureParamValue);
                 _lengthOfSide = value;
+            }
+        }
+
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override double Volume
+        {
+            get
+            {
+                var baseArea = GetBaseArea();
+                var volume = baseArea * Height / 3;
+
+                return Math.Round(volume, 2);
             }
         }
 
@@ -97,18 +113,6 @@ namespace Model
         /// <inheritdoc />
         /// </summary>
         /// <returns></returns>
-        public override double GetVolume()
-        {
-            var baseArea = GetBaseArea();
-            var volume = baseArea * Height / 3;
-            
-            return Math.Round(volume, 2);
-        }
-
-        /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
         public override string GetFigureInfo()
         {
             return $"Pyramid H: {Height}; N: {NumberOfCorners}; L: {LengthOfSide}";
@@ -125,10 +129,12 @@ namespace Model
             const int maxCornersNumbers = 12;
 
             var tmpHeight = rnd.Next((int)MinFigureParamValue, maxLengthHeight)
-                            + Math.Round(rnd.NextDouble(), 2);
+                                + Math.Round(rnd.NextDouble(), 2);
+            
             var tmpNumberOfCorners = rnd.Next(MinCornersNumber, maxCornersNumbers);
+            
             var tmpLengthSide = rnd.Next((int)MinFigureParamValue, maxLengthHeight)
-                             + Math.Round(rnd.NextDouble(), 2);
+                                    + Math.Round(rnd.NextDouble(), 2);
 
             return new Pyramid(tmpHeight, tmpNumberOfCorners, tmpLengthSide);
         }

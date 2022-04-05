@@ -13,16 +13,14 @@ namespace Model
         protected const double MinFigureParamValue = 0;
 
         /// <summary>
-        /// Abstract method to get figure volume
+        /// Volume field's property
         /// </summary>
-        /// <returns></returns>
-        public abstract double GetVolume();
+        public abstract double Volume { get; }
 
         /// <summary>
-        /// Abstract method to get figure info
+        /// Info field's property
         /// </summary>
-        /// <returns></returns>
-        public abstract string GetFigureInfo();
+        public abstract string Info { get; }
 
         /// <summary>
         /// Check positive value

@@ -10,11 +10,6 @@ namespace View
     /// </summary>
     public partial class InputForm : Form
     {
-        ///// <summary>
-        ///// Main form reference
-        ///// </summary>
-        //private MainForm MainForm { get; set; }
-
         /// <summary>
         /// Figure
         /// </summary>
@@ -176,9 +171,11 @@ namespace View
         private void MaskedTextBox_TextChanged(object sender, EventArgs e)
         {
             MaskedTextBox maskedTextBox = (MaskedTextBox) sender;
+            
             var errorMessage = !IsValidValue(maskedTextBox.Text, out var errorMsg)
                 ? errorMsg
                 : "";
+            
             TextBoxToErrProvider[maskedTextBox].SetError(maskedTextBox, errorMessage);
         }
 
@@ -299,15 +296,17 @@ namespace View
         /// <param name="e">Event argument</param>
         private void OkInputButton_Click(object sender, EventArgs e)
         {
-            var dictionary = new Dictionary<RadioButton, (String, Func<FigureBase>)>()
+            var dictionary = new Dictionary<RadioButton, (string, Func<FigureBase>)>()
             {
                 { SphereRadioButton, ("Sphere", GetSphere) },
                 { PyramidRadioButton, ("Pyramid", GetPyramid) },
                 { ParallelepipedRadioButton, ("Parallelepiped", GetParallelepiped) },
             };
+            
             if (IsValidTextBoxes(CheckedRadioButton))
             {
-                var figureString = String.Empty;
+                var figureString = string.Empty;
+                
                 foreach (var valueTuple in dictionary)
                 {
                     if (CheckedRadioButton.Equals(valueTuple.Key))

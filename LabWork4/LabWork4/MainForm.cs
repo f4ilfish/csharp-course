@@ -32,11 +32,6 @@ namespace View
             FigureDataGridView.DataSource = FigureList;
         }
 
-        //public void AddFigure(FigureBase figureToAdd)
-        //{
-        //    FigureList.Add(figureToAdd);
-        //}
-
         /// <summary>
         /// Event AddFigureButton click
         /// </summary>

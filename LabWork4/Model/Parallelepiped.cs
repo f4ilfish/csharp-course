@@ -85,18 +85,38 @@ namespace Model
             set
             {
                 if (value is <= MinAngle or >= MaxAngle)
+                {
                     throw new ArgumentOutOfRangeException(
-                    $"{value} must be greater than {MinAngle} " +
-                    $"or less than {MaxAngle}");
+                        $"{value} must be greater than {MinAngle} " +
+                                $"or less than {MaxAngle}");
+                }
 
                 _angleOfSides = value;
             }
         }
 
         /// <summary>
+        /// Base area field's property
+        /// </summary>
+        public double BaseArea => LengthFirstSide * LengthSecondSide * 
+                                  Math.Sin(AngleOfSides * Math.PI / 180);
+
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override double Volume => BaseArea * Height;
+
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override string Info => $"Parallelepiped H: {Height}; " +
+                                       $"L1: {LengthFirstSide}; " +
+                                       $"L2: {LengthSecondSide}; " +
+                                       $"Angle: {AngleOfSides}";
+
+        /// <summary>
         /// Parallelepiped's default instance constructor
         /// </summary>
-
         public Parallelepiped(){}
 
         /// <summary>
@@ -118,28 +138,6 @@ namespace Model
         }
 
         /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
-        public override double GetVolume()
-        {
-            var volume = LengthFirstSide * LengthSecondSide *
-                         Math.Sin(AngleOfSides * Math.PI / 180) * Height;
-
-            return Math.Round(volume, 2);
-        }
-
-        /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
-        public override string GetFigureInfo()
-        {
-            return $"Parallelepiped H: {Height}; L1: {LengthFirstSide}; " +
-                   $"L2: {LengthSecondSide}; Angle: {AngleOfSides}";
-        }
-
-        /// <summary>
         /// Get random parallelepiped
         /// </summary>
         /// <returns></returns>
@@ -150,13 +148,16 @@ namespace Model
 
 
             var tmpHeight = rnd.Next((int)MinFigureParamValue, maxLengthSide)
-                            + Math.Round(rnd.NextDouble(), 2);
+                                + Math.Round(rnd.NextDouble(), 2);
+            
             var tmpLengthFirstSide = rnd.Next((int)MinFigureParamValue, maxLengthSide)
-                                     + Math.Round(rnd.NextDouble(), 2);
+                                         + Math.Round(rnd.NextDouble(), 2);
+            
             var tmpLengthSecondSide = rnd.Next((int)MinFigureParamValue, maxLengthSide)
-                                      + Math.Round(rnd.NextDouble(), 2);
+                                          + Math.Round(rnd.NextDouble(), 2);
+            
             var tmpAngle = rnd.Next((int)MinAngle, (int)MaxAngle)
-                           + Math.Round(rnd.NextDouble(), 2);
+                               + Math.Round(rnd.NextDouble(), 2);
 
             return new Parallelepiped(tmpHeight, tmpLengthFirstSide, tmpLengthSecondSide, tmpAngle);
         }

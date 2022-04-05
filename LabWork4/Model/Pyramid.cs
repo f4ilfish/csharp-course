@@ -49,8 +49,10 @@ namespace Model
             get => _numberOfCorners;
             set
             {
-                if (value < MinCornersNumber) throw new ArgumentOutOfRangeException(
+                if (value < MinCornersNumber){
+                    throw new ArgumentOutOfRangeException(
                     $"{value} must be greater than {MinCornersNumber}");
+                }
 
                 _numberOfCorners = value;
             }
@@ -68,6 +70,23 @@ namespace Model
                 _lengthOfSide = value;
             }
         }
+
+        /// <summary>
+        /// Base area field's property
+        /// </summary>
+        public double BaseArea => NumberOfCorners * Math.Pow(LengthOfSide, 2) / (4 * Math.Tan(Math.PI / NumberOfCorners));
+
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override double Volume => BaseArea * Height / 3;
+
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override string Info => $"Pyramid H: {Height}; " +
+                                       $"N: {NumberOfCorners}; " +
+                                       $"L: {LengthOfSide}";
 
         /// <summary>
         /// Pyramid's default instance constructor
@@ -88,37 +107,6 @@ namespace Model
         }
 
         /// <summary>
-        /// Get base area value
-        /// </summary>
-        /// <returns></returns>
-        private double GetBaseArea()
-        {
-            return NumberOfCorners * Math.Pow(LengthOfSide, 2) /
-                   (4 * Math.Tan(Math.PI / NumberOfCorners));
-        }
-
-        /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
-        public override double GetVolume()
-        {
-            var baseArea = GetBaseArea();
-            var volume = baseArea * Height / 3;
-
-            return Math.Round(volume, 2);
-        }
-
-        /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
-        public override string GetFigureInfo()
-        {
-            return $"Pyramid H: {Height}; N: {NumberOfCorners}; L: {LengthOfSide}";
-        }
-
-        /// <summary>
         /// Get random parallelepiped
         /// </summary>
         /// <returns></returns>
@@ -129,10 +117,12 @@ namespace Model
             const int maxCornersNumbers = 12;
 
             var tmpHeight = rnd.Next((int)MinFigureParamValue, maxLengthHeight)
-                            + Math.Round(rnd.NextDouble(), 2);
+                                + Math.Round(rnd.NextDouble(), 2);
+            
             var tmpNumberOfCorners = rnd.Next(MinCornersNumber, maxCornersNumbers);
+            
             var tmpLengthSide = rnd.Next((int)MinFigureParamValue, maxLengthHeight)
-                             + Math.Round(rnd.NextDouble(), 2);
+                                    + Math.Round(rnd.NextDouble(), 2);
 
             return new Pyramid(tmpHeight, tmpNumberOfCorners, tmpLengthSide);
         }

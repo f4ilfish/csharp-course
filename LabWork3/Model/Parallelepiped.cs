@@ -96,19 +96,24 @@ namespace Model
         }
 
         /// <summary>
+        /// Base area field's property
+        /// </summary>
+        public double BaseArea => LengthFirstSide * LengthSecondSide *
+                                  Math.Sin(AngleOfSides * Math.PI / 180);
+
+        /// <summary>
         /// <inheritdoc />
         /// </summary>
-        public override double Volume
-        {
-            get
-            {
-                var volume = LengthFirstSide * LengthSecondSide *
-                             Math.Sin(AngleOfSides * Math.PI / 180) * Height;
+        public override double Volume => BaseArea * Height;
 
-                return Math.Round(volume, 2);
-            }
-        }
-        
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        public override string Info => $"Parallelepiped H: {Height}; " +
+                                       $"L1: {LengthFirstSide}; " +
+                                       $"L2: {LengthSecondSide}; " +
+                                       $"Angle: {AngleOfSides}";
+
         /// <summary>
         /// Parallelepiped's instance constructor
         /// </summary>
@@ -125,16 +130,6 @@ namespace Model
             LengthFirstSide = lengthOfFirstSide;
             LengthSecondSide = lengthOfSecondSide;
             AngleOfSides = angleOfSides;
-        }
-
-        /// <summary>
-        /// <inheritdoc />
-        /// </summary>
-        /// <returns></returns>
-        public override string GetFigureInfo()
-        {
-            return $"Parallelepiped H: {Height}; L1: {LengthFirstSide}; " +
-                   $"L2: {LengthSecondSide}; Angle: {AngleOfSides}";
         }
 
         /// <summary>

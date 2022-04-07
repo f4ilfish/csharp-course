@@ -34,13 +34,13 @@ namespace View
             ColorfulPrint(">>> Created figures:", ConsoleColor.Yellow);
             foreach (var tmpFigure in figureList)
             {
-                Console.WriteLine(tmpFigure.GetFigureInfo());
+                Console.WriteLine(tmpFigure.Info);
             }
 
             ColorfulPrint(">>> Volumes of figures:", ConsoleColor.Yellow);
             foreach (var tmpFigure in figureList)
             {
-                Console.WriteLine($"{tmpFigure.GetType()} have {tmpFigure.Volume} volume");
+                Console.WriteLine($"{tmpFigure.GetType()} have {tmpFigure.Volume:F} volume");
             }
         }
 

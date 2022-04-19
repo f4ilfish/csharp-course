@@ -29,6 +29,7 @@ namespace View
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.FigureGroupBox = new System.Windows.Forms.GroupBox();
             this.RemoveFigureButton = new System.Windows.Forms.Button();
             this.AddFigureButton = new System.Windows.Forms.Button();
@@ -57,6 +58,7 @@ namespace View
             this.RemoveFigureButton.TabIndex = 2;
             this.RemoveFigureButton.Text = "Remove figure";
             this.RemoveFigureButton.UseVisualStyleBackColor = true;
+            this.RemoveFigureButton.Click += new System.EventHandler(this.RemoveFigureButton_Click);
             // 
             // AddFigureButton
             // 
@@ -73,6 +75,16 @@ namespace View
             this.FigureDataGridView.AllowUserToAddRows = false;
             this.FigureDataGridView.AllowUserToDeleteRows = false;
             this.FigureDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 8.830189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.Format = "N3";
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.FigureDataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             this.FigureDataGridView.Location = new System.Drawing.Point(17, 32);
             this.FigureDataGridView.Name = "FigureDataGridView";
             this.FigureDataGridView.ReadOnly = true;

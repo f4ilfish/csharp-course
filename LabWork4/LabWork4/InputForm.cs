@@ -15,6 +15,8 @@ namespace View
         /// </summary>
         private FigureBase FigureBase { get; set; }
 
+        public EventHandler<FigureEventArgs> FigureAdded;
+
         /// <summary>
         /// Dictionary of matching RadioButton to it's list of MaskedTextBoxes
         /// </summary>
@@ -81,50 +83,68 @@ namespace View
         /// <param name="e">Event argument</param>
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton radioButton = (RadioButton)sender;
-
-            string radioButtonName = radioButton.Name;
-
-            //TODO: строковые ключи
-            switch (radioButtonName)
+            var radioButtonToLabelName = new Dictionary<RadioButton, Dictionary<Label, string>>()
             {
-                case "SphereRadioButton":
-                    CheckedRadioButton = SphereRadioButton;
+                {SphereRadioButton, new Dictionary<Label, string>()
+                {
+                    {RadiusHeightLabel, "Radius:"}
+                }},
 
-                    RadiusHeightLabel.Text = "Radius:";
-                    BaseGroupBox.Enabled = false;
-                    break;
-                
-                case "PyramidRadioButton":
-                    CheckedRadioButton = PyramidRadioButton;
+                {PyramidRadioButton, new Dictionary<Label, string>()
+                {
+                    {RadiusHeightLabel, "Height:"},
+                    {SideFirstSideLabel, "Side:"}
+                }},
 
-                    RadiusHeightLabel.Text = "Height:";
-                    SideFirstSideLabel.Text = "Side:";
+                {ParallelepipedRadioButton, new Dictionary<Label, string>()
+                {
+                    {RadiusHeightLabel, "Height:"},
+                    {SideFirstSideLabel, "First side:"}
+                }}
+            };
 
-                    BaseGroupBox.Enabled = true;
-                    NumberOfCornersNumericUpDown.Enabled = true;
-                    SidesAngleMaskedTextBox.Enabled = false;
-                    SecondSideMaskedTextBox.Enabled = false;
-                    break;
-                
-                case "ParallelepipedRadioButton":
-                    CheckedRadioButton = ParallelepipedRadioButton;
+            var radioButtonToControlEnable = new Dictionary<RadioButton, Dictionary<Control, bool>>()
+            {
+                {SphereRadioButton, new Dictionary<Control, bool>()
+                {
+                    {BaseGroupBox, false}
+                }},
 
-                    RadiusHeightLabel.Text = "Height:";
-                    SideFirstSideLabel.Text = "First side:";
+                {PyramidRadioButton, new Dictionary<Control, bool>()
+                {
+                    {BaseGroupBox, true},
+                    {NumberOfCornersNumericUpDown, true},
+                    {SidesAngleMaskedTextBox, false},
+                    {SecondSideMaskedTextBox, false}
+                }},
 
-                    BaseGroupBox.Enabled = true;
-                    NumberOfCornersNumericUpDown.Enabled = false;
+                {ParallelepipedRadioButton, new Dictionary<Control, bool>()
+                {
+                    {BaseGroupBox, true},
+                    {NumberOfCornersNumericUpDown, false},
+                    {SidesAngleMaskedTextBox, true},
+                    {SideFirstSideMaskedTextBox, true},
+                    {SecondSideMaskedTextBox, true}
+                }},
+            };
 
-                    foreach (var control in BaseGroupBox.Controls)
+            foreach (var radioButtonLabelPair in radioButtonToLabelName)
+            {
+                if (sender.Equals(radioButtonLabelPair.Key))
+                {
+                    foreach (var labelNamePair in radioButtonLabelPair.Value)
                     {
-                        if (control.GetType() == typeof(MaskedTextBox))
-                        {
-                            ((MaskedTextBox)control).Enabled = true;
-                        }
+                        labelNamePair.Key.Text = labelNamePair.Value;
                     }
-                    break;
+
+                    foreach (var radioButtonControlPair in radioButtonToControlEnable[radioButtonLabelPair.Key])
+                    {
+                        radioButtonControlPair.Key.Enabled = radioButtonControlPair.Value;
+                    }
+                }
             }
+
+            CheckedRadioButton = (RadioButton)sender;
         }
 
         /// <summary>
@@ -312,6 +332,9 @@ namespace View
                     if (CheckedRadioButton.Equals(valueTuple.Key))
                     {
                         FigureBase = valueTuple.Value.Item2.Invoke();
+                        
+                        FigureAdded.Invoke(this, new FigureEventArgs(FigureBase));
+
                         figureString = valueTuple.Value.Item1;
                     }
                 }
@@ -319,9 +342,11 @@ namespace View
             }
             else
             {
-                MessageBox.Show("Some of the parameters are missing");
+                MessageBox.Show("Some of the parameters are missing or not valid");
             }
         }
+
+
 
         /// <summary>
         /// Event CancelInputButton click

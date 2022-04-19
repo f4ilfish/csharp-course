@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Model;
 
@@ -12,12 +14,12 @@ namespace View
         /// <summary>
         /// Figures list
         /// </summary>
-        private List<FigureBase> _figureList = new();
+        private BindingList<FigureBase> _figureList = new();
 
         /// <summary>
         /// Figures list field's property
         /// </summary>
-        public List<FigureBase> FigureList
+        public BindingList<FigureBase> FigureList
         {
             get => _figureList;
             set => _figureList = value;
@@ -41,7 +43,27 @@ namespace View
         {
             InputForm newInputForm = new InputForm();
 
+            newInputForm.FigureAdded += (o, args) =>
+            {
+                FigureList.Add(args.Figure);
+            };
+
             newInputForm.Show();
+        }
+
+        private void RemoveFigureButton_Click(object sender, EventArgs e)
+        {
+            if (FigureDataGridView.SelectedRows.Count != 0)
+            {
+                foreach (DataGridViewRow row in FigureDataGridView.SelectedRows)
+                {
+                    FigureList.Remove(row.DataBoundItem as FigureBase);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No selected items");
+            }
         }
     }
 }

@@ -16,19 +16,33 @@ namespace View
         private FigureBase FigureBase { get; set; }
 
         //TODO: XML
+        /// <summary>
+        /// Handler to event of add figure
+        /// </summary>
         public EventHandler<FigureEventArgs> FigureAdded;
 
         //TODO:readonly
+
+        /// <summary>
+        /// Dictionary of matching Radiobutton to it's label name
+        /// </summary>
+        private readonly Dictionary<RadioButton, Dictionary<Label, string>> _radioButtonToLabelName;
+
+        /// <summary>
+        /// Dictionary of matching Radiobutton to it's control name
+        /// </summary>
+        private readonly Dictionary<RadioButton, Dictionary<Control, bool>> _radioButtonToControlEnable;
+
         /// <summary>
         /// Dictionary of matching RadioButton to it's list of MaskedTextBoxes
         /// </summary>
-        private Dictionary<RadioButton, List<MaskedTextBox>> RadioButtonToTextBoxes { get; set; }
+        private readonly Dictionary<RadioButton, List<MaskedTextBox>> _radioButtonToTextBoxes;
 
         /// <summary>
         /// Dictionary of matching MaskedTextBox to it's ErrorProvider
         /// </summary>
         private readonly Dictionary<MaskedTextBox, ErrorProvider> _textBoxToErrProvider;
-        
+
         /// <summary>
         /// Current checked RadioButton
         /// </summary>
@@ -45,7 +59,52 @@ namespace View
             PyramidRadioButton.CheckedChanged += RadioButton_CheckedChanged;
             ParallelepipedRadioButton.CheckedChanged += RadioButton_CheckedChanged;
 
-            RadioButtonToTextBoxes = new Dictionary<RadioButton, List<MaskedTextBox>>()
+            _radioButtonToLabelName = new Dictionary<RadioButton, Dictionary<Label, string>>()
+            {
+                {SphereRadioButton, new Dictionary<Label, string>()
+                {
+                    {RadiusHeightLabel, "Radius:"}
+                }},
+
+                {PyramidRadioButton, new Dictionary<Label, string>()
+                {
+                    {RadiusHeightLabel, "Height:"},
+                    {SideFirstSideLabel, "Side:"}
+                }},
+
+                {ParallelepipedRadioButton, new Dictionary<Label, string>()
+                {
+                    {RadiusHeightLabel, "Height:"},
+                    {SideFirstSideLabel, "First side:"}
+                }}
+            };
+
+            _radioButtonToControlEnable = new Dictionary<RadioButton, Dictionary<Control, bool>>()
+            {
+                {SphereRadioButton, new Dictionary<Control, bool>()
+                {
+                    {BaseGroupBox, false}
+                }},
+
+                {PyramidRadioButton, new Dictionary<Control, bool>()
+                {
+                    {BaseGroupBox, true},
+                    {NumberOfCornersNumericUpDown, true},
+                    {SidesAngleMaskedTextBox, false},
+                    {SecondSideMaskedTextBox, false}
+                }},
+
+                {ParallelepipedRadioButton, new Dictionary<Control, bool>()
+                {
+                    {BaseGroupBox, true},
+                    {NumberOfCornersNumericUpDown, false},
+                    {SidesAngleMaskedTextBox, true},
+                    {SideFirstSideMaskedTextBox, true},
+                    {SecondSideMaskedTextBox, true}
+                }},
+            };
+
+            _radioButtonToTextBoxes = new Dictionary<RadioButton, List<MaskedTextBox>>()
             {
                 {
                     SphereRadioButton, new List<MaskedTextBox>(){RadiusHeightMaskedTextBox}
@@ -85,52 +144,7 @@ namespace View
         /// <param name="e">Event argument</param>
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            var radioButtonToLabelName = new Dictionary<RadioButton, Dictionary<Label, string>>()
-            {
-                {SphereRadioButton, new Dictionary<Label, string>()
-                {
-                    {RadiusHeightLabel, "Radius:"}
-                }},
-
-                {PyramidRadioButton, new Dictionary<Label, string>()
-                {
-                    {RadiusHeightLabel, "Height:"},
-                    {SideFirstSideLabel, "Side:"}
-                }},
-
-                {ParallelepipedRadioButton, new Dictionary<Label, string>()
-                {
-                    {RadiusHeightLabel, "Height:"},
-                    {SideFirstSideLabel, "First side:"}
-                }}
-            };
-
-            var radioButtonToControlEnable = new Dictionary<RadioButton, Dictionary<Control, bool>>()
-            {
-                {SphereRadioButton, new Dictionary<Control, bool>()
-                {
-                    {BaseGroupBox, false}
-                }},
-
-                {PyramidRadioButton, new Dictionary<Control, bool>()
-                {
-                    {BaseGroupBox, true},
-                    {NumberOfCornersNumericUpDown, true},
-                    {SidesAngleMaskedTextBox, false},
-                    {SecondSideMaskedTextBox, false}
-                }},
-
-                {ParallelepipedRadioButton, new Dictionary<Control, bool>()
-                {
-                    {BaseGroupBox, true},
-                    {NumberOfCornersNumericUpDown, false},
-                    {SidesAngleMaskedTextBox, true},
-                    {SideFirstSideMaskedTextBox, true},
-                    {SecondSideMaskedTextBox, true}
-                }},
-            };
-
-            foreach (var radioButtonLabelPair in radioButtonToLabelName)
+            foreach (var radioButtonLabelPair in _radioButtonToLabelName)
             {
                 if (sender.Equals(radioButtonLabelPair.Key))
                 {
@@ -140,7 +154,8 @@ namespace View
                     }
 
                     //TODO: RSDN
-                    foreach (var radioButtonControlPair in radioButtonToControlEnable[radioButtonLabelPair.Key])
+                    foreach (var radioButtonControlPair in 
+                             _radioButtonToControlEnable[radioButtonLabelPair.Key])
                     {
                         radioButtonControlPair.Key.Enabled = radioButtonControlPair.Value;
                     }
@@ -209,7 +224,7 @@ namespace View
         /// <returns></returns>
         private bool IsValidTextBoxes(RadioButton radioButton)
         {
-            foreach (var textBox in RadioButtonToTextBoxes[radioButton])
+            foreach (var textBox in _radioButtonToTextBoxes[radioButton])
             {
                 if (_textBoxToErrProvider[textBox].GetError(textBox) != "" 
                     || textBox.Text.Length == 0)
@@ -219,15 +234,6 @@ namespace View
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// Set figure field's value
-        /// </summary>
-        /// <param name="action"></param>
-        private void SetValue(Action action)
-        {
-            action.Invoke();
         }
 
         /// <summary>
@@ -245,7 +251,12 @@ namespace View
                     newSphere.Radius = Convert.ToDouble(RadiusHeightMaskedTextBox.Text);
                 }
             };
-            actions.ForEach(SetValue);
+
+            foreach (var action in actions)
+            {
+                action.Invoke();
+            }
+
             return newSphere;
         }
 
@@ -274,7 +285,12 @@ namespace View
                     newPyramid.LengthOfSide = Convert.ToDouble(SideFirstSideMaskedTextBox.Text);
                 },
             };
-            actions.ForEach(SetValue);
+
+            foreach (var action in actions)
+            {
+                action.Invoke();
+            }
+
             return newPyramid;
         }
 
@@ -309,7 +325,11 @@ namespace View
                 },
             };
 
-            actions.ForEach(SetValue);
+            foreach (var action in actions)
+            {
+                action.Invoke();
+            }
+
             return newParallelepiped;
         }
 
@@ -323,9 +343,9 @@ namespace View
             var dictionary = new Dictionary<RadioButton, (string, Func<FigureBase>)>()
             {
                 //TODO: nameof
-                { SphereRadioButton, ("Sphere", GetSphere) },
-                { PyramidRadioButton, ("Pyramid", GetPyramid) },
-                { ParallelepipedRadioButton, ("Parallelepiped", GetParallelepiped) },
+                { SphereRadioButton, (nameof(Sphere), GetSphere) },
+                { PyramidRadioButton, (nameof(Pyramid), GetPyramid) },
+                { ParallelepipedRadioButton, (nameof(Parallelepiped), GetParallelepiped) },
             };
             
             if (IsValidTextBoxes(CheckedRadioButton))

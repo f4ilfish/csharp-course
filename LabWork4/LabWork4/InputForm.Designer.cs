@@ -113,7 +113,7 @@ namespace View
             this.RadiusHeightGroupBox.Controls.Add(this.RadiusHeightMaskedTextBox);
             this.RadiusHeightGroupBox.Location = new System.Drawing.Point(212, 12);
             this.RadiusHeightGroupBox.Name = "RadiusHeightGroupBox";
-            this.RadiusHeightGroupBox.Size = new System.Drawing.Size(211, 53);
+            this.RadiusHeightGroupBox.Size = new System.Drawing.Size(198, 53);
             this.RadiusHeightGroupBox.TabIndex = 1;
             this.RadiusHeightGroupBox.TabStop = false;
             this.RadiusHeightGroupBox.Text = "Radius / Height";
@@ -203,7 +203,7 @@ namespace View
             this.BaseGroupBox.Controls.Add(this.SecondSideLabel);
             this.BaseGroupBox.Location = new System.Drawing.Point(212, 71);
             this.BaseGroupBox.Name = "BaseGroupBox";
-            this.BaseGroupBox.Size = new System.Drawing.Size(211, 149);
+            this.BaseGroupBox.Size = new System.Drawing.Size(198, 149);
             this.BaseGroupBox.TabIndex = 8;
             this.BaseGroupBox.TabStop = false;
             this.BaseGroupBox.Text = "Base:";

@@ -129,14 +129,14 @@ namespace View
             // 
             // RadiusHeightMaskedTextBox
             // 
-            this.RadiusHeightMaskedTextBox.Location = new System.Drawing.Point(121, 18);
+            this.RadiusHeightMaskedTextBox.Location = new System.Drawing.Point(132, 18);
             this.RadiusHeightMaskedTextBox.Name = "RadiusHeightMaskedTextBox";
             this.RadiusHeightMaskedTextBox.Size = new System.Drawing.Size(56, 25);
             this.RadiusHeightMaskedTextBox.TabIndex = 0;
             // 
             // SecondSideMaskedTextBox
             // 
-            this.SecondSideMaskedTextBox.Location = new System.Drawing.Point(121, 111);
+            this.SecondSideMaskedTextBox.Location = new System.Drawing.Point(132, 111);
             this.SecondSideMaskedTextBox.Name = "SecondSideMaskedTextBox";
             this.SecondSideMaskedTextBox.Size = new System.Drawing.Size(56, 25);
             this.SecondSideMaskedTextBox.TabIndex = 7;
@@ -152,7 +152,7 @@ namespace View
             // 
             // SideFirstSideMaskedTextBox
             // 
-            this.SideFirstSideMaskedTextBox.Location = new System.Drawing.Point(121, 80);
+            this.SideFirstSideMaskedTextBox.Location = new System.Drawing.Point(132, 80);
             this.SideFirstSideMaskedTextBox.Name = "SideFirstSideMaskedTextBox";
             this.SideFirstSideMaskedTextBox.Size = new System.Drawing.Size(56, 25);
             this.SideFirstSideMaskedTextBox.TabIndex = 5;
@@ -168,7 +168,7 @@ namespace View
             // 
             // SidesAngleMaskedTextBox
             // 
-            this.SidesAngleMaskedTextBox.Location = new System.Drawing.Point(121, 49);
+            this.SidesAngleMaskedTextBox.Location = new System.Drawing.Point(132, 49);
             this.SidesAngleMaskedTextBox.Name = "SidesAngleMaskedTextBox";
             this.SidesAngleMaskedTextBox.Size = new System.Drawing.Size(56, 25);
             this.SidesAngleMaskedTextBox.TabIndex = 3;
@@ -210,7 +210,7 @@ namespace View
             // 
             // NumberOfCornersNumericUpDown
             // 
-            this.NumberOfCornersNumericUpDown.Location = new System.Drawing.Point(121, 15);
+            this.NumberOfCornersNumericUpDown.Location = new System.Drawing.Point(132, 18);
             this.NumberOfCornersNumericUpDown.Maximum = new decimal(new int[] {
             99,
             0,

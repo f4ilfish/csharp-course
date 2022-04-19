@@ -90,6 +90,7 @@ namespace View
             this.FigureDataGridView.ReadOnly = true;
             this.FigureDataGridView.RowHeadersWidth = 45;
             this.FigureDataGridView.RowTemplate.Height = 27;
+            this.FigureDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.FigureDataGridView.Size = new System.Drawing.Size(479, 340);
             this.FigureDataGridView.TabIndex = 0;
             // 

@@ -15,8 +15,10 @@ namespace View
         /// </summary>
         private FigureBase FigureBase { get; set; }
 
+        //TODO: XML
         public EventHandler<FigureEventArgs> FigureAdded;
 
+        //TODO:readonly
         /// <summary>
         /// Dictionary of matching RadioButton to it's list of MaskedTextBoxes
         /// </summary>
@@ -25,7 +27,7 @@ namespace View
         /// <summary>
         /// Dictionary of matching MaskedTextBox to it's ErrorProvider
         /// </summary>
-        private Dictionary<MaskedTextBox, ErrorProvider> TextBoxToErrProvider { get; set; }
+        private readonly Dictionary<MaskedTextBox, ErrorProvider> _textBoxToErrProvider;
         
         /// <summary>
         /// Current checked RadioButton
@@ -62,7 +64,7 @@ namespace View
                 }
             };
 
-            TextBoxToErrProvider = new Dictionary<MaskedTextBox, ErrorProvider>()
+            _textBoxToErrProvider = new Dictionary<MaskedTextBox, ErrorProvider>()
             {
                 {RadiusHeightMaskedTextBox, RadiusHeightErrorProvider},
                 {SidesAngleMaskedTextBox, SidesAngleErrorProvider},
@@ -137,6 +139,7 @@ namespace View
                         labelNamePair.Key.Text = labelNamePair.Value;
                     }
 
+                    //TODO: RSDN
                     foreach (var radioButtonControlPair in radioButtonToControlEnable[radioButtonLabelPair.Key])
                     {
                         radioButtonControlPair.Key.Enabled = radioButtonControlPair.Value;
@@ -196,7 +199,7 @@ namespace View
                 ? errorMsg
                 : "";
             
-            TextBoxToErrProvider[maskedTextBox].SetError(maskedTextBox, errorMessage);
+            _textBoxToErrProvider[maskedTextBox].SetError(maskedTextBox, errorMessage);
         }
 
         /// <summary>
@@ -208,7 +211,8 @@ namespace View
         {
             foreach (var textBox in RadioButtonToTextBoxes[radioButton])
             {
-                if (TextBoxToErrProvider[textBox].GetError(textBox) != "" || textBox.Text.Length == 0)
+                if (_textBoxToErrProvider[textBox].GetError(textBox) != "" 
+                    || textBox.Text.Length == 0)
                 {
                     return false;
                 }
@@ -318,6 +322,7 @@ namespace View
         {
             var dictionary = new Dictionary<RadioButton, (string, Func<FigureBase>)>()
             {
+                //TODO: nameof
                 { SphereRadioButton, ("Sphere", GetSphere) },
                 { PyramidRadioButton, ("Pyramid", GetPyramid) },
                 { ParallelepipedRadioButton, ("Parallelepiped", GetParallelepiped) },

@@ -30,6 +30,7 @@ namespace View
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.FigureGroupBox = new System.Windows.Forms.GroupBox();
             this.RemoveFigureButton = new System.Windows.Forms.Button();
             this.AddFigureButton = new System.Windows.Forms.Button();
@@ -74,6 +75,7 @@ namespace View
             // 
             this.FigureDataGridView.AllowUserToAddRows = false;
             this.FigureDataGridView.AllowUserToDeleteRows = false;
+            this.FigureDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.FigureDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -98,10 +100,13 @@ namespace View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 453);
+            this.ClientSize = new System.Drawing.Size(544, 459);
             this.Controls.Add(this.FigureGroupBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Volume calc";
+            this.Text = "Figure\'s Volume Calculator";
             this.FigureGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FigureDataGridView)).EndInit();
             this.ResumeLayout(false);

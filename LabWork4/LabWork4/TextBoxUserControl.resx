@@ -57,29 +57,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAADB1AAAwdQAAAAAAAAAA
-        AAAkIBMAIh8SACEeEgAhHhMAKjAqADBMVwAzUmAAOF1uADxkdgD///8AaKzLADldbgAxUF4AJTxHACA1
-        PwAbLDQAKSQWACcjFQAmIxYAKCYbAC0wJwAzTlgASnmOAAEAAMYdMTv/RnKI/zBOXP8HCw35////ADRV
-        ZQAnQEwAITZAADErGgA8NSAAPjchAK+cXwBFQzEARFpcAAoSFMt3x+v/j+7//47q//+O6///jen//w8a
-        H/9qr9AAME9eACU9SQBDOiMAaFs2AAAAAKUDBAL/KyIQ9wAAAH4xWG//i+n//4jh//+F3f//h9///4rk
-        //+A1Pv/AAAAtzVXaAAnQE4AAAAADxIPCvy+pmL/Ukcq////l/85LBL/huf//4fk//+F3v//hdz//4Xc
-        //+H4P//kfH//xIfI+o2WGsAJj1NABgVDv7u0Hv/7c97/zQsGf///5P/Wk0s/2TD/P+G4///hd7//4Xc
-        //+F3f//iOL//5T2//8FCQbuMEVlAB8mRgAwKhfb7c97/+zOev8zKxj///yQ/9awXP8hXIX/heX//4bi
-        //+G3///h+L//47t//95zuX/AAAA/wAAAH0xMncAMywZ1+3Pev/sznr/MywZ///6jv//94j/naF7/1av
-        5f+L7///k/r//5X8//+G5P//BAoI/3Fp//9iX/j/AwIH/8OpYq3v0Hv/gG4+/wwLCv81Lxr/1bRf///y
-        gP9YSiL/GzA9/yNCSP8hPUL/BQYL/2BU/P9ybf//TEzB/wAAAFspJhX6Pjci/6OVbf///8b///+8/29j
-        R/8xKBb/0rBU/zQnK/9LQd3/NSuP/0VCtf90cP//cG3//wAAAPIpKWgAAAAA/7Sjdv///8X////A////
-        vf///8L////J/2pfO/8DAQH/bGr//0RDsP9GRLP/c3H//x4eTf////8AKChlAEpCLgAAAABCDAwJ8H5z
-        U////LX///iy/0M+K/8AAABlAAAAglBQzv9GRbT/SUi6/2dm//8nKHkYODiOACkpZwA+OCgAXVQ8AHZr
-        TQAAAAAQDAwI7A8OCu7//9UAT0lFADY0ZwAJCRb/TEvB/05Nxv8MDB//Pz+gADIygAAqKmwAOTMlAEM9
-        LABVTjgAXlY+AGJZQABhWD8AXVQ9ADo2MwAgH0gAAAAAJBkZP/8bG0T/AAAAKSUlXwAmJmEAJydkADEt
-        IAA2MSMAOTQmAD86KQBCPCsAQjwsAD44KwAdGywAFxYvABoaQAANDSD/Dw8l/xsbRAAWFjgAFhU3ABUV
-        NgAtKR0ALisfADEtIAA3MiQAOzYnADw2KAA3MicAFRUpABMTKwATEiwAJiZeACcnYgAUFDMAFBQzABQT
-        MgATEzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAA==
-</value>
-  </data>
+  <metadata name="ValueErorProvider.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

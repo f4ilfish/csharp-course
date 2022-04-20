@@ -28,56 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.RadiusHeightGroupBox = new System.Windows.Forms.GroupBox();
-            this.RadiusHeightLabel = new System.Windows.Forms.Label();
-            this.RadiusHeightMaskedTextBox = new System.Windows.Forms.MaskedTextBox();
-            this.RadiusHeightGroupBox.SuspendLayout();
+            this.SphereGroupBox = new System.Windows.Forms.GroupBox();
+            this.SphereTableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.RadiusTextBox = new View.TextBoxUserControl();
+            this.SphereRadiusLabel = new System.Windows.Forms.Label();
+            this.SphereGroupBox.SuspendLayout();
+            this.SphereTableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
-            // RadiusHeightGroupBox
+            // SphereGroupBox
             // 
-            this.RadiusHeightGroupBox.Controls.Add(this.RadiusHeightLabel);
-            this.RadiusHeightGroupBox.Controls.Add(this.RadiusHeightMaskedTextBox);
-            this.RadiusHeightGroupBox.Location = new System.Drawing.Point(13, 15);
-            this.RadiusHeightGroupBox.Name = "RadiusHeightGroupBox";
-            this.RadiusHeightGroupBox.Size = new System.Drawing.Size(198, 53);
-            this.RadiusHeightGroupBox.TabIndex = 2;
-            this.RadiusHeightGroupBox.TabStop = false;
-            this.RadiusHeightGroupBox.Text = "Parameters";
+            this.SphereGroupBox.Controls.Add(this.SphereTableLayout);
+            this.SphereGroupBox.Location = new System.Drawing.Point(15, 15);
+            this.SphereGroupBox.Name = "SphereGroupBox";
+            this.SphereGroupBox.Size = new System.Drawing.Size(405, 75);
+            this.SphereGroupBox.TabIndex = 0;
+            this.SphereGroupBox.TabStop = false;
+            this.SphereGroupBox.Text = "Parameters:";
             // 
-            // RadiusHeightLabel
+            // SphereTableLayout
             // 
-            this.RadiusHeightLabel.AutoSize = true;
-            this.RadiusHeightLabel.Location = new System.Drawing.Point(6, 21);
-            this.RadiusHeightLabel.Name = "RadiusHeightLabel";
-            this.RadiusHeightLabel.Size = new System.Drawing.Size(50, 17);
-            this.RadiusHeightLabel.TabIndex = 8;
-            this.RadiusHeightLabel.Text = "Radius:";
+            this.SphereTableLayout.ColumnCount = 2;
+            this.SphereTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.SphereTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.SphereTableLayout.Controls.Add(this.RadiusTextBox, 1, 0);
+            this.SphereTableLayout.Controls.Add(this.SphereRadiusLabel, 0, 0);
+            this.SphereTableLayout.Location = new System.Drawing.Point(25, 24);
+            this.SphereTableLayout.Name = "SphereTableLayout";
+            this.SphereTableLayout.RowCount = 1;
+            this.SphereTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.SphereTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.SphereTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.SphereTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.SphereTableLayout.Size = new System.Drawing.Size(350, 35);
+            this.SphereTableLayout.TabIndex = 2;
             // 
-            // RadiusHeightMaskedTextBox
+            // RadiusTextBox
             // 
-            this.RadiusHeightMaskedTextBox.Location = new System.Drawing.Point(132, 18);
-            this.RadiusHeightMaskedTextBox.Name = "RadiusHeightMaskedTextBox";
-            this.RadiusHeightMaskedTextBox.Size = new System.Drawing.Size(56, 25);
-            this.RadiusHeightMaskedTextBox.TabIndex = 0;
+            this.RadiusTextBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.RadiusTextBox.Location = new System.Drawing.Point(150, 3);
+            this.RadiusTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.RadiusTextBox.Name = "RadiusTextBox";
+            this.RadiusTextBox.Size = new System.Drawing.Size(200, 28);
+            this.RadiusTextBox.TabIndex = 4;
+            // 
+            // SphereRadiusLabel
+            // 
+            this.SphereRadiusLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.SphereRadiusLabel.AutoSize = true;
+            this.SphereRadiusLabel.Location = new System.Drawing.Point(3, 9);
+            this.SphereRadiusLabel.Name = "SphereRadiusLabel";
+            this.SphereRadiusLabel.Size = new System.Drawing.Size(50, 17);
+            this.SphereRadiusLabel.TabIndex = 1;
+            this.SphereRadiusLabel.Text = "Radius:";
             // 
             // SphereUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.RadiusHeightGroupBox);
+            this.Controls.Add(this.SphereGroupBox);
             this.Name = "SphereUserControl";
-            this.Size = new System.Drawing.Size(343, 81);
-            this.RadiusHeightGroupBox.ResumeLayout(false);
-            this.RadiusHeightGroupBox.PerformLayout();
+            this.Size = new System.Drawing.Size(435, 115);
+            this.SphereGroupBox.ResumeLayout(false);
+            this.SphereTableLayout.ResumeLayout(false);
+            this.SphereTableLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox RadiusHeightGroupBox;
-        private System.Windows.Forms.Label RadiusHeightLabel;
-        private System.Windows.Forms.MaskedTextBox RadiusHeightMaskedTextBox;
+        private System.Windows.Forms.GroupBox SphereGroupBox;
+        private System.Windows.Forms.Label SphereRadiusLabel;
+        private System.Windows.Forms.TableLayoutPanel SphereTableLayout;
+        private TextBoxUserControl RadiusTextBox;
     }
 }

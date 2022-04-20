@@ -11,18 +11,9 @@ namespace View
     public partial class MainForm : Form
     {
         /// <summary>
-        /// Figures list
-        /// </summary>
-        private BindingList<FigureBase> _figureList = new();
-
-        /// <summary>
         /// Figures list field's property
         /// </summary>
-        public BindingList<FigureBase> FigureList
-        {
-            get => _figureList;
-            set => _figureList = value;
-        }
+        private BindingList<FigureBase> FigureList { get; }
 
         /// <summary>
         /// Main form instance constructor
@@ -30,6 +21,7 @@ namespace View
         public MainForm()
         {
             InitializeComponent();
+            FigureList = new BindingList<FigureBase>();
             FigureDataGridView.DataSource = FigureList;
         }
 
@@ -38,11 +30,11 @@ namespace View
         /// </summary>
         /// <param name="sender">AddFigureButton</param>
         /// <param name="e">Event argument</param>
-        private void AddFigureButton_Click(object sender, System.EventArgs e)
+        private void AddFigureButton_Click(object sender, EventArgs e)
         {
-            InputForm newInputForm = new InputForm();
+            var newInputForm = new InputForm();
 
-            newInputForm.FigureAdded += (o, args) =>
+            newInputForm.FigureAdded += (_, args) =>
             {
                 FigureList.Add(args.Figure);
             };

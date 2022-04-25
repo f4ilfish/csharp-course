@@ -10,6 +10,7 @@ namespace View
     /// </summary>
     public partial class MainForm : Form
     {
+        //TODO: field
         /// <summary>
         /// Figures list field's property
         /// </summary>
@@ -42,6 +43,7 @@ namespace View
             newInputForm.Show();
         }
 
+        //TODO: XML
         private void RemoveFigureButton_Click(object sender, EventArgs e)
         {
             if (FigureDataGridView.SelectedRows.Count != 0)

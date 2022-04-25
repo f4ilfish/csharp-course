@@ -16,11 +16,8 @@ namespace View
         /// <summary>
         /// Text length of TextBox auto-prop
         /// </summary>
-        public int TextLength
-        {
-            get => ValueTextBox.Text.Length;
-        }
-        
+        public int TextLength => ValueTextBox.Text.Length;
+
         /// <summary>
         /// <inheritdoc />
         /// </summary>
@@ -83,20 +80,8 @@ namespace View
         {
             var textBox = (TextBox) sender;
 
-            string errorMessage;
-
-            if (IsValidValue(textBox.Text, out var errorMsg))
-            {
-                errorMessage = errorMsg;
-                IsValidTextBox = true;
-            }
-            else
-            {
-                errorMessage = errorMsg;
-                IsValidTextBox = false;
-            }
-
-            ValueErorProvider.SetError(textBox, errorMessage);
+            IsValidTextBox = IsValidValue(textBox.Text, out var errorMsg);
+            ValueErorProvider.SetError(textBox, errorMsg);
         }
     }
 }

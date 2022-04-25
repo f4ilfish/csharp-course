@@ -58,6 +58,7 @@ namespace View
             {
                 { SphereRadioButton, (nameof(Sphere), SphereUserControl.GetSphere) },
                 { PyramidRadioButton, (nameof(Pyramid), PyramidUserControl.GetPyramid) },
+                //TODO: RSDN
                 { ParallelepipedRadioButton, (nameof(Parallelepiped), ParallelepipedUserControl.GetParallelepiped) },
             };
         }
@@ -87,6 +88,7 @@ namespace View
         /// <returns></returns>
         private bool IsValidTextBoxes(RadioButton radioButton)
         {
+            //TODO: перепроверить производительность
             foreach (var validator in _radioButtonToUserControl[CheckedRadioButton].Controls
                          .OfType<TextBoxUserControl>().ToList())
             {

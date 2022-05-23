@@ -39,6 +39,7 @@ namespace View
             this.SphereUserControl = new View.SphereUserControl();
             this.PyramidUserControl = new View.PyramidUserControl();
             this.ParallelepipedUserControl = new View.ParallelepipedUserControl();
+            this.AddRandomFigureButton = new System.Windows.Forms.Button();
             this.SelectFigureGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,12 +130,24 @@ namespace View
             this.ParallelepipedUserControl.Size = new System.Drawing.Size(437, 210);
             this.ParallelepipedUserControl.TabIndex = 13;
             // 
+            // AddRandomFigureButton
+            // 
+            this.AddRandomFigureButton.Location = new System.Drawing.Point(20, 167);
+            this.AddRandomFigureButton.Name = "AddRandomFigureButton";
+            this.AddRandomFigureButton.Size = new System.Drawing.Size(188, 37);
+            this.AddRandomFigureButton.TabIndex = 14;
+            this.AddRandomFigureButton.Text = "Add random figure";
+            this.AddRandomFigureButton.UseVisualStyleBackColor = true;
+            this.AddRandomFigureButton.Visible = false;
+            this.AddRandomFigureButton.Click += new System.EventHandler(this.AddRandomFigureButton_Click);
+            // 
             // InputForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(649, 284);
             this.ControlBox = false;
+            this.Controls.Add(this.AddRandomFigureButton);
             this.Controls.Add(this.ParallelepipedUserControl);
             this.Controls.Add(this.PyramidUserControl);
             this.Controls.Add(this.SphereUserControl);
@@ -164,5 +177,6 @@ namespace View
         private ParallelepipedUserControl ParallelepipedUserControl;
         private PyramidUserControl PyramidUserControl;
         private SphereUserControl SphereUserControl;
+        private System.Windows.Forms.Button AddRandomFigureButton;
     }
 }

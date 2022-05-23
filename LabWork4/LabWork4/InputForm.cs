@@ -53,6 +53,10 @@ namespace View
         {
             InitializeComponent();
 
+#if !DEBUG
+            AddRandomFigureButton.Visible = true;
+#endif
+
             SphereRadioButton.CheckedChanged += RadioButton_CheckedChanged;
             PyramidRadioButton.CheckedChanged += RadioButton_CheckedChanged;
             ParallelepipedRadioButton.CheckedChanged += RadioButton_CheckedChanged;
@@ -76,6 +80,7 @@ namespace View
                                               ParallelepipedUserControl.GetParallelepiped)
                 },
             };
+
         }
 
         /// <summary>
@@ -134,5 +139,30 @@ namespace View
 
             Close();
         }
+
+#if !DEBUG
+        private void AddRandomFigureButton_Click(object sender, EventArgs e)
+        {
+            var rnd = new Random();
+
+            var choseFigure = rnd.Next(3);
+            
+            switch (choseFigure)
+            {
+                case 0:
+                    FigureBase = Sphere.GetRandomSphere();
+                    FigureAdded.Invoke(this, new FigureEventArgs(FigureBase));
+                    break;
+                case 1:
+                    FigureBase = Pyramid.GetRandomPyramid();
+                    FigureAdded.Invoke(this, new FigureEventArgs(FigureBase));
+                    break;
+                case 2:
+                    FigureBase = Parallelepiped.GetRandomParallelepiped();
+                    FigureAdded.Invoke(this, new FigureEventArgs(FigureBase));
+                    break;
+            }
+        }
+#endif
     }
 }

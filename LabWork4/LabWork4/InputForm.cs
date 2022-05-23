@@ -135,7 +135,8 @@ namespace View
         {
             _isFormClosed = true;
 
-            FormClosed.Invoke(this, new FormCloseEventArgs(_isFormClosed));
+            //OnClosed(EventArgs.Empty);
+            //Closed?.Invoke(this, new FormCloseEventArgs(_isFormClosed));
 
             Close();
         }

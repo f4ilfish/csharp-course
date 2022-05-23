@@ -10,11 +10,10 @@ namespace View
     /// </summary>
     public partial class MainForm : Form
     {
-        //TODO: field
         /// <summary>
         /// Figures list field's property
         /// </summary>
-        private BindingList<FigureBase> _figureList = new();
+        private readonly BindingList<FigureBase> _figureList = new();
 
         /// <summary>
         /// Main form instance constructor
@@ -43,18 +42,14 @@ namespace View
                 _figureList.Add(args.Figure);
             };
 
-            newInputForm.FormClosed += (_, args) =>
+            newInputForm.Closed += (_, _) =>
             {
-                if (args.IsFormClosed)
-                {
-                    AddFigureButton.Enabled = true;
-                }
+                AddFigureButton.Enabled = true;
             };
 
             AddFigureButton.Enabled = false;
         }
-
-        //TODO: XML
+        
         /// <summary>
         /// Event RemoveFigureButton click
         /// </summary>

@@ -14,7 +14,7 @@ namespace View
         /// <summary>
         /// Figures list field's property
         /// </summary>
-        private BindingList<FigureBase> FigureList { get; }
+        private BindingList<FigureBase> _figureList = new();
 
         /// <summary>
         /// Main form instance constructor
@@ -22,8 +22,7 @@ namespace View
         public MainForm()
         {
             InitializeComponent();
-            FigureList = new BindingList<FigureBase>();
-            FigureDataGridView.DataSource = FigureList;
+            FigureDataGridView.DataSource = _figureList;
         }
 
         /// <summary>
@@ -35,27 +34,44 @@ namespace View
         {
             var newInputForm = new InputForm();
 
-            newInputForm.FigureAdded += (_, args) =>
-            {
-                FigureList.Add(args.Figure);
-            };
+            newInputForm.Owner = this;
 
             newInputForm.Show();
+
+            newInputForm.FigureAdded += (_, args) =>
+            {
+                _figureList.Add(args.Figure);
+            };
+
+            newInputForm.FormClosed += (_, args) =>
+            {
+                if (args.IsFormClosed)
+                {
+                    AddFigureButton.Enabled = true;
+                }
+            };
+
+            AddFigureButton.Enabled = false;
         }
 
         //TODO: XML
+        /// <summary>
+        /// Event RemoveFigureButton click
+        /// </summary>
+        /// <param name="sender">RemoveFigureButton</param>
+        /// <param name="e">Event argument</param>
         private void RemoveFigureButton_Click(object sender, EventArgs e)
         {
             if (FigureDataGridView.SelectedRows.Count != 0)
             {
                 foreach (DataGridViewRow row in FigureDataGridView.SelectedRows)
                 {
-                    FigureList.Remove(row.DataBoundItem as FigureBase);
+                    _figureList.Remove(row.DataBoundItem as FigureBase);
                 }
             }
             else
             {
-                MessageBox.Show("No selected items");
+                MessageBox.Show(@"No selected items");
             }
         }
     }

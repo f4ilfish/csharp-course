@@ -17,9 +17,19 @@ namespace View
         private FigureBase FigureBase { get; set; }
 
         /// <summary>
+        /// IsFormClosed field
+        /// </summary>
+        private bool _isFormClosed;
+
+        /// <summary>
         /// Handler to event of add figure
         /// </summary>
         public EventHandler<FigureEventArgs> FigureAdded;
+
+        /// <summary>
+        /// Handler to event of add figure
+        /// </summary>
+        public new EventHandler<FormCloseEventArgs> FormClosed;
 
         /// <summary>
         /// Dictionary of RadioButton to it's UserControl
@@ -56,10 +66,15 @@ namespace View
 
             _radioButtonToFigure = new Dictionary<RadioButton, (string, Func<FigureBase>)>()
             {
-                { SphereRadioButton, (nameof(Sphere), SphereUserControl.GetSphere) },
-                { PyramidRadioButton, (nameof(Pyramid), PyramidUserControl.GetPyramid) },
-                //TODO: RSDN
-                { ParallelepipedRadioButton, (nameof(Parallelepiped), ParallelepipedUserControl.GetParallelepiped) },
+                { SphereRadioButton, (nameof(Sphere), 
+                                      SphereUserControl.GetSphere)
+                },
+                { PyramidRadioButton, (nameof(Pyramid), 
+                                       PyramidUserControl.GetPyramid)
+                },
+                { ParallelepipedRadioButton, (nameof(Parallelepiped), 
+                                              ParallelepipedUserControl.GetParallelepiped)
+                },
             };
         }
 
@@ -82,26 +97,6 @@ namespace View
         }
 
         /// <summary>
-        /// Validating of corresponding RadioButton MaskedTextBoxes
-        /// </summary>
-        /// <param name="radioButton">RadioButton</param>
-        /// <returns></returns>
-        private bool IsValidTextBoxes(RadioButton radioButton)
-        {
-            //TODO: перепроверить производительность
-            foreach (var validator in _radioButtonToUserControl[CheckedRadioButton].Controls
-                         .OfType<TextBoxUserControl>().ToList())
-            {
-                if (!validator.IsValidTextBox || validator.TextLength == 0)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Event OkInputButton click
         /// </summary>
         /// <param name="sender">OkInputButton</param>
@@ -110,8 +105,6 @@ namespace View
         {
             if (((FigureBaseUserControl) _radioButtonToUserControl[CheckedRadioButton]).IsValidControl)
             {
-                var figureString = string.Empty;
-                
                 foreach (var valueTuple in _radioButtonToFigure)
                 {
                     if (CheckedRadioButton.Equals(valueTuple.Key))
@@ -119,15 +112,12 @@ namespace View
                         FigureBase = valueTuple.Value.Item2.Invoke();
                         
                         FigureAdded.Invoke(this, new FigureEventArgs(FigureBase));
-
-                        figureString = valueTuple.Value.Item1;
                     }
                 }
-                MessageBox.Show($"{figureString} added");
             }
             else
             {
-                MessageBox.Show("Some of the parameters are missing or not valid");
+                MessageBox.Show(@"Some of parameters are missing or not valid");
             }
         }
 
@@ -138,6 +128,10 @@ namespace View
         /// <param name="e">Event argument</param>
         private void CancelInputButton_Click(object sender, EventArgs e)
         {
+            _isFormClosed = true;
+
+            FormClosed.Invoke(this, new FormCloseEventArgs(_isFormClosed));
+
             Close();
         }
     }

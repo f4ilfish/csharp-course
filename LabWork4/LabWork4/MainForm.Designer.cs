@@ -106,6 +106,7 @@ namespace View
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Figure\'s Volume Calculator";
             this.FigureGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FigureDataGridView)).EndInit();

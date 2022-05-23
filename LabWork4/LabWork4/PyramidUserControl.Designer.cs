@@ -92,7 +92,7 @@
             0,
             0});
             this.NumberOfAnglesNumericUpDown.Name = "NumberOfAnglesNumericUpDown";
-            this.NumberOfAnglesNumericUpDown.Size = new System.Drawing.Size(60, 25);
+            this.NumberOfAnglesNumericUpDown.Size = new System.Drawing.Size(56, 25);
             this.NumberOfAnglesNumericUpDown.TabIndex = 3;
             this.NumberOfAnglesNumericUpDown.Value = new decimal(new int[] {
             3,
@@ -142,9 +142,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(429, 144);
             this.Controls.Add(this.ParametersGroupBox);
             this.Name = "PyramidUserControl";
-            this.Size = new System.Drawing.Size(445, 185);
             this.ParametersGroupBox.ResumeLayout(false);
             this.PyramidTableLayout.ResumeLayout(false);
             this.PyramidTableLayout.PerformLayout();

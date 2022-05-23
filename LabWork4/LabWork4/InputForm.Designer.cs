@@ -29,25 +29,17 @@ namespace View
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputForm));
             this.SelectFigureGroupBox = new System.Windows.Forms.GroupBox();
             this.PyramidRadioButton = new System.Windows.Forms.RadioButton();
             this.ParallelepipedRadioButton = new System.Windows.Forms.RadioButton();
             this.SphereRadioButton = new System.Windows.Forms.RadioButton();
             this.OkInputButton = new System.Windows.Forms.Button();
             this.CancelInputButton = new System.Windows.Forms.Button();
-            this.RadiusHeightErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.SidesAngleErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.SideFirstSideErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.SecondSideErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.SphereUserControl = new View.SphereUserControl();
             this.PyramidUserControl = new View.PyramidUserControl();
             this.ParallelepipedUserControl = new View.ParallelepipedUserControl();
             this.SelectFigureGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RadiusHeightErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SidesAngleErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SideFirstSideErrorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SecondSideErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // SelectFigureGroupBox
@@ -116,22 +108,6 @@ namespace View
             this.CancelInputButton.UseVisualStyleBackColor = true;
             this.CancelInputButton.Click += new System.EventHandler(this.CancelInputButton_Click);
             // 
-            // RadiusHeightErrorProvider
-            // 
-            this.RadiusHeightErrorProvider.ContainerControl = this;
-            // 
-            // SidesAngleErrorProvider
-            // 
-            this.SidesAngleErrorProvider.ContainerControl = this;
-            // 
-            // SideFirstSideErrorProvider
-            // 
-            this.SideFirstSideErrorProvider.ContainerControl = this;
-            // 
-            // SecondSideErrorProvider
-            // 
-            this.SecondSideErrorProvider.ContainerControl = this;
-            // 
             // SphereUserControl
             // 
             this.SphereUserControl.Location = new System.Drawing.Point(210, 10);
@@ -158,22 +134,21 @@ namespace View
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(649, 284);
+            this.ControlBox = false;
             this.Controls.Add(this.ParallelepipedUserControl);
             this.Controls.Add(this.PyramidUserControl);
             this.Controls.Add(this.SphereUserControl);
             this.Controls.Add(this.CancelInputButton);
             this.Controls.Add(this.OkInputButton);
             this.Controls.Add(this.SelectFigureGroupBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "InputForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Input figure";
             this.SelectFigureGroupBox.ResumeLayout(false);
             this.SelectFigureGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RadiusHeightErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SidesAngleErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SideFirstSideErrorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SecondSideErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -186,10 +161,6 @@ namespace View
         private System.Windows.Forms.RadioButton SphereRadioButton;
         private System.Windows.Forms.Button OkInputButton;
         private System.Windows.Forms.Button CancelInputButton;
-        private System.Windows.Forms.ErrorProvider RadiusHeightErrorProvider;
-        private System.Windows.Forms.ErrorProvider SidesAngleErrorProvider;
-        private System.Windows.Forms.ErrorProvider SideFirstSideErrorProvider;
-        private System.Windows.Forms.ErrorProvider SecondSideErrorProvider;
         private ParallelepipedUserControl ParallelepipedUserControl;
         private PyramidUserControl PyramidUserControl;
         private SphereUserControl SphereUserControl;

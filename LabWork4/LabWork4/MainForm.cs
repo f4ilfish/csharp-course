@@ -20,6 +20,9 @@ namespace View
         /// </summary>
         private BindingList<FigureBase> _figureList = new();
 
+        /// <summary>
+        /// _figuresType field
+        /// </summary>
         private readonly Dictionary<string, Type> _figureTypes = new ()
         {
             {nameof(Sphere), typeof(Sphere)},

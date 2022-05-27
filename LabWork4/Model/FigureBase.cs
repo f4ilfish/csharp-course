@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace Model
 {
     /// <summary>
     /// Abstract class figure
     /// </summary>
+    [XmlInclude(typeof(Sphere))]
+    [XmlInclude(typeof(Pyramid))]
+    [XmlInclude(typeof(Parallelepiped))]
     public abstract class FigureBase
     {
         /// <summary>
@@ -33,6 +37,11 @@ namespace Model
             {
                 throw new ArgumentOutOfRangeException(
                     $"{value} must be greater than {minValue}");
+            }
+
+            if (double.IsNaN(value))
+            {
+                throw new ArgumentException("Value must not be NaN");
             }
         }
     }

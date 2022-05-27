@@ -17,19 +17,9 @@ namespace View
         private FigureBase FigureBase { get; set; }
 
         /// <summary>
-        /// IsFormClosed field
-        /// </summary>
-        private bool _isFormClosed;
-
-        /// <summary>
         /// Handler to event of add figure
         /// </summary>
         public EventHandler<FigureEventArgs> FigureAdded;
-
-        /// <summary>
-        /// Handler to event of add figure
-        /// </summary>
-        public new EventHandler<FormCloseEventArgs> FormClosed;
 
         /// <summary>
         /// Dictionary of RadioButton to it's UserControl
@@ -53,7 +43,7 @@ namespace View
         {
             InitializeComponent();
 
-#if !DEBUG
+#if DEBUG
             AddRandomFigureButton.Visible = true;
 #endif
 
@@ -133,37 +123,29 @@ namespace View
         /// <param name="e">Event argument</param>
         private void CancelInputButton_Click(object sender, EventArgs e)
         {
-            _isFormClosed = true;
-
-            //OnClosed(EventArgs.Empty);
-            //Closed?.Invoke(this, new FormCloseEventArgs(_isFormClosed));
-
             Close();
         }
 
-#if !DEBUG
+        /// <summary>
+        /// Event AddRandomFigureButton click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddRandomFigureButton_Click(object sender, EventArgs e)
         {
             var rnd = new Random();
 
             var choseFigure = rnd.Next(3);
-            
-            switch (choseFigure)
+
+            FigureBase = choseFigure switch
             {
-                case 0:
-                    FigureBase = Sphere.GetRandomSphere();
-                    FigureAdded.Invoke(this, new FigureEventArgs(FigureBase));
-                    break;
-                case 1:
-                    FigureBase = Pyramid.GetRandomPyramid();
-                    FigureAdded.Invoke(this, new FigureEventArgs(FigureBase));
-                    break;
-                case 2:
-                    FigureBase = Parallelepiped.GetRandomParallelepiped();
-                    FigureAdded.Invoke(this, new FigureEventArgs(FigureBase));
-                    break;
-            }
+                0 => Sphere.GetRandomSphere(),
+                1 => Pyramid.GetRandomPyramid(),
+                2 => Parallelepiped.GetRandomParallelepiped(),
+                _ => FigureBase
+            };
+
+            FigureAdded.Invoke(this, new FigureEventArgs(FigureBase));
         }
-#endif
     }
 }

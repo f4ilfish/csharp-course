@@ -146,7 +146,6 @@ namespace View
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(649, 284);
-            this.ControlBox = false;
             this.Controls.Add(this.AddRandomFigureButton);
             this.Controls.Add(this.ParallelepipedUserControl);
             this.Controls.Add(this.PyramidUserControl);
@@ -154,7 +153,7 @@ namespace View
             this.Controls.Add(this.CancelInputButton);
             this.Controls.Add(this.OkInputButton);
             this.Controls.Add(this.SelectFigureGroupBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "InputForm";

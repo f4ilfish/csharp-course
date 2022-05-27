@@ -92,7 +92,7 @@
             0,
             0});
             this.NumberOfAnglesNumericUpDown.Name = "NumberOfAnglesNumericUpDown";
-            this.NumberOfAnglesNumericUpDown.Size = new System.Drawing.Size(56, 25);
+            this.NumberOfAnglesNumericUpDown.Size = new System.Drawing.Size(53, 25);
             this.NumberOfAnglesNumericUpDown.TabIndex = 3;
             this.NumberOfAnglesNumericUpDown.Value = new decimal(new int[] {
             3,

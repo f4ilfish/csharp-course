@@ -132,9 +132,9 @@ namespace View
             // 
             // AddRandomFigureButton
             // 
-            this.AddRandomFigureButton.Location = new System.Drawing.Point(20, 167);
+            this.AddRandomFigureButton.Location = new System.Drawing.Point(20, 171);
             this.AddRandomFigureButton.Name = "AddRandomFigureButton";
-            this.AddRandomFigureButton.Size = new System.Drawing.Size(188, 37);
+            this.AddRandomFigureButton.Size = new System.Drawing.Size(188, 33);
             this.AddRandomFigureButton.TabIndex = 14;
             this.AddRandomFigureButton.Text = "Add random figure";
             this.AddRandomFigureButton.UseVisualStyleBackColor = true;

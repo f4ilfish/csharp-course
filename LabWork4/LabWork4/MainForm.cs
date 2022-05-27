@@ -93,10 +93,6 @@ namespace View
                         as FigureBase);
                 }
             }
-            else
-            {
-                MessageBox.Show(@"No selected items");
-            }
         }
 
         /// <summary>
@@ -188,33 +184,40 @@ namespace View
         /// <param name="e"></param>
         private void FilterButton_Click(object sender, EventArgs e)
         {
-            var typeFilteredList = new BindingList<FigureBase>();
-
-            foreach (var figure in _figureList)
+            if (Convert.ToDouble(ToTextBox.Text) < Convert.ToDouble(FromTextBox.Text))
             {
-                foreach (var checkedFigure in 
-                         FigureTypeCheckedListBox.CheckedItems)
+                MessageBox.Show(@"Wrong range");
+            }
+            else
+            {
+                var typeFilteredList = new BindingList<FigureBase>();
+
+                foreach (var figure in _figureList)
                 {
-                    if (figure.GetType() == _figureTypes[checkedFigure.
-                                                            ToString()])
+                    foreach (var checkedFigure in
+                             FigureTypeCheckedListBox.CheckedItems)
                     {
-                        typeFilteredList.Add(figure);
+                        if (figure.GetType() == _figureTypes[checkedFigure.
+                                ToString()])
+                        {
+                            typeFilteredList.Add(figure);
+                        }
                     }
                 }
-            }
 
-            var valueFilteredList = new BindingList<FigureBase>();
+                var valueFilteredList = new BindingList<FigureBase>();
 
-            foreach (var figure in typeFilteredList)
-            {
-                if (figure.Volume >= Convert.ToDouble(FromTextBox.Text) &&
-                    figure.Volume <= Convert.ToDouble(ToTextBox.Text))
+                foreach (var figure in typeFilteredList)
                 {
-                    valueFilteredList.Add(figure);
+                    if (figure.Volume >= Convert.ToDouble(FromTextBox.Text) &&
+                        figure.Volume <= Convert.ToDouble(ToTextBox.Text))
+                    {
+                        valueFilteredList.Add(figure);
+                    }
                 }
-            }
 
-            FigureDataGridView.DataSource = valueFilteredList;
+                FigureDataGridView.DataSource = valueFilteredList;
+            }
         }
 
         /// <summary>
@@ -240,12 +243,31 @@ namespace View
 
             var eKey = (KeyPressEventArgs)e;
 
-            if (char.IsNumber(eKey.KeyChar) ||
-                (!string.IsNullOrEmpty(textBox.Text) && eKey.KeyChar == ',')
-                || char.IsControl(eKey.KeyChar))
+            if (char.IsNumber(eKey.KeyChar))
+            {
+                if (textBox.Text.Length == 1)
+                {
+                    if (textBox.Text.Contains('0') && eKey.KeyChar != ',')
+                    {
+                        eKey.Handled = true;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            if (char.IsControl(eKey.KeyChar) ||
+                !string.IsNullOrEmpty(textBox.Text) && eKey.KeyChar == ',' && !textBox.Text.Contains(','))
             {
                 return;
             }
+
 
             eKey.Handled = true;
         }

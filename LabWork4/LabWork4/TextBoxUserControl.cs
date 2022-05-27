@@ -49,16 +49,16 @@ namespace View
                 return false;
             }
 
+            if (value.Contains('.'))
+            {
+                errorMessage = "Incorrect format. Maybe expected ','";
+                return false;
+            }
+
             if (double.TryParse(value, out var tmpValue))
             {
                 if (tmpValue > 0)
                 {
-                    if (value[0] == '0' && value[1] != ',')
-                    {
-                        errorMessage = "Incorrect format. Maybe expected ','";
-                        return false;
-                    }
-
                     errorMessage = "";
                     return true;
                 }

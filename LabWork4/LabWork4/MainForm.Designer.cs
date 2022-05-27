@@ -49,12 +49,10 @@ namespace View
             this.FromLabel = new System.Windows.Forms.Label();
             this.VolumeLabel = new System.Windows.Forms.Label();
             this.FigureTypeLabel = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.FigureGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FigureDataGridView)).BeginInit();
             this.FileMenuStrip.SuspendLayout();
             this.FilterGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // FigureGroupBox
@@ -247,23 +245,11 @@ namespace View
             this.FigureTypeLabel.TabIndex = 6;
             this.FigureTypeLabel.Text = "Figure type:";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::View.Properties.Resources.upside_down_face_animated_sticker;
-            this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.Location = new System.Drawing.Point(551, 336);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(268, 115);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 463);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.FilterGroupBox);
             this.Controls.Add(this.FigureGroupBox);
             this.Controls.Add(this.FileMenuStrip);
@@ -279,7 +265,6 @@ namespace View
             this.FileMenuStrip.PerformLayout();
             this.FilterGroupBox.ResumeLayout(false);
             this.FilterGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,7 +290,6 @@ namespace View
         private System.Windows.Forms.Label FigureTypeLabel;
         private System.Windows.Forms.TextBox ToTextBox;
         private System.Windows.Forms.TextBox FromTextBox;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

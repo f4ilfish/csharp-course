@@ -59,15 +59,5 @@ namespace View.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap upside_down_face_animated_sticker {
-            get {
-                object obj = ResourceManager.GetObject("upside_down_face_animated_sticker", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

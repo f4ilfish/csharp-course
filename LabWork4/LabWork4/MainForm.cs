@@ -295,11 +295,11 @@ namespace View
             if (_figureList.Count == 0) return;
             
             FromTextBox.Text = _figureList.Min(figure =>
-                Math.Round(figure.Volume, 3)).
+                Math.Floor(figure.Volume)).
                 ToString(CultureInfo.CurrentCulture); ;
 
             ToTextBox.Text = _figureList.Max(figure =>
-                Math.Round(figure.Volume, 3)).
+                Math.Ceiling(figure.Volume)).
                 ToString(CultureInfo.CurrentCulture);
         }
     }

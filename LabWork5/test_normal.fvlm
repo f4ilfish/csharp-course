@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<ArrayOfFigureBase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FigureBase xsi:type="Parallelepiped">
+    <Height>49.89</Height>
+    <LengthFirstSide>91.33</LengthFirstSide>
+    <LengthSecondSide>65</LengthSecondSide>
+    <AngleOfSides>31.31</AngleOfSides>
+  </FigureBase>
+  <FigureBase xsi:type="Pyramid">
+    <Height>57.49</Height>
+    <NumberOfCorners>3</NumberOfCorners>
+    <LengthOfSide>10.82</LengthOfSide>
+  </FigureBase>
+  <FigureBase xsi:type="Parallelepiped">
+    <Height>85.59</Height>
+    <LengthFirstSide>35.67</LengthFirstSide>
+    <LengthSecondSide>96.44</LengthSecondSide>
+    <AngleOfSides>76.67</AngleOfSides>
+  </FigureBase>
+  <FigureBase xsi:type="Parallelepiped">
+    <Height>81.35</Height>
+    <LengthFirstSide>79.25</LengthFirstSide>
+    <LengthSecondSide>89.73</LengthSecondSide>
+    <AngleOfSides>140.02</AngleOfSides>
+  </FigureBase>
+  <FigureBase xsi:type="Pyramid">
+    <Height>44.14</Height>
+    <NumberOfCorners>3</NumberOfCorners>
+    <LengthOfSide>88.56</LengthOfSide>
+  </FigureBase>
+  <FigureBase xsi:type="Pyramid">
+    <Height>2.16</Height>
+    <NumberOfCorners>8</NumberOfCorners>
+    <LengthOfSide>86.05</LengthOfSide>
+  </FigureBase>
+  <FigureBase xsi:type="Parallelepiped">
+    <Height>53.69</Height>
+    <LengthFirstSide>2.5</LengthFirstSide>
+    <LengthSecondSide>10.86</LengthSecondSide>
+    <AngleOfSides>130.96</AngleOfSides>
+  </FigureBase>
+  <FigureBase xsi:type="Sphere">
+    <Radius>16.59</Radius>
+  </FigureBase>
+</ArrayOfFigureBase>

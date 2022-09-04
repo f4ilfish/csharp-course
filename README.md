@@ -1,4 +1,4 @@
-# **oopCourse** 🦽
+# **csharp-course** 🦽
 ## Structure
 + LabWork0 "Control version system"
 + LabWork1 "Classes"
